@@ -12,6 +12,7 @@ import Login from "./components/user-pages/Login";
 import CountriesList from "./components/CountriesList";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
+import ActionList from "./components/Category";
 
 class App extends React.Component {
   constructor() {
@@ -43,6 +44,12 @@ class App extends React.Component {
 
   logout = () => {
     this.setState({ currentUser: null });
+    axios
+      .delete("http://localhost:3001/api/logout", { withCredentials: true })
+      .then(() => {
+        this.props.history.push("/");
+      })
+      .catch(err => console.log("error while logging out ", err));
   };
 
   render() {
@@ -65,7 +72,7 @@ class App extends React.Component {
           {/* this is example how we would render component normally */}
           {/* <Route exact path="/somePage" component={ someComponentThatWillRenderWhenThisRouteIsHit }   /> */}
           <Route exact path="/" component={Home} />
-          <Route exact path="/countries" component={CountriesList} />
+          {/* <Route exact path="/countries" component={CountriesList} /> */}
 
           {/* if we have to pass some props down to a component,
           we can't use a standard way of rendering using component={},
@@ -84,13 +91,16 @@ class App extends React.Component {
           <Route
             exact
             path="/login-page"
-            render={() => (
+            render={props => (
               <Login
+                {...props}
                 currentUser={this.state.currentUser}
                 onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
               />
             )}
           />
+
+          <Route path="/category" component={ActionList} />
         </Switch>
         {/* <CountriesList /> */}
       </div>

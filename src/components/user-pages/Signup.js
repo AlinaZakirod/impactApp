@@ -52,14 +52,18 @@ export default class Signup extends React.Component {
     return (
       <section>
         <h2> Sign up </h2>
-        <form onSubmit={event => this.handleSubmit(event)}>
+        <form
+          onSubmit={event => {
+            this.handleSubmit(event);
+          }}
+        >
           <label> Full name: </label>
           <input
             value={fullName} // this.state.fullName
             onChange={event => this.genericSync(event)}
             type="text"
             name="fullName"
-            placeholder="Jesus"
+            placeholder="Full Name"
           />
 
           <label> Email: </label>
@@ -68,7 +72,7 @@ export default class Signup extends React.Component {
             onChange={event => this.genericSync(event)}
             type="email"
             name="email"
-            placeholder="my-email@ironhack.com"
+            placeholder="my-email@email.com"
           />
 
           <label> Password</label>

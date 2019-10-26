@@ -1,21 +1,27 @@
 import React from "react";
 import Signup from "./user-pages/Signup";
 import Login from "./user-pages/Login";
-import { Switch, Route, Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 class Navbar extends React.Component {
   render() {
     return (
       <div>
-        <a href="/">Home</a>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/dashboard">Dashboard</NavLink>
+        <NavLink to="/profile">Profile</NavLink>
+
         {!this.props.theUser && (
           <div>
-            <Link to="/login-page">Login</Link>
-            <Link to="/signup-page"> Signup </Link>
+            <NavLink to="/login-page">Login</NavLink>
+            <NavLink to="/signup-page"> Signup </NavLink>
           </div>
         )}
         {this.props.theUser && (
-          <button onClick={this.props.doLogout}>Logout</button>
+          <div>
+            <button onClick={this.props.doLogout}>Logout</button>
+            <NavLink to="/community"> Community </NavLink>
+          </div>
         )}
       </div>
     );

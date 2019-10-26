@@ -2,8 +2,8 @@ import React from "react";
 import axios from "axios";
 
 export default class Login extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: "",
       password: "",
@@ -34,7 +34,9 @@ export default class Login extends React.Component {
         // console.log("response is:", responseFromServer);
         const { userDoc } = responseFromServer.data;
         this.props.onUserChange(userDoc);
-        alert("You are logged in.");
+        // console.log(this.props.match);
+        this.props.history.push("/");
+        // alert("You are logged in.");
       })
       .catch(err => {
         // console.log("err: ", err.response)
