@@ -7,9 +7,11 @@ import axios from "axios";
 import { Switch, Route, NavLink } from "react-router-dom";
 
 import Signup from "./components/user-pages/Signup";
+import Login from "./components/user-pages/Login";
 
 import CountriesList from "./components/CountriesList";
 import Home from "./components/Home";
+import Navbar from "./components/Navbar";
 
 class App extends React.Component {
   constructor() {
@@ -39,16 +41,25 @@ class App extends React.Component {
     this.setState({ currentUser: user });
   }
 
+  logout = () => {
+    this.setState({ currentUser: null });
+  };
+
   render() {
     // console.log("the state in APPJS: ", this.state);
     return (
       <div>
         <header>
-          <nav>
+          {/* Sandra's way to do the nav */}
+          {/* <nav>
             <NavLink to="/"> Home </NavLink>
             <NavLink to="/signup-page"> Signup </NavLink>
+            <NavLink to="/login-page"> Login </NavLink>
+            <NavLink to=""> Logout </NavLink>
             <NavLink to="/countries"> Countries </NavLink>
-          </nav>
+          </nav> */}
+
+          <Navbar theUser={this.state.currentUser} doLogout={this.logout} />
         </header>
         <Switch>
           {/* this is example how we would render component normally */}
@@ -70,7 +81,16 @@ class App extends React.Component {
             )}
           />
 
-          {/* Login component goes here */}
+          <Route
+            exact
+            path="/login-page"
+            render={() => (
+              <Login
+                currentUser={this.state.currentUser}
+                onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
+              />
+            )}
+          />
         </Switch>
         {/* <CountriesList /> */}
       </div>
@@ -79,4 +99,3 @@ class App extends React.Component {
 }
 
 export default App;
-//ljnvrejgnbekrbmvkrpdgmv
