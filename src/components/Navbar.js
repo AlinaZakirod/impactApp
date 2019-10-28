@@ -1,6 +1,4 @@
 import React from "react";
-import Signup from "./user-pages/Signup";
-import Login from "./user-pages/Login";
 import { NavLink, Link } from "react-router-dom";
 
 class Navbar extends React.Component {
@@ -8,8 +6,6 @@ class Navbar extends React.Component {
     return (
       <div>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/dashboard">Dashboard</NavLink>
-        <NavLink to="/profile">Profile</NavLink>
 
         {!this.props.theUser && (
           <div>
@@ -19,8 +15,10 @@ class Navbar extends React.Component {
         )}
         {this.props.theUser && (
           <div>
-            <button onClick={this.props.doLogout}>Logout</button>
+            <NavLink to="/dashboard">Dashboard</NavLink>
+            <NavLink to="/profile">Profile</NavLink>
             <NavLink to="/community"> Community </NavLink>
+            <button onClick={this.props.doLogout}>Logout</button>
           </div>
         )}
       </div>

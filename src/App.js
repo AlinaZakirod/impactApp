@@ -9,10 +9,10 @@ import { Switch, Route, NavLink } from "react-router-dom";
 import Signup from "./components/user-pages/Signup";
 import Login from "./components/user-pages/Login";
 
-import CountriesList from "./components/CountriesList";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import ActionList from "./components/Category";
+import CategoryDetails from "./components/CategoryDetails";
+import CategoryList from "./components/CategoryList";
 
 class App extends React.Component {
   constructor() {
@@ -100,9 +100,18 @@ class App extends React.Component {
             )}
           />
 
-          <Route path="/category" component={ActionList} />
+          {/* <Route path="/category" component={ActionList} /> */}
+          <Route
+            exact
+            path="/category"
+            render={props => <CategoryList {...props} />}
+          />
+
+          <Route
+            path="/category/:id"
+            render={props => <CategoryDetails {...props} />}
+          />
         </Switch>
-        {/* <CountriesList /> */}
       </div>
     );
   }
