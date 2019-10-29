@@ -8,11 +8,11 @@ import { Switch, Route, NavLink } from "react-router-dom";
 
 import Signup from "./components/user-pages/Signup";
 import Login from "./components/user-pages/Login";
-
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import CategoryDetails from "./components/CategoryDetails";
 import CategoryList from "./components/CategoryList";
+import addAct from "./components/action-components/actAdd";
 
 class App extends React.Component {
   constructor() {
@@ -72,6 +72,7 @@ class App extends React.Component {
           {/* this is example how we would render component normally */}
           {/* <Route exact path="/somePage" component={ someComponentThatWillRenderWhenThisRouteIsHit }   /> */}
           <Route exact path="/" component={Home} />
+          <Route exact path="/act/add" component={addAct} />
           {/* <Route exact path="/countries" component={CountriesList} /> */}
 
           {/* if we have to pass some props down to a component,
