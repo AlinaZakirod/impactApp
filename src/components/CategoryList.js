@@ -12,7 +12,7 @@ export default class CategoryList extends React.Component {
 
   componentDidMount = () => {
     axios
-      .get("http://localhost:3001/category/allCats")
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/category/allCats`)
       .then(responseCategories => {
         // console.log("Response is: ", responseCategories.data);
         this.setState({

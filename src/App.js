@@ -24,7 +24,9 @@ class App extends React.Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3001/api/checkuser", { withCredentials: true })
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/api/checkuser`, {
+        withCredentials: true
+      })
       .then(responseFromTheBackend => {
         // console.log("User in APP.JS: ", responseFromTheBackend)
         const { userDoc } = responseFromTheBackend.data;
@@ -45,7 +47,9 @@ class App extends React.Component {
   logout = () => {
     this.setState({ currentUser: null });
     axios
-      .delete("http://localhost:3001/api/logout", { withCredentials: true })
+      .delete(`${process.env.REACT_APP_IMPACT_SERVER}/api/logout`, {
+        withCredentials: true
+      })
       .then(() => {
         this.props.history.push("/");
       })

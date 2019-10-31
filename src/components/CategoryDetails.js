@@ -18,7 +18,7 @@ export default class CategoryDetails extends React.Component {
     );
 
     axios
-      .get("http://localhost:3001/acts")
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/acts`)
       .then(responseActions => {
         console.log("Response is: ", responseActions.data);
         this.setState({
