@@ -10,15 +10,16 @@ import Signup from "./components/user-pages/Signup";
 import Login from "./components/user-pages/Login";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
-import CategoryDetails from "./components/CategoryDetails";
-import CategoryList from "./components/CategoryList";
+import CategoryList from "./components/category-components/CategoryList";
 import addAct from "./components/action-components/actAdd";
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      currentUser: null
+      currentUser: null,
+      categoriesFromBackEnd: null,
+      actionsFromBackEnd: null
     };
   }
 
@@ -38,6 +39,29 @@ class App extends React.Component {
           err
         )
       );
+
+    axios
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/category/allCats`)
+      .then(responseCategories => {
+        console.log(
+          "Categories from DB: ",
+          responseCategories.data.allCategories
+        );
+        this.setState({
+          categoriesFromBackEnd: responseCategories.data.allCategories
+        });
+      })
+      .catch(err => console.log("Err while getting categories: ", err));
+
+    axios
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/acts`)
+      .then(responseActions => {
+        console.log("Actions are: ", responseActions.data);
+        this.setState({
+          actionsFromBackEnd: responseActions.data
+        });
+      })
+      .catch(err => console.log("Err while getting actions: ", err));
   }
 
   syncCurrentUSer(user) {
@@ -58,26 +82,17 @@ class App extends React.Component {
 
   render() {
     // console.log("the state in APPJS: ", this.state);
+    // console.log("++++++++++++++", this.state.categoriesFromBackEnd);
     return (
       <div>
         <header>
-          {/* Sandra's way to do the nav */}
-          {/* <nav>
-            <NavLink to="/"> Home </NavLink>
-            <NavLink to="/signup-page"> Signup </NavLink>
-            <NavLink to="/login-page"> Login </NavLink>
-            <NavLink to=""> Logout </NavLink>
-            <NavLink to="/countries"> Countries </NavLink>
-          </nav> */}
-
           <Navbar theUser={this.state.currentUser} doLogout={this.logout} />
         </header>
         <Switch>
           {/* this is example how we would render component normally */}
           {/* <Route exact path="/somePage" component={ someComponentThatWillRenderWhenThisRouteIsHit }   /> */}
-          <Route exact path="/" component={Home} />
-          <Route exact path="/act/add" component={addAct} />
-          {/* <Route exact path="/countries" component={CountriesList} /> */}
+          {/* <Route exact path="/" component={Home} />
+          <Route exact path="/act/add" component={addAct} /> */}
 
           {/* if we have to pass some props down to a component,
           we can't use a standard way of rendering using component={},
@@ -106,7 +121,9 @@ class App extends React.Component {
           />
 
           {/* <Route path="/category" component={ActionList} /> */}
-          <Route
+
+          {/* it was the way Marcos showed me */}
+          {/* <Route
             exact
             path="/category"
             render={props => <CategoryList {...props} />}
@@ -115,7 +132,33 @@ class App extends React.Component {
           <Route
             path="/category/:id"
             render={props => <CategoryDetails {...props} />}
+          /> */}
+
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <Home
+                {...props}
+                currentUser={this.state.currentUser}
+                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                actionsFromBackEnd={this.state.actionsFromBackEnd}
+              />
+            )}
           />
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <CategoryList
+                {...props}
+                currentUser={this.state.currentUser}
+                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                actionsFromBackEnd={this.state.actionsFromBackEnd}
+              />
+            )}
+          />
+          {/* <Route exact path="/act/add" component={addAct} /> */}
         </Switch>
       </div>
     );
