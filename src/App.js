@@ -12,6 +12,7 @@ import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import CategoryList from "./components/category-components/CategoryList";
 import addAct from "./components/action-components/actAdd";
+import CategoryDetails from "./components/category-components/CategoryDetails";
 
 class App extends React.Component {
   constructor(props) {
@@ -40,6 +41,20 @@ class App extends React.Component {
         )
       );
 
+    this.getAllCategories();
+
+    axios
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/acts`)
+      .then(responseActions => {
+        console.log("Actions are: ", responseActions.data);
+        this.setState({
+          actionsFromBackEnd: responseActions.data
+        });
+      })
+      .catch(err => console.log("Err while getting actions: ", err));
+  }
+
+  getAllCategories = () => {
     axios
       .get(`${process.env.REACT_APP_IMPACT_SERVER}/category/allCats`)
       .then(responseCategories => {
@@ -52,17 +67,7 @@ class App extends React.Component {
         });
       })
       .catch(err => console.log("Err while getting categories: ", err));
-
-    axios
-      .get(`${process.env.REACT_APP_IMPACT_SERVER}/acts`)
-      .then(responseActions => {
-        console.log("Actions are: ", responseActions.data);
-        this.setState({
-          actionsFromBackEnd: responseActions.data
-        });
-      })
-      .catch(err => console.log("Err while getting actions: ", err));
-  }
+  };
 
   syncCurrentUSer(user) {
     this.setState({ currentUser: user });
@@ -140,6 +145,7 @@ class App extends React.Component {
             render={props => (
               <Home
                 {...props}
+                getAllCategories={this.getAllCategories}
                 currentUser={this.state.currentUser}
                 categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                 actionsFromBackEnd={this.state.actionsFromBackEnd}
@@ -158,7 +164,18 @@ class App extends React.Component {
               />
             )}
           />
-          {/* <Route exact path="/act/add" component={addAct} /> */}
+
+          <Route
+            path="/category/"
+            render={props => (
+              <CategoryDetails
+                {...props}
+                currentUser={this.state.currentUser}
+                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                actionsFromBackEnd={this.state.actionsFromBackEnd}
+              />
+            )}
+          />
         </Switch>
       </div>
     );

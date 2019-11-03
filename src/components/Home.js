@@ -7,7 +7,6 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // categoriesFromBackEnd: null,
       showAddCategoryForm: false,
       titleCategory: "",
       descriptionCategory: ""
@@ -65,7 +64,8 @@ export default class Home extends React.Component {
         newCategory
       )
       .then(newCategory => {
-        alert("{newCategory.title} was added");
+        this.props.getAllCategories();
+
         {
           /* add some success message */
         }

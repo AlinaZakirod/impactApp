@@ -54,6 +54,7 @@ class addAct extends Component {
 
   render() {
     const { categoriesFromBackEnd } = this.state;
+    console.log("@@@@", this.state);
 
     if (categoriesFromBackEnd) {
       return (
