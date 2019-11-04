@@ -9,16 +9,28 @@ export default class Home extends React.Component {
       titleAct: "",
       descriptionAct: "",
       valueOfAct: "",
-      actCategory: ""
+      actCategory: "",
+      currentCategory: this.props.location.state.details,
+      arrayOfActions: this.props.actionsFromBackEnd.allActs,
+      categoriesFromBackEnd: this.props.categoriesFromBackEnd
     };
   }
 
   handleChangeAct = actId => {
-    const currentCategory = this.props.location.state.details;
-    const arrayOfActions = this.props.actionsFromBackEnd;
-    const actionsThatMatchedCategory = arrayOfActions.allActs.filter(
-      action => action.category == currentCategory._id
+    // const currentCategory = this.props.location.state.details;
+    // const arrayOfActions = this.props.actionsFromBackEnd;
+    // console.log("0~~~~~~~~~", arrayOfActions);
+    const actionsThatMatchedCategory = this.state.arrayOfActions.filter(
+      action => action.category === this.state.currentCategory._id
     );
+
+    console.log("1~~~~~~~~~~~~~", actionsThatMatchedCategory);
+    const finalActs = actionsThatMatchedCategory.filter(
+      action => action._id !== actId
+    );
+    console.log("2~~~~~~~~~~~~~", finalActs);
+
+    // __________________________
 
     console.log(`${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`);
     axios
@@ -30,29 +42,31 @@ export default class Home extends React.Component {
         }
       )
 
-      .then(
-        actId => actionsThatMatchedCategory.slice(0, 2),
-        console.log(actionsThatMatchedCategory)
-      )
+      .then(() => {
+        // make some success message here!
+        this.setState({
+          arrayOfActions: finalActs
+        });
+      })
 
       .catch(err => console.log("Error while click on `Act Now`", err));
   };
 
   showCategoryDetails = () => {
-    const currentCategory = this.props.location.state.details;
-    const arrayOfActions = this.props.actionsFromBackEnd;
-    const actionsThatMatchedCategory = arrayOfActions.allActs.filter(
-      action => action.category == currentCategory._id
-    );
     if (this.props.categoriesFromBackEnd !== null) {
+      // const currentCategory = this.props.location.state.details;
+      // const this.state.arrayOfActions = this.props.actionsFromBackEnd;
+      const actionsThatMatchedCategory = this.state.arrayOfActions.filter(
+        action => action.category == this.state.currentCategory._id
+      );
       console.log("Current category: ", this.props.location.state.details);
 
-      console.log("^^^^^^^^", currentCategory);
-      console.log("********", arrayOfActions);
+      // console.log("^^^^^^^^", currentCategory);
+      // console.log("********", arrayOfActions);
       return (
         <div>
-          <h2>{currentCategory.title}</h2>
-          <p>{currentCategory.description}</p>
+          <h2>{this.state.currentCategory.title}</h2>
+          <p>{this.state.currentCategory.description}</p>
           <b>Actions:</b>
           {actionsThatMatchedCategory.map((singleAction, i) => {
             console.log(singleAction);
@@ -75,7 +89,7 @@ export default class Home extends React.Component {
   };
 
   deleteCategory = () => {
-    if (this.props.categoriesFromBackEnd !== null) {
+    if (this.state.categoriesFromBackEnd !== null) {
       const theId = this.props.location.state.details._id;
       console.log("The id: ", theId);
       console.log(this.props);
@@ -83,10 +97,18 @@ export default class Home extends React.Component {
         .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
         .then(() => {
           this.props.history.push("/");
+          const newCategories = this.state.categoriesFromBackEnd.filter(
+            category => category._id !== this.state.currentCategory._id
+          );
+          this.setState({
+            categoriesFromBackEnd: newCategories
+          });
         })
         .catch(err => console.log("Error while deleteing the category ", err));
     } else return "loading";
   };
+
+  editCategory = () => {};
 
   // function for "Add Action"
   toggleForm = () => {
@@ -180,7 +202,7 @@ export default class Home extends React.Component {
             </div>
             {/* end of Add action */}
             <p>_________________________</p>
-            <button>Edit Category</button>
+            <button onClick={this.editCategory}>Edit Category</button>
             <button onClick={this.deleteCategory}>Delete Category</button>
           </div>
         </div>

@@ -83,7 +83,7 @@ export default class Home extends React.Component {
 
   render() {
     if (this.props.currentUser !== null) {
-      // console.log("___________", this.props.history);
+      console.log("___________", this.props);
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
