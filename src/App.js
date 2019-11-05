@@ -11,8 +11,8 @@ import Login from "./components/user-pages/Login";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import CategoryList from "./components/category-components/CategoryList";
-import addAct from "./components/action-components/actAdd";
 import CategoryDetails from "./components/category-components/CategoryDetails";
+import Dashboard from "./components/user-pages/Dashboard";
 
 class App extends React.Component {
   constructor(props) {
@@ -42,16 +42,7 @@ class App extends React.Component {
       );
 
     this.getAllCategories();
-
-    axios
-      .get(`${process.env.REACT_APP_IMPACT_SERVER}/acts`)
-      .then(responseActions => {
-        console.log("Actions are: ", responseActions.data);
-        this.setState({
-          actionsFromBackEnd: responseActions.data
-        });
-      })
-      .catch(err => console.log("Err while getting actions: ", err));
+    this.getAllActions();
   }
 
   getAllCategories = () => {
@@ -67,6 +58,18 @@ class App extends React.Component {
         });
       })
       .catch(err => console.log("Err while getting categories: ", err));
+  };
+
+  getAllActions = () => {
+    axios
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/acts`)
+      .then(responseActions => {
+        console.log("Actions are: ", responseActions.data);
+        this.setState({
+          actionsFromBackEnd: responseActions.data
+        });
+      })
+      .catch(err => console.log("Err while getting actions: ", err));
   };
 
   syncCurrentUSer(user) {
@@ -85,9 +88,38 @@ class App extends React.Component {
       .catch(err => console.log("error while logging out ", err));
   };
 
+  deleteCategory = () => {
+    if (this.state.categoriesFromBackEnd !== null) {
+      const theId = this.props.location.state.details._id;
+      console.log("The id: ", theId);
+      console.log(this.props);
+      axios
+        .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
+        .then(response => {
+          console.log(
+            "reached the push",
+            response,
+            " === ",
+            this.state,
+            "------------ ",
+            this.props
+          );
+          const newCategories = this.state.categoriesFromBackEnd.filter(
+            category => category._id !== this.state.currentCategory._id
+          );
+          // this.setState({
+          //   categoriesFromBackEnd: newCategories
+          // });
+          this.props.history.push("/login");
+        })
+        .catch(err => console.log("Error while deleteing the category ", err));
+    } else return "loading";
+  };
+
   render() {
     // console.log("the state in APPJS: ", this.state);
     // console.log("++++++++++++++", this.state.categoriesFromBackEnd);
+    // console.log("########", this.state.currentUser);
     return (
       <div>
         <header>
@@ -170,9 +202,26 @@ class App extends React.Component {
             render={props => (
               <CategoryDetails
                 {...props}
+                deleteCategory={this.deleteCategory}
+                getAllActions={this.getAllActions}
                 currentUser={this.state.currentUser}
                 categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                 actionsFromBackEnd={this.state.actionsFromBackEnd}
+              />
+            )}
+          />
+
+          <Route
+            exact
+            path="/dashboard"
+            render={props => (
+              <Dashboard
+                {...props}
+                getAllActions={this.getAllActions}
+                currentUser={this.state.currentUser}
+                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                actionsFromBackEnd={this.state.actionsFromBackEnd}
+                currentUser={this.state.currentUser}
               />
             )}
           />

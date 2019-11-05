@@ -88,27 +88,39 @@ export default class Home extends React.Component {
     } else return "loading";
   };
 
+  // deleteCategory = () => {
+  //   if (this.state.categoriesFromBackEnd !== null) {
+  //     const theId = this.props.location.state.details._id;
+  //     console.log("The id: ", theId);
+  //     console.log(this.props);
+  //     axios
+  //       .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
+  //       .then(response => {
+  //         console.log(
+  //           "reached the push",
+  //           response,
+  //           " === ",
+  //           this.state,
+  //           "------------ ",
+  //           this.props
+  //         );
+  //         const newCategories = this.state.categoriesFromBackEnd.filter(
+  //           category => category._id !== this.state.currentCategory._id
+  //         );
+  //         // this.setState({
+  //         //   categoriesFromBackEnd: newCategories
+  //         // });
+  //         this.props.history.push("/login");
+  //       })
+  //       .catch(err => console.log("Error while deleteing the category ", err));
+  //   } else return "loading";
+  // };
+
   deleteCategory = () => {
-    if (this.state.categoriesFromBackEnd !== null) {
-      const theId = this.props.location.state.details._id;
-      console.log("The id: ", theId);
-      console.log(this.props);
-      axios
-        .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
-        .then(() => {
-          this.props.history.push("/");
-          const newCategories = this.state.categoriesFromBackEnd.filter(
-            category => category._id !== this.state.currentCategory._id
-          );
-          this.setState({
-            categoriesFromBackEnd: newCategories
-          });
-        })
-        .catch(err => console.log("Error while deleteing the category ", err));
-    } else return "loading";
+    this.props.deleteCategory();
   };
 
-  editCategory = () => {};
+  // editCategory = () => {};
 
   // function for "Add Action"
   toggleForm = () => {
@@ -123,25 +135,43 @@ export default class Home extends React.Component {
   addNewActToDb = e => {
     e.preventDefault();
     console.log("#####", this.state);
-    const newAct = {
+    let listOfActions = [...this.state.arrayOfActions];
+    console.log("first", listOfActions);
+
+    let newAct = {
       title: this.state.titleAct,
       description: this.state.descriptionAct,
       value: this.state.valueOfAct,
       category: this.state.actCategory
     };
 
+    listOfActions.unshift(newAct);
+
+    this.setState({
+      showAddActForm: false,
+      titleAct: "",
+      descriptionAct: "",
+      valueOfAct: "",
+      actCategory: "",
+      arrayOfActions: listOfActions
+    });
+
+    console.log("second", listOfActions);
     axios
       .post(`${process.env.REACT_APP_IMPACT_SERVER}/act/create`, newAct)
       .then(newAct => {
-        this.props.history.push("/");
+        this.props.getAllActions();
       })
       .catch(err => console.log("Error while adding the new Act ", err));
+
+    // this.props.getAllActions();
   };
 
   //end of functions for 'Add Actions'
 
   render() {
     if (this.props.categoriesFromBackEnd !== null) {
+      console.log(">>>", this.state.listOfActions);
       return (
         <div>
           {/* <p>Category: {this.props.location.state.details.title}</p> */}

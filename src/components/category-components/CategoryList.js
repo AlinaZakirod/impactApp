@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 function CategoryList(props) {
   if (props.categoriesFromBackEnd !== null) {
     console.log(">>>>", props.categoriesFromBackEnd);
+    // console.log("this is the current state >>>>>>>>>> ", this.state);
 
     return props.categoriesFromBackEnd.map((oneCat, i) => {
       return (

@@ -13,33 +13,6 @@ export default class Home extends React.Component {
     };
   }
 
-  //  to be able to Add new Category
-  // componentDidMount = () => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_IMPACT_SERVER}/category/allCats`)
-  //     .then(responseCategories => {
-  //       console.log(
-  //         "Categories from DB: ",
-  //         responseCategories.data.allCategories
-  //       );
-  //       this.setState({
-  //         categoriesFromBackEnd: responseCategories.data.allCategories
-  //       });
-  //     })
-  //     .catch(err => console.log("Err while getting categories: ", err));
-  // };
-
-  // displayCat() {
-  //   // console.log(this.state.categoriesFromBackEnd);
-  //   return this.state.categoriesFromBackEnd.allCategories.map((oneCat, i) => {
-  //     console.log(oneCat._id);
-  //     return (
-  //       <Link to="/category/{{oneCat._id}}" key={i} catId={oneCat._id}>
-  //         <p key={i}>{oneCat.title}</p>
-  //       </Link>
-  //     );
-  //   });
-
   addNewCategory = e => {
     e.preventDefault();
 
@@ -82,8 +55,9 @@ export default class Home extends React.Component {
   };
 
   render() {
-    if (this.props.currentUser !== null) {
-      console.log("___________", this.props);
+    if (this.props.categoriesFromBackEnd !== null) {
+      // this.props.getAllCategories();
+      // console.log("___________", this.props);
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
@@ -94,7 +68,7 @@ export default class Home extends React.Component {
             categoriesFromBackEnd={this.props.categoriesFromBackEnd}
           />
 
-          {!this.state.showAddCategoryForm && (
+          {!this.state.showAddCategoryForm && this.props.currentUser && (
             <button onClick={this.toggleForm}>Add New Category</button>
           )}
 

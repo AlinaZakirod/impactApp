@@ -16,7 +16,7 @@ class Navbar extends React.Component {
         {this.props.theUser && (
           <div>
             <NavLink to="/dashboard">Dashboard</NavLink>
-            <NavLink to="/profile">Profile</NavLink>
+            {/* <NavLink to="/profile">Profile</NavLink> */}
             <NavLink to="/community"> Community </NavLink>
             {/* <NavLink to="/act/add"> Add Act </NavLink> */}
             <button onClick={this.props.doLogout}>Logout</button>
