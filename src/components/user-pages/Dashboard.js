@@ -12,20 +12,29 @@ class Dashbord extends React.Component {
     };
   }
 
-  // actTreatment = act => {
-  //   let treatedSuggestedActs;
-  //   for (let i = 0; i < this.state.suggestedActs.length; i++) {
-  //     if (act === this.suggestedActs[i]) {
-  //       treatedSuggestedActs.push(act);
-  //     }
-  //   }
-
-  //   this.setState({
-  //     treatedSuggestedActs: treatedSuggestedActs
-  //   });
-  // };
+  actTreatment = () => {
+    const userSuggestedActs = [];
+    console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
+    console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
+    for (let i = 0; i < this.state.suggestedActs.length; i++) {
+      for (let y = 0; y < this.props.actionsFromBackEnd.allActs.length; y++) {
+        if (
+          this.props.actionsFromBackEnd.allActs[y]._id ===
+          this.state.suggestedActs[i]
+        ) {
+          const wholeActs = userSuggestedActs.unshift(
+            this.props.actionsFromBackEnd.allActs[y]
+          );
+          console.log("3.-=-=-=-=-=", wholeActs);
+        }
+      }
+    }
+  };
 
   getSuggestedActs = () => {
+    {
+      this.actTreatment();
+    }
     console.log("All", this.props.currentUser.suggestedActs);
     const twelveActs = this.props.currentUser.suggestedActs.slice(0, 4);
     console.log("12", twelveActs);
