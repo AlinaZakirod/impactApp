@@ -88,37 +88,37 @@ class App extends React.Component {
       .catch(err => console.log("error while logging out ", err));
   };
 
-  deleteCategory = () => {
-    if (this.state.categoriesFromBackEnd !== null) {
-      const theId = this.props.location.state.details._id;
-      console.log("The id: ", theId);
-      console.log(this.props);
-      axios
-        .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
-        .then(response => {
-          console.log(
-            "reached the push",
-            response,
-            " === ",
-            this.state,
-            "------------ ",
-            this.props
-          );
-          const newCategories = this.state.categoriesFromBackEnd.filter(
-            category => category._id !== this.state.currentCategory._id
-          );
-          // this.setState({
-          //   categoriesFromBackEnd: newCategories
-          // });
-          this.props.history.push("/login");
-        })
-        .catch(err => console.log("Error while deleteing the category ", err));
-    } else return "loading";
-  };
+  // deleteCategory = indexN => {
+  //   if (this.state.categoriesFromBackEnd !== null) {
+  //     const theId = this.props.location.state.details._id;
+  //     console.log("The id: ", theId);
+  //     console.log(this.props);
+  //     axios
+  //       .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
+  //       .then(response => {
+  //         console.log(
+  //           "reached the push",
+  //           response,
+  //           " === ",
+  //           this.state,
+  //           "------------ ",
+  //           this.props
+  //         );
+  //         const newCategories = this.state.categoriesFromBackEnd.filter(
+  //           category => category._id !== this.state.currentCategory._id
+  //         );
+  //         // this.setState({
+  //         //   categoriesFromBackEnd: newCategories
+  //         // });
+  //         this.props.history.push("/login");
+  //       })
+  //       .catch(err => console.log("Error while deleteing the category ", err));
+  //   } else return "loading";
+  // };
 
   render() {
     // console.log("the state in APPJS: ", this.state);
-    // console.log("++++++++++++++", this.state.categoriesFromBackEnd);
+    console.log("++++++++++++++", this.state.categoriesFromBackEnd);
     // console.log("########", this.state.currentUser);
     return (
       <div>
@@ -202,7 +202,6 @@ class App extends React.Component {
             render={props => (
               <CategoryDetails
                 {...props}
-                deleteCategory={this.deleteCategory}
                 getAllActions={this.getAllActions}
                 currentUser={this.state.currentUser}
                 categoriesFromBackEnd={this.state.categoriesFromBackEnd}

@@ -9,7 +9,8 @@ export default class Home extends React.Component {
     this.state = {
       showAddCategoryForm: false,
       titleCategory: "",
-      descriptionCategory: ""
+      descriptionCategory: "",
+      categoriesFromBackEnd: this.props.categoriesFromBackEnd
     };
   }
 
@@ -28,7 +29,8 @@ export default class Home extends React.Component {
     this.setState({
       titleCategory: "",
       descriptionCategory: "",
-      showAddCategoryForm: false
+      showAddCategoryForm: false,
+      categoriesList: listOfCategories
     });
 
     axios
@@ -56,6 +58,7 @@ export default class Home extends React.Component {
 
   render() {
     if (this.props.categoriesFromBackEnd !== null) {
+      console.log("((((", this.state.categoriesFromBackEnd);
       // this.props.getAllCategories();
       // console.log("___________", this.props);
       // console.log(this.props.currentUser.fullName);

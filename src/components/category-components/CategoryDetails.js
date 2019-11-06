@@ -116,10 +116,6 @@ export default class Home extends React.Component {
   //   } else return "loading";
   // };
 
-  deleteCategory = () => {
-    this.props.deleteCategory();
-  };
-
   // editCategory = () => {};
 
   // function for "Add Action"
@@ -233,7 +229,13 @@ export default class Home extends React.Component {
             {/* end of Add action */}
             <p>_________________________</p>
             <button onClick={this.editCategory}>Edit Category</button>
-            <button onClick={this.deleteCategory}>Delete Category</button>
+            <button
+              onClick={() => {
+                this.props.deleteCategory(this.props.categoryIndex);
+              }}
+            >
+              Delete Category
+            </button>
           </div>
         </div>
       );
