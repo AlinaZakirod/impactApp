@@ -30,7 +30,7 @@ export default class Signup extends React.Component {
         // console.log("response is:", responseFromServer);
         const { userDoc } = responseFromServer.data;
         this.props.onUserChange(userDoc);
-        history.push("/");
+        // history.push("/");
       })
       .catch(err => console.log("Err in signup: ", err));
   }

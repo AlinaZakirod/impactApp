@@ -110,27 +110,27 @@ class App extends React.Component {
     } else return "loading";
   };
 
-  // editCategory = singleCat => {
-  //   console.log("do i have cat here: ", singleCat);
-  //   if (singleCat !== null) {
-  //     const theId = singleCat._id;
-  //     console.log("The id: ", theId);
+  editCategory = singleCat => {
+    console.log("do i have cat here: ", singleCat);
+    if (singleCat !== null) {
+      const theId = singleCat._id;
+      console.log("The id: ", theId);
 
-  //     axios
-  //       .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`)
-  //       .then(response => {
-  //         // const newCategories = this.state.categoriesFromBackEnd.filter(
-  //         //   category => category._id !== oneCat._id
-  //         // );
-  //         this.setState({
-  //           categoriesFromBackEnd: newCategories
-  //         });
-  //         console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
-  //         // history.push("/");
-  //       })
-  //       .catch(err => console.log("Error while updating the category ", err));
-  //   } else return "loading";
-  // };
+      axios
+        .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`)
+        .then(response => {
+          // const newCategories = this.state.categoriesFromBackEnd.filter(
+          //   category => category._id !== oneCat._id
+          // );
+          // this.setState({
+          //   categoriesFromBackEnd: newCategories
+          // });
+          // console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
+          // history.push("/");
+        })
+        .catch(err => console.log("Error while updating the category ", err));
+    } else return "loading";
+  };
 
   render() {
     // console.log("the state in APPJS: ", this.state);

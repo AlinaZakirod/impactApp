@@ -12,7 +12,10 @@ export default class Home extends React.Component {
       actCategory: "",
       currentCategory: this.props.location.state.details,
       arrayOfActions: this.props.actionsFromBackEnd.allActs,
-      categoriesFromBackEnd: this.props.categoriesFromBackEnd
+      categoriesFromBackEnd: this.props.categoriesFromBackEnd,
+      showEditCategoryForm: false,
+      titleCat: this.props.location.state.details.title,
+      description: this.props.location.state.details.description
     };
   }
 
@@ -88,37 +91,6 @@ export default class Home extends React.Component {
     } else return "loading";
   };
 
-  // deleteCategory = () => {
-  //   if (this.state.categoriesFromBackEnd !== null) {
-  //     const theId = this.props.location.state.details._id;
-  //     console.log("The id: ", theId);
-  //     console.log(this.props);
-  //     axios
-  //       .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
-  //       .then(response => {
-  //         console.log(
-  //           "reached the push",
-  //           response,
-  //           " === ",
-  //           this.state,
-  //           "------------ ",
-  //           this.props
-  //         );
-  //         const newCategories = this.state.categoriesFromBackEnd.filter(
-  //           category => category._id !== this.state.currentCategory._id
-  //         );
-  //         // this.setState({
-  //         //   categoriesFromBackEnd: newCategories
-  //         // });
-  //         this.props.history.push("/login");
-  //       })
-  //       .catch(err => console.log("Error while deleteing the category ", err));
-  //   } else return "loading";
-  // };
-
-  // editCategory = () => {};
-
-  // function for "Add Action"
   toggleForm = () => {
     this.setState({ showAddActForm: !this.state.showAddActForm });
   };
@@ -254,3 +226,5 @@ export default class Home extends React.Component {
 {
   /* <button onClick={e => this.function(parameterGoesHere)}></button> */
 }
+
+// export { handleChangeAct };

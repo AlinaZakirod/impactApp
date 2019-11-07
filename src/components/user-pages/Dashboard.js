@@ -1,5 +1,7 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import axios from "axios";
+// import { Link } from "react-router-dom";
+// import { handleChangeAct } from "../category-components/CategoryDetails";
 
 class Dashbord extends React.Component {
   constructor(props) {
@@ -8,7 +10,8 @@ class Dashbord extends React.Component {
       treatedSuggestedActs: null,
       detailsUnfolded: false,
       // completedActs: this.props.completedActs,
-      suggestedActs: this.props.currentUser.suggestedActs
+      suggestedActs: this.props.currentUser.suggestedActs.slice(0, 4),
+      score: this.props.currentUser.score
     };
   }
 
@@ -16,14 +19,14 @@ class Dashbord extends React.Component {
     const userSuggestedActs = [];
     // console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
     // console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
-    for (let i = 0; i < this.state.suggestedActs.length; i++) {
+    for (let i = 0; i < this.props.currentUser.suggestedActs.length; i++) {
       for (let y = 0; y < this.props.actionsFromBackEnd.allActs.length; y++) {
         if (
           this.props.actionsFromBackEnd.allActs[y]._id ===
-          this.state.suggestedActs[i]
+          this.props.currentUser.suggestedActs[i]
         ) {
           userSuggestedActs.unshift(this.props.actionsFromBackEnd.allActs[y]);
-          console.log("3.-=-=-=-=-=", userSuggestedActs);
+          // console.log("3.-=-=-=-=-=", userSuggestedActs);
         }
       }
     }
@@ -37,24 +40,98 @@ class Dashbord extends React.Component {
     );
   }
 
-  getSuggestedActs = async () => {
-    await this.actTreatment();
+  getLessSuggestedActs = () => {
+    // this.actTreatment();
     console.log("All", this.state.treatedSuggestedActs);
     if (this.state.treatedSuggestedActs !== null) {
-      const fourActs = this.state.treatedSuggestedActs.slice(0, 4);
-      console.log("4:", fourActs);
-      return fourActs.map(singledSuggestedAct => {
-        return (
-          <div>
-            <p>
-              {singledSuggestedAct.title} {singledSuggestedAct.value}
-            </p>
-            <button>Act Now!</button>
-            {/* or use Link instead */}
-          </div>
-        );
-      });
+      // const fourActs = this.state.treatedSuggestedActs.slice(0, 4);
+      // console.log("4:", fourActs);
+      console.log("cut suggested acts:", this.state.treatedSuggestedActs);
+      return (
+        <div>
+          <p>Suggested Acts:</p>
+          {this.state.treatedSuggestedActs
+            .filter((singledSuggestedAct, i) => i < 4)
+            .map((singledSuggestedAct, i) => {
+              return (
+                <div>
+                  <h4>
+                    <b>{singledSuggestedAct.title}</b>{" "}
+                  </h4>
+                  <p>{singledSuggestedAct.value}</p>
+                  <p>{singledSuggestedAct.category}</p>
+                  <button
+                    onClick={e => {
+                      this.handleChangeAct(singledSuggestedAct._id);
+                    }}
+                  >
+                    Act Now!
+                  </button>
+                </div>
+              );
+            })}
+          <button onClick={this.getAllSuggestedActs}>
+            View All suggested Acts
+          </button>
+        </div>
+      );
     }
+  };
+
+  handleChangeAct = actId => {
+    if (this.state.treatedSuggestedActs !== null) {
+      const finalActs = this.state.treatedSuggestedActs.filter(
+        singleAct => singleAct._id !== actId
+      );
+
+      // how to get the value of the act? than update the score
+      const currentAct = this.state.treatedSuggestedActs.filter(
+        singleAct => singleAct._id === actId
+      );
+
+      console.log("SCORE", this.state.score);
+      const updateScore = currentAct[0].value + this.state.score;
+      console.log("To add", updateScore);
+      axios
+        .post(
+          `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`,
+          {},
+          {
+            withCredentials: true
+          }
+        )
+
+        .then(() => {
+          this.setState({
+            treatedSuggestedActs: finalActs,
+            score: updateScore
+          });
+        })
+        .catch(err => console.log("Error while click on `Act Now`", err));
+    }
+  };
+
+  getAllSuggestedActs = () => {
+    console.log("MOREEEEEEE");
+    return (
+      <h2>MORE</h2>
+      // <div>
+      //   {this.state.treatedSuggestedActs
+      //     .filter((singledSuggestedAct, i) => i > 4)
+      //     .map((singledSuggestedAct, i) => {
+      //       return (
+      //         <div>
+      //           <h4>
+      //             <b>{singledSuggestedAct.title}</b> {singledSuggestedAct.value}
+      //           </h4>
+      //           <p>{singledSuggestedAct.category}</p>
+      //           <button>Act Now!</button>
+      //         </div>
+      //       );
+      //     })}
+      //   <button onClick={this.getAllSuggestedActs}>Hide</button>
+      // </div>
+    );
   };
 
   handleViewDetails = () => {
@@ -88,38 +165,34 @@ class Dashbord extends React.Component {
 
   render() {
     if (this.props.currentUser !== null) {
-      console.log(">>>>>>>>>>>>>>>>>>", this.props.currentUser);
+      console.log(">>>>>>>>>>>>>>>>>>", this.state.treatedSuggestedActs);
+
       return (
         <div>
-          <h2>{this.props.currentUser.fullName}</h2>
-          <h4>Your score is {this.props.currentUser.score}</h4>
+          <h2>Hi there, {this.props.currentUser.fullName}</h2>
+          <h4>Your score is {this.state.score}</h4>
           {!this.state.detailsUnfolded && (
             <button onClick={this.toggleForm}>View Details</button>
           )}
 
           {this.state.detailsUnfolded && (
             <div>
-              <div>
-                <p>Completed acts:</p>
-                {this.props.currentUser.completedActs.map((singleAction, i) => {
-                  return (
-                    <div>
-                      <div key={i}>
-                        <p>
-                          {singleAction}
-                          {singleAction.title} {singleAction.value}
-                        </p>
-                      </div>
+              <p>Completed acts:</p>
+              {this.state.treatedSuggestedActs.map((singleAction, i) => {
+                return (
+                  <div>
+                    <div key={i}>
+                      <b>{singleAction.title}</b> {singleAction.value}
                     </div>
-                  );
-                })}
-              </div>
+                  </div>
+                );
+              })}
               <button onClick={this.toggleForm}>Show Less</button>
             </div>
           )}
 
           <p>________________________________</p>
-          {this.getSuggestedActs}
+          {this.getLessSuggestedActs()}
         </div>
       );
     } else {
