@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import history from "../../history";
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class Signup extends React.Component {
         // console.log("response is:", responseFromServer);
         const { userDoc } = responseFromServer.data;
         this.props.onUserChange(userDoc);
-        this.props.history.push("/");
+        history.push("/");
       })
       .catch(err => console.log("Err in signup: ", err));
   }

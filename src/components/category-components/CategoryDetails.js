@@ -231,7 +231,7 @@ export default class Home extends React.Component {
             <button onClick={this.editCategory}>Edit Category</button>
             <button
               onClick={() => {
-                this.props.deleteCategory(this.props.categoryIndex);
+                this.props.getCategoryObj(this.props.location.state.details);
               }}
             >
               Delete Category

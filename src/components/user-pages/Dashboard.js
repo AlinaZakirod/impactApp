@@ -5,48 +5,56 @@ class Dashbord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      treatedSuggestedActs: null,
       detailsUnfolded: false,
       // completedActs: this.props.completedActs,
-      suggestedActs: this.props.currentUser.suggestedActs,
-      treatedSuggestedActs: null
+      suggestedActs: this.props.currentUser.suggestedActs
     };
   }
 
-  actTreatment = () => {
+  componentDidMount() {
     const userSuggestedActs = [];
-    console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
-    console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
+    // console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
+    // console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
     for (let i = 0; i < this.state.suggestedActs.length; i++) {
       for (let y = 0; y < this.props.actionsFromBackEnd.allActs.length; y++) {
         if (
           this.props.actionsFromBackEnd.allActs[y]._id ===
           this.state.suggestedActs[i]
         ) {
-          const wholeActs = userSuggestedActs.unshift(
-            this.props.actionsFromBackEnd.allActs[y]
-          );
-          console.log("3.-=-=-=-=-=", wholeActs);
+          userSuggestedActs.unshift(this.props.actionsFromBackEnd.allActs[y]);
+          console.log("3.-=-=-=-=-=", userSuggestedActs);
         }
       }
     }
-  };
+    console.log("****", userSuggestedActs);
 
-  getSuggestedActs = () => {
-    {
-      this.actTreatment();
+    this.setState(
+      {
+        treatedSuggestedActs: userSuggestedActs
+      },
+      () => console.log("####", this.state.treatedSuggestedActs)
+    );
+  }
+
+  getSuggestedActs = async () => {
+    await this.actTreatment();
+    console.log("All", this.state.treatedSuggestedActs);
+    if (this.state.treatedSuggestedActs !== null) {
+      const fourActs = this.state.treatedSuggestedActs.slice(0, 4);
+      console.log("4:", fourActs);
+      return fourActs.map(singledSuggestedAct => {
+        return (
+          <div>
+            <p>
+              {singledSuggestedAct.title} {singledSuggestedAct.value}
+            </p>
+            <button>Act Now!</button>
+            {/* or use Link instead */}
+          </div>
+        );
+      });
     }
-    console.log("All", this.props.currentUser.suggestedActs);
-    const twelveActs = this.props.currentUser.suggestedActs.slice(0, 4);
-    console.log("12", twelveActs);
-    return twelveActs.map(singledSuggestedAct => {
-      return (
-        <div>
-          <p>{singledSuggestedAct}</p>
-          <button>Act Now!</button>
-          {/* or use Link instead */}
-        </div>
-      );
-    });
   };
 
   handleViewDetails = () => {
@@ -111,7 +119,7 @@ class Dashbord extends React.Component {
           )}
 
           <p>________________________________</p>
-          {this.getSuggestedActs()}
+          {this.getSuggestedActs}
         </div>
       );
     } else {

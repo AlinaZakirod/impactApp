@@ -1,7 +1,7 @@
 import React from "react";
 // import logo from './logo.svg';
 import "./App.css";
-
+import history from "./history";
 import axios from "axios";
 
 import { Switch, Route, NavLink } from "react-router-dom";
@@ -88,31 +88,47 @@ class App extends React.Component {
       .catch(err => console.log("error while logging out ", err));
   };
 
-  // deleteCategory = indexN => {
-  //   if (this.state.categoriesFromBackEnd !== null) {
-  //     const theId = this.props.location.state.details._id;
+  deleteCategory = oneCat => {
+    console.log("do i have cat here: ", oneCat);
+    if (oneCat !== null) {
+      const theId = oneCat._id;
+      console.log("The id: ", theId);
+
+      axios
+        .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
+        .then(response => {
+          const newCategories = this.state.categoriesFromBackEnd.filter(
+            category => category._id !== oneCat._id
+          );
+          this.setState({
+            categoriesFromBackEnd: newCategories
+          });
+          console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
+          history.push("/");
+        })
+        .catch(err => console.log("Error while deleteing the category ", err));
+    } else return "loading";
+  };
+
+  // editCategory = singleCat => {
+  //   console.log("do i have cat here: ", singleCat);
+  //   if (singleCat !== null) {
+  //     const theId = singleCat._id;
   //     console.log("The id: ", theId);
-  //     console.log(this.props);
+
   //     axios
-  //       .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/delete`)
+  //       .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`)
   //       .then(response => {
-  //         console.log(
-  //           "reached the push",
-  //           response,
-  //           " === ",
-  //           this.state,
-  //           "------------ ",
-  //           this.props
-  //         );
-  //         const newCategories = this.state.categoriesFromBackEnd.filter(
-  //           category => category._id !== this.state.currentCategory._id
-  //         );
-  //         // this.setState({
-  //         //   categoriesFromBackEnd: newCategories
-  //         // });
-  //         this.props.history.push("/login");
+  //         // const newCategories = this.state.categoriesFromBackEnd.filter(
+  //         //   category => category._id !== oneCat._id
+  //         // );
+  //         this.setState({
+  //           categoriesFromBackEnd: newCategories
+  //         });
+  //         console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
+  //         // history.push("/");
   //       })
-  //       .catch(err => console.log("Error while deleteing the category ", err));
+  //       .catch(err => console.log("Error while updating the category ", err));
   //   } else return "loading";
   // };
 
@@ -202,6 +218,8 @@ class App extends React.Component {
             render={props => (
               <CategoryDetails
                 {...props}
+                handleCategoryUpdate={singleCat => this.editCategory(singleCat)}
+                getCategoryObj={catObj => this.deleteCategory(catObj)}
                 getAllActions={this.getAllActions}
                 currentUser={this.state.currentUser}
                 categoriesFromBackEnd={this.state.categoriesFromBackEnd}
