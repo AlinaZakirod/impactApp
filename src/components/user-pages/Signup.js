@@ -17,6 +17,12 @@ export default class Signup extends React.Component {
     // console.log("what is: ", event.target.value)
     const { name, value } = event.target;
     this.setState({ [name]: value });
+  }
+
+  handleSubmit(event) {
+    // console.log("submitting form");
+    event.preventDefault();
+
     axios
       .post(
         // route we are hitting in the backend
@@ -27,9 +33,10 @@ export default class Signup extends React.Component {
         { withCredentials: true }
       )
       .then(responseFromServer => {
-        // console.log("response is:", responseFromServer);
+        console.log("response is:", responseFromServer);
         const { userDoc } = responseFromServer.data;
         this.props.onUserChange(userDoc);
+        this.props.history.push("/");
         // history.push("/");
       })
       .catch(err => console.log("Err in signup: ", err));
@@ -37,6 +44,7 @@ export default class Signup extends React.Component {
 
   render() {
     console.log("Do I have user in Signup: ", this.props.currentUser);
+    console.log(" what is this >>>>>> ", this);
     const { fullName, email, password } = this.state;
     // console.log("STATE: ", this.state);
     if (this.props.currentUser) {

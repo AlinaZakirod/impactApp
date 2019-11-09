@@ -14,8 +14,10 @@ export default class Home extends React.Component {
       arrayOfActions: this.props.actionsFromBackEnd.allActs,
       categoriesFromBackEnd: this.props.categoriesFromBackEnd,
       showEditCategoryForm: false,
-      titleCat: this.props.location.state.details.title,
-      description: this.props.location.state.details.description
+      // titleCat: this.props.location.state.details.title,
+      // descriptionCat: this.props.location.state.details.description
+      titleCat: "",
+      descriptionCat: ""
     };
   }
 
@@ -27,11 +29,11 @@ export default class Home extends React.Component {
       action => action.category === this.state.currentCategory._id
     );
 
-    console.log("1~~~~~~~~~~~~~", actionsThatMatchedCategory);
+    // console.log("1~~~~~~~~~~~~~", actionsThatMatchedCategory);
     const finalActs = actionsThatMatchedCategory.filter(
       action => action._id !== actId
     );
-    console.log("2~~~~~~~~~~~~~", finalActs);
+    // console.log("2~~~~~~~~~~~~~", finalActs);
 
     // __________________________
 
@@ -95,6 +97,10 @@ export default class Home extends React.Component {
     this.setState({ showAddActForm: !this.state.showAddActForm });
   };
 
+  toggleFormCategory = () => {
+    this.setState({ showEditCategoryForm: !this.state.showEditCategoryForm });
+  };
+
   handleChange = e => {
     console.log("changing value", e.target.name, e.target.value);
     this.setState({ [e.target.name]: e.target.value });
@@ -110,7 +116,8 @@ export default class Home extends React.Component {
       title: this.state.titleAct,
       description: this.state.descriptionAct,
       value: this.state.valueOfAct,
-      category: this.state.actCategory
+      category: this.state.actCategory,
+      author: this.props.currentUser
     };
 
     listOfActions.unshift(newAct);
@@ -137,9 +144,44 @@ export default class Home extends React.Component {
 
   //end of functions for 'Add Actions'
 
+  editCategoryInDb = e => {
+    e.preventDefault();
+    let listOfCategories = [...this.state.categoriesFromBackEnd];
+    console.log("Cat first", listOfCategories);
+
+    let updatedCategory = {
+      title: this.state.titleCat,
+      description: this.state.description
+    };
+
+    listOfCategories.unshift(updatedCategory);
+
+    this.setState({
+      showEditCategoryForm: false,
+      titleCat: "",
+      descriptionCat: ""
+    });
+
+    console.log("Cat second", listOfCategories);
+    axios
+      .post(
+        `${process.env.REACT_APP_IMPACT_SERVER}category/${this.state.currentCategory._id}/update`,
+        updatedCategory
+      )
+      .then(newAct => {
+        this.props.getAllCategories();
+      })
+      .catch(err => console.log("Error while editing theCategory ", err));
+
+    this.props.getAllCategories();
+    // this.props.getAllActions();
+  };
+
   render() {
     if (this.props.categoriesFromBackEnd !== null) {
-      console.log(">>>", this.state.listOfActions);
+      console.log("Current category", this.state.currentCategory.author);
+      console.log("current User:", this.props.currentUser._id);
+
       return (
         <div>
           {/* <p>Category: {this.props.location.state.details.title}</p> */}
@@ -175,7 +217,7 @@ export default class Home extends React.Component {
                     type="number"
                     min="0"
                     value={this.state.valueOfAct}
-                    onChange={this.handleChange}
+                    onChange={this.handleChnge}
                   />
 
                   <p>Select Category</p>
@@ -200,14 +242,72 @@ export default class Home extends React.Component {
             </div>
             {/* end of Add action */}
             <p>_________________________</p>
-            <button onClick={this.editCategory}>Edit Category</button>
-            <button
+
+            {/* <button
               onClick={() => {
                 this.props.getCategoryObj(this.props.location.state.details);
               }}
             >
               Delete Category
-            </button>
+            </button> */}
+
+            <div>
+              {this.state.currentCategory.author ===
+                this.props.currentUser._id && (
+                <div>
+                  <div>
+                    {!this.state.showEditCategoryForm && (
+                      // <button
+                      //   onClick={() => {
+                      //     this.toggleFormCategory;
+                      //     this.props.handleCategoryUpdate(
+                      //       this.props.location.state.details
+                      //     );
+                      //   }}
+                      // >
+                      <button onClick={this.toggleFormCategory}>
+                        Edit Category
+                      </button>
+                    )}
+                    )}
+                    {this.state.showEditCategoryForm && (
+                      <form onSubmit={this.editCategoryInDb}>
+                        <h3>Edit {this.state.currentCategory.title}</h3>
+                        <p>Title</p>
+                        <input
+                          name="titleAct"
+                          type="text"
+                          placeholder={this.state.currentCategory.title}
+                          value={this.state.titleAct}
+                          onChange={this.handleChange}
+                        />
+                        <p>Description</p>
+                        <textarea
+                          name="descriptionAct"
+                          type="text"
+                          placeholder={this.state.currentCategory.description}
+                          value={this.state.descriptionAct}
+                          onChange={this.handleChange}
+                        />
+                        <button>Save Changes</button>
+                      </form>
+                    )}
+                  </div>
+
+                  <div>
+                    <button
+                      onClick={() => {
+                        this.props.getCategoryObjforDelete(
+                          this.props.location.state.details
+                        );
+                      }}
+                    >
+                      Delete Category{" "}
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       );

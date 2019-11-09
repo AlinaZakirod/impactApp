@@ -21,7 +21,8 @@ export default class Home extends React.Component {
 
     let newCategory = {
       title: this.state.titleCategory,
-      description: this.state.descriptionCategory
+      description: this.state.descriptionCategory,
+      author: this.props.currentUser
     };
 
     listOfCategories.unshift(newCategory);
@@ -46,6 +47,9 @@ export default class Home extends React.Component {
         }
       })
       .catch(err => console.log("Error while adding the new Category ", err));
+    console.log("Author:", this.props.currentUser);
+
+    console.log("New Category is:", newCategory);
   };
 
   updateInput = e => {
@@ -58,7 +62,6 @@ export default class Home extends React.Component {
 
   render() {
     if (this.props.categoriesFromBackEnd !== null) {
-      console.log("((((", this.state.categoriesFromBackEnd);
       // this.props.getAllCategories();
       // console.log("___________", this.props);
       // console.log(this.props.currentUser.fullName);

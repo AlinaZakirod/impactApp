@@ -89,7 +89,9 @@ class App extends React.Component {
   };
 
   deleteCategory = oneCat => {
-    console.log("do i have cat here: ", oneCat);
+    // console.log("do i have cat here: ", oneCat.author);
+    // console.log("Current user: ", this.state.currentUser._id);
+    // && this.state.currentUser._id === oneCat.author
     if (oneCat !== null) {
       const theId = oneCat._id;
       console.log("The id: ", theId);
@@ -153,8 +155,9 @@ class App extends React.Component {
           <Route
             exact
             path="/signup-page"
-            render={() => (
+            render={props => (
               <Signup
+                {...props}
                 currentUser={this.state.currentUser}
                 onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
               />
@@ -194,7 +197,7 @@ class App extends React.Component {
               <Home
                 {...props}
                 getAllCategories={this.getAllCategories}
-                currentUser={this.state.currentUser}
+                // currentUser={this.state.currentUser}
                 categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                 actionsFromBackEnd={this.state.actionsFromBackEnd}
               />
@@ -219,8 +222,9 @@ class App extends React.Component {
               <CategoryDetails
                 {...props}
                 handleCategoryUpdate={singleCat => this.editCategory(singleCat)}
-                getCategoryObj={catObj => this.deleteCategory(catObj)}
+                getCategoryObjforDelete={catObj => this.deleteCategory(catObj)}
                 getAllActions={this.getAllActions}
+                getAllCategories={this.getAllCategories}
                 currentUser={this.state.currentUser}
                 categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                 actionsFromBackEnd={this.state.actionsFromBackEnd}
