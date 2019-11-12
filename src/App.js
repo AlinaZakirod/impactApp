@@ -1,5 +1,4 @@
 import React from "react";
-// import logo from './logo.svg';
 import "./App.css";
 import history from "./history";
 import axios from "axios";
@@ -43,6 +42,17 @@ class App extends React.Component {
 
     this.getAllCategories();
     this.getAllActions();
+
+    // setTimeout(() => {
+    //   this.setState({
+    //     ready: true
+    //   });
+    // }, 1000);
+  }
+
+  syncCurrentUSer(user) {
+    console.log("current usre info ---- ", user);
+    this.setState({ currentUser: user });
   }
 
   getAllCategories = () => {
@@ -71,10 +81,6 @@ class App extends React.Component {
       })
       .catch(err => console.log("Err while getting actions: ", err));
   };
-
-  syncCurrentUSer(user) {
-    this.setState({ currentUser: user });
-  }
 
   logout = () => {
     this.setState({ currentUser: null });
@@ -112,141 +118,151 @@ class App extends React.Component {
     } else return "loading";
   };
 
-  editCategory = singleCat => {
-    console.log("do i have cat here: ", singleCat);
-    if (singleCat !== null) {
-      const theId = singleCat._id;
-      console.log("The id: ", theId);
+  editCategory = catObj => {
+    console.log("do i have cat here: ", catObj.title);
+    // if (singleCat !== null) {
+    //   const theId = singleCat._id;
+    //   console.log("The id of edited category : ", theId);
 
-      axios
-        .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`)
-        .then(response => {
-          // const newCategories = this.state.categoriesFromBackEnd.filter(
-          //   category => category._id !== oneCat._id
-          // );
-          // this.setState({
-          //   categoriesFromBackEnd: newCategories
-          // });
-          // console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
-          // history.push("/");
-        })
-        .catch(err => console.log("Error while updating the category ", err));
-    } else return "loading";
+    //   axios
+    //     .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`)
+    //     .then(response => {
+    //       // const newCategories = this.state.categoriesFromBackEnd.filter(
+    //       //   category => category._id !== oneCat._id
+    //       // );
+    //       // this.setState({
+    //       //   categoriesFromBackEnd: newCategories
+    //       // });
+    //       // console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
+    //       // history.push("/");
+    //     })
+    //     .catch(err => console.log("Error while updating the category ", err));
+    // } else return "loading";
   };
 
   render() {
     // console.log("the state in APPJS: ", this.state);
-    console.log("++++++++++++++", this.state.categoriesFromBackEnd);
+    // console.log("++++++++++++++", this.state.categoriesFromBackEnd);
     // console.log("########", this.state.currentUser);
     return (
       <div>
-        <header>
-          <Navbar theUser={this.state.currentUser} doLogout={this.logout} />
-        </header>
-        <Switch>
-          {/* this is example how we would render component normally */}
-          {/* <Route exact path="/somePage" component={ someComponentThatWillRenderWhenThisRouteIsHit }   /> */}
-          {/* <Route exact path="/" component={Home} />
-          <Route exact path="/act/add" component={addAct} /> */}
+        <div className="">
+          <header className="container">
+            <Navbar
+              theUser={this.state.currentUser}
+              doLogout={this.logout}
+              className="navbar is-fixed-top is-primary"
+              role="navigation"
+              aria-label="main navigation"
+            />
+          </header>
+          <Switch>
+            {/* this is example how we would render component normally */}
+            {/* <Route exact path="/somePage" component={ someComponentThatWillRenderWhenThisRouteIsHit }   /> */}
+            {/* <Route exact path="/" component={Home} />
+            <Route exact path="/act/add" component={addAct} /> */}
 
-          {/* if we have to pass some props down to a component,
-          we can't use a standard way of rendering using component={},
-          but instead we have to use render = {}  like in the example below */}
-          <Route
-            exact
-            path="/signup-page"
-            render={props => (
-              <Signup
-                {...props}
-                currentUser={this.state.currentUser}
-                onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
-              />
-            )}
-          />
+            {/* if we have to pass some props down to a component,
+            we can't use a standard way of rendering using component={},
+            but instead we have to use render = {}  like in the example below */}
+            <Route
+              exact
+              path="/signup-page"
+              render={props => (
+                <Signup
+                  {...props}
+                  currentUser={this.state.currentUser}
+                  onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
+                />
+              )}
+            />
 
-          <Route
-            exact
-            path="/login-page"
-            render={props => (
-              <Login
-                {...props}
-                currentUser={this.state.currentUser}
-                onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
-              />
-            )}
-          />
+            <Route
+              exact
+              path="/login-page"
+              render={props => (
+                <Login
+                  {...props}
+                  currentUser={this.state.currentUser}
+                  onUserChange={userDoc => this.syncCurrentUSer(userDoc)}
+                />
+              )}
+            />
 
-          {/* <Route path="/category" component={ActionList} /> */}
+            {/* <Route path="/category" component={ActionList} /> */}
 
-          {/* it was the way Marcos showed me */}
-          {/* <Route
-            exact
-            path="/category"
-            render={props => <CategoryList {...props} />}
-          />
+            {/* it was the way Marcos showed me */}
+            {/* <Route
+              exact
+              path="/category"
+              render={props => <CategoryList {...props} />}
+            />
 
-          <Route
-            path="/category/:id"
-            render={props => <CategoryDetails {...props} />}
-          /> */}
+            <Route
+              path="/category/:id"
+              render={props => <CategoryDetails {...props} />}
+            /> */}
 
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <Home
-                {...props}
-                getAllCategories={this.getAllCategories}
-                // currentUser={this.state.currentUser}
-                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
-                actionsFromBackEnd={this.state.actionsFromBackEnd}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <CategoryList
-                {...props}
-                currentUser={this.state.currentUser}
-                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
-                actionsFromBackEnd={this.state.actionsFromBackEnd}
-              />
-            )}
-          />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <Home
+                  {...props}
+                  getAllCategories={this.getAllCategories}
+                  currentUser={this.state.currentUser}
+                  categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                  actionsFromBackEnd={this.state.actionsFromBackEnd}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/"
+              render={props => (
+                <CategoryList
+                  {...props}
+                  currentUser={this.state.currentUser}
+                  categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                  actionsFromBackEnd={this.state.actionsFromBackEnd}
+                />
+              )}
+            />
 
-          <Route
-            path="/category/"
-            render={props => (
-              <CategoryDetails
-                {...props}
-                handleCategoryUpdate={singleCat => this.editCategory(singleCat)}
-                getCategoryObjforDelete={catObj => this.deleteCategory(catObj)}
-                getAllActions={this.getAllActions}
-                getAllCategories={this.getAllCategories}
-                currentUser={this.state.currentUser}
-                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
-                actionsFromBackEnd={this.state.actionsFromBackEnd}
-              />
-            )}
-          />
+            <Route
+              path="/category/"
+              render={props => (
+                <CategoryDetails
+                  {...props}
+                  getCategoryObjforEdit={catObj => this.editCategory(catObj)}
+                  getCategoryObjforDelete={catObj =>
+                    this.deleteCategory(catObj)
+                  }
+                  getAllActions={this.getAllActions}
+                  getAllCategories={this.getAllCategories}
+                  currentUser={this.state.currentUser}
+                  categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                  actionsFromBackEnd={this.state.actionsFromBackEnd}
+                />
+              )}
+            />
 
-          <Route
-            exact
-            path="/dashboard"
-            render={props => (
-              <Dashboard
-                {...props}
-                getAllActions={this.getAllActions}
-                currentUser={this.state.currentUser}
-                categoriesFromBackEnd={this.state.categoriesFromBackEnd}
-                actionsFromBackEnd={this.state.actionsFromBackEnd}
-                currentUser={this.state.currentUser}
-              />
-            )}
-          />
-        </Switch>
+            <Route
+              exact
+              path="/dashboard"
+              render={props => (
+                <Dashboard
+                  {...props}
+                  getAllActions={this.getAllActions}
+                  currentUser={this.state.currentUser}
+                  categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                  actionsFromBackEnd={this.state.actionsFromBackEnd}
+                  currentUser={this.state.currentUser}
+                />
+              )}
+            />
+          </Switch>
+        </div>
       </div>
     );
   }

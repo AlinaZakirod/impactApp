@@ -146,40 +146,41 @@ export default class Home extends React.Component {
 
   editCategoryInDb = e => {
     e.preventDefault();
-    let listOfCategories = [...this.state.categoriesFromBackEnd];
-    console.log("Cat first", listOfCategories);
+    if (this.state.currentCategory !== null) {
+      this.setState({
+        [e.target.name]: e.target.value
+      });
 
-    let updatedCategory = {
-      title: this.state.titleCat,
-      description: this.state.description
-    };
+      console.log("Cat second", this.state.titleAct);
 
-    listOfCategories.unshift(updatedCategory);
+      let updatedCategory = {
+        title: this.state.titleCat,
+        description: this.state.descriptionCat
+      };
 
-    this.setState({
-      showEditCategoryForm: false,
-      titleCat: "",
-      descriptionCat: ""
-    });
+      console.log(">>>>", updatedCategory);
 
-    console.log("Cat second", listOfCategories);
-    axios
-      .post(
-        `${process.env.REACT_APP_IMPACT_SERVER}category/${this.state.currentCategory._id}/update`,
-        updatedCategory
-      )
-      .then(newAct => {
-        this.props.getAllCategories();
-      })
-      .catch(err => console.log("Error while editing theCategory ", err));
-
-    this.props.getAllCategories();
-    // this.props.getAllActions();
+      this.setState({
+        showEditCategoryForm: false,
+        titleCat: ""
+      });
+      // axios
+      //   .post(
+      //     `${process.env.REACT_APP_IMPACT_SERVER}category/${this.state.currentCategory._id}/update`,
+      //     updatedCategory
+      //   )
+      //   .then(updatedCategory => {
+      //     this.props.getAllCategories();
+      //   })
+      //   .catch(err => console.log("Error while editing the Category ", err));
+    } else {
+      return "loading category...";
+    }
   };
 
   render() {
     if (this.props.categoriesFromBackEnd !== null) {
-      console.log("Current category", this.state.currentCategory.author);
+      console.log("Current category", this.state.currentCategory);
       console.log("current User:", this.props.currentUser._id);
 
       return (
@@ -257,41 +258,34 @@ export default class Home extends React.Component {
                 <div>
                   <div>
                     {!this.state.showEditCategoryForm && (
-                      // <button
-                      //   onClick={() => {
-                      //     this.toggleFormCategory;
-                      //     this.props.handleCategoryUpdate(
-                      //       this.props.location.state.details
-                      //     );
-                      //   }}
-                      // >
                       <button onClick={this.toggleFormCategory}>
                         Edit Category
                       </button>
                     )}
-                    )}
-                    {this.state.showEditCategoryForm && (
-                      <form onSubmit={this.editCategoryInDb}>
-                        <h3>Edit {this.state.currentCategory.title}</h3>
-                        <p>Title</p>
-                        <input
-                          name="titleAct"
-                          type="text"
-                          placeholder={this.state.currentCategory.title}
-                          value={this.state.titleAct}
-                          onChange={this.handleChange}
-                        />
-                        <p>Description</p>
-                        <textarea
-                          name="descriptionAct"
-                          type="text"
-                          placeholder={this.state.currentCategory.description}
-                          value={this.state.descriptionAct}
-                          onChange={this.handleChange}
-                        />
-                        <button>Save Changes</button>
-                      </form>
-                    )}
+
+                    {this.state.showEditCategoryForm &&
+                      this.props.location.state.details && (
+                        <form onSubmit={this.editCategoryInDb}>
+                          <h3>Edit {this.state.currentCategory.title}</h3>
+                          <p>Title</p>
+                          <input
+                            name="titleAct"
+                            type="text"
+                            placeholder={this.state.currentCategory.title}
+                            value={this.state.titleCat}
+                            onChange={this.handleChange}
+                          />
+                          <p>Description</p>
+                          <textarea
+                            name="descriptionAct"
+                            type="text"
+                            placeholder={this.state.currentCategory.description}
+                            value={this.state.descriptionCat}
+                            onChange={this.handleChange}
+                          />
+                          <button>Save Changes</button>
+                        </form>
+                      )}
                   </div>
 
                   <div>

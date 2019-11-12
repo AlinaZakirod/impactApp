@@ -46,7 +46,9 @@ export default class Login extends React.Component {
   }
 
   render() {
-    const { fullName, email, password } = this.state;
+    console.log("Do I have user in Login: ", this.props.currentUser);
+
+    const { email, password } = this.state;
 
     return (
       <section>

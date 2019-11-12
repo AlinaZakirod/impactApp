@@ -1,6 +1,6 @@
 import React from "react";
 import axios from "axios";
-import history from "../../history";
+// import signupBg from '../../../build/landing-page.jpg"';
 
 export default class Signup extends React.Component {
   constructor(props) {
@@ -33,13 +33,16 @@ export default class Signup extends React.Component {
         { withCredentials: true }
       )
       .then(responseFromServer => {
-        console.log("response is:", responseFromServer);
-        const { userDoc } = responseFromServer.data;
-        this.props.onUserChange(userDoc);
+        const { updatedUserSuggestedActs } = responseFromServer.data;
+        this.props.onUserChange(updatedUserSuggestedActs);
         this.props.history.push("/");
+        // this.reload();
         // history.push("/");
       })
-      .catch(err => console.log("Err in signup: ", err));
+      .catch(err => {
+        if (err.response.data)
+          return this.setState({ message: err.response.data.message });
+      });
   }
 
   render() {
@@ -51,7 +54,6 @@ export default class Signup extends React.Component {
       return (
         <div>
           <h2>
-            {" "}
             Welcome to your app, {this.props.currentUser.fullName} ! You're
             signed in!{" "}
           </h2>
@@ -60,43 +62,68 @@ export default class Signup extends React.Component {
     }
 
     return (
-      <section>
-        <h2> Sign up </h2>
-        <form
-          onSubmit={event => {
-            this.handleSubmit(event);
-          }}
-        >
-          <label> Full name: </label>
-          <input
-            value={fullName} // this.state.fullName
-            onChange={event => this.genericSync(event)}
-            type="text"
-            name="fullName"
-            placeholder="Full Name"
-          />
+      <section
+        className="hero is-success  is-fullheight has-bg-img"
+        // src={signupBg}
+      >
+        <div className="hero-body">
+          {/* <div class="columns"> */}
+          <div className="column is-one-fifth"></div>
+          <div className="column is-one-third has-text-left">
+            <h2 className="title is-1">Sign up </h2>
+            <form
+              onSubmit={event => {
+                this.handleSubmit(event);
+              }}
+            >
+              <div className="control">
+                <label className="label"> Full name: </label>
+                <input
+                  className="input"
+                  value={fullName} // this.state.fullName
+                  onChange={event => this.genericSync(event)}
+                  type="text"
+                  name="fullName"
+                  placeholder="Full Name"
+                />
+              </div>
 
-          <label> Email: </label>
-          <input
-            value={email} // this.state.email
-            onChange={event => this.genericSync(event)}
-            type="email"
-            name="email"
-            placeholder="my-email@email.com"
-          />
+              <div className="control">
+                <label className="label"> Email: </label>
+                <input
+                  className="input"
+                  value={email} // this.state.email
+                  onChange={event => this.genericSync(event)}
+                  type="email"
+                  name="email"
+                  placeholder="my-email@email.com"
+                />
+              </div>
 
-          <label> Password</label>
-          <input
-            value={password} // this.state.password
-            onChange={event => this.genericSync(event)}
-            type="password"
-            name="password"
-            placeholder="***********"
-          />
-          <button> Sign Up </button>
-        </form>
-        {/* if the message is not null (basically if there's a message) then show it in this <div> tag */}
-        {this.state.message && <div> {this.state.message} </div>}
+              <div className="control">
+                <label className="label"> Password</label>
+                <input
+                  className="input"
+                  value={password} // this.state.password
+                  onChange={event => this.genericSync(event)}
+                  type="password"
+                  name="password"
+                  placeholder="***********"
+                />
+              </div>
+
+              <button className="button"> Sign Up </button>
+
+              <div>
+                <p>Already have an account?</p>
+                <button>Login</button>
+              </div>
+            </form>
+            {/* if the message is not null (basically if there's a message) then show it in this <div> tag */}
+          </div>
+          {this.state.message && <div> {this.state.message} </div>}
+          {/* </div> */}
+        </div>
       </section>
     );
   }

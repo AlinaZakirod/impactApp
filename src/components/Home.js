@@ -67,38 +67,52 @@ export default class Home extends React.Component {
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
-        <div>
-          <h1>Impact</h1>
-          <h3>All categories:</h3>
-          <CategoryList
-            categoriesFromBackEnd={this.props.categoriesFromBackEnd}
-          />
+        <section className="hero is-fullheight-with-navbar">
+          <div className="hero-body">
+            <div className="container">
+              <div>
+                <p className="title is-1">Think global</p>
+                <p className="subtitle is-1">Act local</p>
+              </div>
 
-          {!this.state.showAddCategoryForm && this.props.currentUser && (
-            <button onClick={this.toggleForm}>Add New Category</button>
-          )}
+              <section className="section">
+                <h3 className="title">All categories:</h3>
+                <div className="columns  $column-gap is-8 is-variable">
+                  <CategoryList
+                    categoriesFromBackEnd={this.props.categoriesFromBackEnd}
+                    className="column"
+                  />
+                </div>
+              </section>
+              {!this.state.showAddCategoryForm && this.props.currentUser && (
+                <button onClick={this.toggleForm} className="button is-success">
+                  Add New Category
+                </button>
+              )}
 
-          {this.state.showAddCategoryForm && (
-            <form onSubmit={this.addNewCategory}>
-              <h3>Add New Category</h3>
-              <p>Title</p>
-              <input
-                name="titleCategory"
-                type="text"
-                value={this.state.titleCategory}
-                onChange={this.updateInput}
-              />
-              <p>Description</p>
-              <input
-                name="descriptionCategory"
-                type="text"
-                value={this.state.descriptionCategory}
-                onChange={this.updateInput}
-              />
-              <button>Submit</button>
-            </form>
-          )}
-        </div>
+              {this.state.showAddCategoryForm && (
+                <form onSubmit={this.addNewCategory}>
+                  <h3>Add New Category</h3>
+                  <p>Title</p>
+                  <input
+                    name="titleCategory"
+                    type="text"
+                    value={this.state.titleCategory}
+                    onChange={this.updateInput}
+                  />
+                  <p>Description</p>
+                  <input
+                    name="descriptionCategory"
+                    type="text"
+                    value={this.state.descriptionCategory}
+                    onChange={this.updateInput}
+                  />
+                  <button>Submit</button>
+                </form>
+              )}
+            </div>
+          </div>
+        </section>
       );
     } else return "Loading";
   }

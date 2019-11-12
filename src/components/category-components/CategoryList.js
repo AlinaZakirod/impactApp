@@ -8,18 +8,29 @@ function CategoryList(props) {
 
     return props.categoriesFromBackEnd.map((oneCat, i) => {
       return (
-        <Link
-          key={i}
-          to={{
-            pathname: `/category/${oneCat._id}`,
-            state: {
-              theId: oneCat._id,
-              details: oneCat
-            }
-          }}
-        >
-          <p key={i}>{oneCat.title}</p>
-        </Link>
+        <div className="card column">
+          <header>
+            <Link
+              key={i}
+              to={{
+                pathname: `/category/${oneCat._id}`,
+                state: {
+                  theId: oneCat._id,
+                  details: oneCat
+                }
+              }}
+            >
+              <p className="card-header-title is-centered" key={i}>
+                {oneCat.title}
+              </p>
+            </Link>
+          </header>
+          <div className="card-content">
+            <div className="content">
+              <p key={i}>{oneCat.description}</p>
+            </div>
+          </div>
+        </div>
       );
     });
   } else return "Loading...";
