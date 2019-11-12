@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import "bulma/css/bulma.css";
+import "bulma-helpers/css/bulma-helpers.min.css";
 import history from "./history";
 import axios from "axios";
 
@@ -12,6 +14,7 @@ import Navbar from "./components/Navbar";
 import CategoryList from "./components/category-components/CategoryList";
 import CategoryDetails from "./components/category-components/CategoryDetails";
 import Dashboard from "./components/user-pages/Dashboard";
+import Profile from "./components/user-pages/Profile";
 
 class App extends React.Component {
   constructor(props) {
@@ -94,6 +97,10 @@ class App extends React.Component {
       .catch(err => console.log("error while logging out ", err));
   };
 
+  editCategory = oneCat => {
+    console.log("!Do i have cat here: ", oneCat);
+  };
+
   deleteCategory = oneCat => {
     // console.log("do i have cat here: ", oneCat.author);
     // console.log("Current user: ", this.state.currentUser._id);
@@ -116,28 +123,6 @@ class App extends React.Component {
         })
         .catch(err => console.log("Error while deleteing the category ", err));
     } else return "loading";
-  };
-
-  editCategory = catObj => {
-    console.log("do i have cat here: ", catObj.title);
-    // if (singleCat !== null) {
-    //   const theId = singleCat._id;
-    //   console.log("The id of edited category : ", theId);
-
-    //   axios
-    //     .post(`${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`)
-    //     .then(response => {
-    //       // const newCategories = this.state.categoriesFromBackEnd.filter(
-    //       //   category => category._id !== oneCat._id
-    //       // );
-    //       // this.setState({
-    //       //   categoriesFromBackEnd: newCategories
-    //       // });
-    //       // console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
-    //       // history.push("/");
-    //     })
-    //     .catch(err => console.log("Error while updating the category ", err));
-    // } else return "loading";
   };
 
   render() {
@@ -234,10 +219,10 @@ class App extends React.Component {
               render={props => (
                 <CategoryDetails
                   {...props}
-                  getCategoryObjforEdit={catObj => this.editCategory(catObj)}
                   getCategoryObjforDelete={catObj =>
                     this.deleteCategory(catObj)
                   }
+                  getCategoryObjforEdit={catObj => this.editCategory(catObj)}
                   getAllActions={this.getAllActions}
                   getAllCategories={this.getAllCategories}
                   currentUser={this.state.currentUser}
@@ -257,7 +242,18 @@ class App extends React.Component {
                   currentUser={this.state.currentUser}
                   categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                   actionsFromBackEnd={this.state.actionsFromBackEnd}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/profile"
+              render={props => (
+                <Profile
+                  {...props}
                   currentUser={this.state.currentUser}
+                  categoriesFromBackEnd={this.state.categoriesFromBackEnd}
+                  actionsFromBackEnd={this.state.actionsFromBackEnd}
                 />
               )}
             />

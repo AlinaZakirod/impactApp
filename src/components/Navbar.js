@@ -7,7 +7,7 @@ class Navbar extends React.Component {
     console.log("-=-=-=-=-=-", this.props.theUser);
 
     return (
-      <div className="navbar-menu is-spaced">
+      <div className="navbar-menu is-spaced is-transparent">
         <div className="navbar-start">
           {this.props.theUser && (
             <div>
@@ -17,7 +17,9 @@ class Navbar extends React.Component {
               <NavLink to="/dashboard" className="navbar-item is-inline">
                 Dashboard
               </NavLink>
-              {/* <NavLink to="/profile">Profile</NavLink> */}
+              <NavLink to="/profile" className="navbar-item is-inline">
+                Profile
+              </NavLink>
               <NavLink to="/community" className="navbar-item is-inline">
                 Community
               </NavLink>

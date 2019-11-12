@@ -78,6 +78,7 @@ export default class Home extends React.Component {
             return (
               <div key={i}>
                 <p>{singleAction.title}</p>
+                <p>{singleAction.title}</p>
                 <button
                   onClick={e => {
                     this.handleChangeAct(singleAction._id);
@@ -110,7 +111,6 @@ export default class Home extends React.Component {
     e.preventDefault();
     console.log("#####", this.state);
     let listOfActions = [...this.state.arrayOfActions];
-    console.log("first", listOfActions);
 
     let newAct = {
       title: this.state.titleAct,
@@ -120,6 +120,7 @@ export default class Home extends React.Component {
       author: this.props.currentUser
     };
 
+    console.log("first", newAct.value);
     listOfActions.unshift(newAct);
 
     this.setState({
@@ -151,28 +152,35 @@ export default class Home extends React.Component {
         [e.target.name]: e.target.value
       });
 
-      console.log("Cat second", this.state.titleAct);
-
       let updatedCategory = {
+        _id: this.state.currentCategory._id,
         title: this.state.titleCat,
-        description: this.state.descriptionCat
+        description: this.state.descriptionCat,
+        author: this.state.currentCategory.author
       };
 
-      console.log(">>>>", updatedCategory);
+      const newListOfCategories = this.state.categoriesFromBackEnd.filter(
+        category => category._id !== this.state.currentCategory._id
+      );
+      newListOfCategories.push(updatedCategory);
 
       this.setState({
         showEditCategoryForm: false,
-        titleCat: ""
+        titleCat: "",
+        descriptionCat: "",
+        currentCategory: updatedCategory,
+        categoriesFromBackEnd: newListOfCategories
       });
-      // axios
-      //   .post(
-      //     `${process.env.REACT_APP_IMPACT_SERVER}category/${this.state.currentCategory._id}/update`,
-      //     updatedCategory
-      //   )
-      //   .then(updatedCategory => {
-      //     this.props.getAllCategories();
-      //   })
-      //   .catch(err => console.log("Error while editing the Category ", err));
+      console.log(">>>>", this.state);
+      axios
+        .post(
+          `${process.env.REACT_APP_IMPACT_SERVER}/category/${this.state.currentCategory._id}/update`,
+          updatedCategory
+        )
+        .then(updatedCategory => {
+          this.props.getAllCategories();
+        })
+        .catch(err => console.log("Error while editing the Category ", err));
     } else {
       return "loading category...";
     }
@@ -180,8 +188,8 @@ export default class Home extends React.Component {
 
   render() {
     if (this.props.categoriesFromBackEnd !== null) {
-      console.log("Current category", this.state.currentCategory);
-      console.log("current User:", this.props.currentUser._id);
+      // console.log("Current category", this.state.currentCategory);
+      // console.log("current User:", this.props.currentUser._id);
 
       return (
         <div>
@@ -211,15 +219,22 @@ export default class Home extends React.Component {
                     value={this.state.descriptionAct}
                     onChange={this.handleChange}
                   />
+                  <p>Val</p>
+                  <input
+                    name="valueOfAct"
+                    type="number"
+                    value={this.state.valueOfAct}
+                    onChange={this.handleChange}
+                  />
 
-                  <p>Value: </p>
+                  {/* <p>Value: </p>
                   <input
                     name="valueOfAct"
                     type="number"
                     min="0"
                     value={this.state.valueOfAct}
                     onChange={this.handleChnge}
-                  />
+                  /> */}
 
                   <p>Select Category</p>
                   <select name="actCategory" onChange={this.handleChange}>
@@ -269,7 +284,7 @@ export default class Home extends React.Component {
                           <h3>Edit {this.state.currentCategory.title}</h3>
                           <p>Title</p>
                           <input
-                            name="titleAct"
+                            name="titleCat"
                             type="text"
                             placeholder={this.state.currentCategory.title}
                             value={this.state.titleCat}
@@ -277,7 +292,7 @@ export default class Home extends React.Component {
                           />
                           <p>Description</p>
                           <textarea
-                            name="descriptionAct"
+                            name="descriptionCat"
                             type="text"
                             placeholder={this.state.currentCategory.description}
                             value={this.state.descriptionCat}

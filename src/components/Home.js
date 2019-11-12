@@ -67,11 +67,11 @@ export default class Home extends React.Component {
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
-        <section className="hero is-fullheight-with-navbar">
+        <section className="hero is-fullheight">
           <div className="hero-body">
             <div className="container">
               <div>
-                <p className="title is-1">Think global</p>
+                <p className="title is-1 is-red">Think global</p>
                 <p className="subtitle is-1">Act local</p>
               </div>
 

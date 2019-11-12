@@ -1,5 +1,7 @@
 import React from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+
 // import signupBg from '../../../build/landing-page.jpg"';
 
 export default class Signup extends React.Component {
@@ -36,8 +38,6 @@ export default class Signup extends React.Component {
         const { updatedUserSuggestedActs } = responseFromServer.data;
         this.props.onUserChange(updatedUserSuggestedActs);
         this.props.history.push("/");
-        // this.reload();
-        // history.push("/");
       })
       .catch(err => {
         if (err.response.data)
@@ -62,14 +62,11 @@ export default class Signup extends React.Component {
     }
 
     return (
-      <section
-        className="hero is-success  is-fullheight has-bg-img"
-        // src={signupBg}
-      >
+      <section className="hero is-fullheight has-bg-img">
         <div className="hero-body">
           {/* <div class="columns"> */}
           <div className="column is-one-fifth"></div>
-          <div className="column is-one-third has-text-left">
+          <div className="column is-one-quarter has-text-left">
             <h2 className="title is-1">Sign up </h2>
             <form
               onSubmit={event => {
@@ -112,11 +109,17 @@ export default class Signup extends React.Component {
                 />
               </div>
 
-              <button className="button"> Sign Up </button>
+              <div>
+                <button className="button  is-rounded has-top-padding-2">
+                  {" "}
+                  Sign Up{" "}
+                </button>
+              </div>
 
               <div>
-                <p>Already have an account?</p>
-                <button>Login</button>
+                <p>
+                  Already have an account?<Link to="/login-page"> Login</Link>
+                </p>
               </div>
             </form>
             {/* if the message is not null (basically if there's a message) then show it in this <div> tag */}

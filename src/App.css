@@ -23,5 +23,11 @@
 }
 
 .has-bg-img {
-  background-image: url(/landing-page.jpg);
+  background-image: url(/landing-page-bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+
+.impact-title {
+  color: #3c7a89;
 }

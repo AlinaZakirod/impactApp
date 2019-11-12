@@ -11,12 +11,13 @@ class Dashbord extends React.Component {
       detailsUnfolded: false,
       // completedActs: this.props.completedActs,
       suggestedActs: this.props.currentUser.suggestedActs.slice(0, 4),
-      score: this.props.currentUser.score
+      score: this.props.currentUser.score,
+      categoriesFromBackEnd: this.props.categoriesFromBackEnd
     };
   }
 
   componentDidMount() {
-    const userSuggestedActs = [];
+    let userSuggestedActs = [];
     // console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
     // console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
     for (let i = 0; i < this.props.currentUser.suggestedActs.length; i++) {
@@ -31,6 +32,20 @@ class Dashbord extends React.Component {
       }
     }
     console.log("****", userSuggestedActs);
+    for (let i = 0; i < userSuggestedActs.length; i++) {
+      for (let y = 0; y < this.state.categoriesFromBackEnd.length; y++) {
+        if (
+          userSuggestedActs[i].category ===
+          this.state.categoriesFromBackEnd[y]._id
+        ) {
+          console.log("BLA-BLA-BLA");
+          console.log("Title is :", this.state.categoriesFromBackEnd[y].title);
+        }
+      }
+    }
+    console.log("+++++", userSuggestedActs);
+
+    console.log("Category Name?: ", userSuggestedActs);
 
     this.setState(
       {
@@ -46,12 +61,14 @@ class Dashbord extends React.Component {
     if (this.state.treatedSuggestedActs !== null) {
       // const fourActs = this.state.treatedSuggestedActs.slice(0, 4);
       // console.log("4:", fourActs);
+
       console.log("cut suggested acts:", this.state.treatedSuggestedActs);
+
       return (
         <div>
           <p>Suggested Acts:</p>
           {this.state.treatedSuggestedActs
-            .filter((singledSuggestedAct, i) => i < 4)
+            .filter((singledSuggestedAct, i) => i < 5)
             .map((singledSuggestedAct, i) => {
               return (
                 <div>
@@ -59,7 +76,8 @@ class Dashbord extends React.Component {
                     <b>{singledSuggestedAct.title}</b>{" "}
                   </h4>
                   <p>{singledSuggestedAct.value}</p>
-                  <p>{singledSuggestedAct.category}</p>
+
+                  <p>{singledSuggestedAct.description}</p>
                   <button
                     onClick={e => {
                       this.handleChangeAct(singledSuggestedAct._id);
@@ -147,6 +165,7 @@ class Dashbord extends React.Component {
               <p>
                 {singleAction}
                 {singleAction.title} {singleAction.value}
+                {singleAction.category}
               </p>
             </div>
           );
@@ -166,6 +185,7 @@ class Dashbord extends React.Component {
   render() {
     if (this.props.currentUser !== null) {
       console.log(">>>>>>>>>>>>>>>>>>", this.state.treatedSuggestedActs);
+      console.log("Categories:", this.state.categoriesFromBackEnd);
 
       return (
         <div>
