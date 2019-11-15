@@ -31,7 +31,7 @@ class Dashbord extends React.Component {
         }
       }
     }
-    console.log("****", userSuggestedActs);
+    // console.log("****", userSuggestedActs);
     for (let i = 0; i < userSuggestedActs.length; i++) {
       for (let y = 0; y < this.state.categoriesFromBackEnd.length; y++) {
         if (
@@ -40,10 +40,12 @@ class Dashbord extends React.Component {
         ) {
           console.log("BLA-BLA-BLA");
           console.log("Title is :", this.state.categoriesFromBackEnd[y].title);
+          // userSuggestedActs[1].category = `${this.state.categoriesFromBackEnd[y].title}`;
+          let withCategoryTitles = {};
         }
       }
     }
-    console.log("+++++", userSuggestedActs);
+    // console.log("+++++", userSuggestedActs);
 
     console.log("Category Name?: ", userSuggestedActs);
 
@@ -88,9 +90,9 @@ class Dashbord extends React.Component {
                 </div>
               );
             })}
-          <button onClick={this.getAllSuggestedActs}>
+          {/* <button onClick={this.getAllSuggestedActs}>
             View All suggested Acts
-          </button>
+          </button> */}
         </div>
       );
     }
@@ -184,8 +186,8 @@ class Dashbord extends React.Component {
 
   render() {
     if (this.props.currentUser !== null) {
-      console.log(">>>>>>>>>>>>>>>>>>", this.state.treatedSuggestedActs);
-      console.log("Categories:", this.state.categoriesFromBackEnd);
+      // console.log(">>>>>>>>>>>>>>>>>>", this.state.treatedSuggestedActs);
+      console.log("Props:", this.props);
 
       return (
         <div>

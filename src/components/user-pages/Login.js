@@ -78,50 +78,61 @@ export default class Login extends React.Component {
       //   {this.state.message && <div> {this.state.message} </div>}
       // </section>
 
-      <section className="hero is-fullheight has-bg-img">
+      <section
+        className="hero is-fullheight has-bg-img"
+        // style={{ marginBottom: 500 }}
+      >
         <div className="hero-body">
           {/* <div class="columns"> */}
           <div className="column is-one-fifth"></div>
           <div className="column is-one-quarter has-text-left">
-            <h2 className="title is-1 impact-title">Login</h2>
             <form
               onSubmit={event => {
                 this.handleSubmit(event);
               }}
             >
-              <div className="control">
-                <label className="label">Email</label>
-                <input
-                  className="input"
-                  value={email}
-                  onChange={event => this.genericSync(event)}
-                  type="email"
-                  name="email"
-                  placeholder="my-email@ironhack.com"
-                />
+              <div className="field">
+                <label className="label is-large is-1">Login</label>
+                <p className="control has-icons-left ">
+                  <input
+                    className="input is-medium"
+                    value={email}
+                    onChange={event => this.genericSync(event)}
+                    type="email"
+                    name="email"
+                    placeholder="Email@ironhack.com"
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fa fa-envelope"></i>
+                  </span>
+                </p>
               </div>
 
-              <div className="control">
-                <label className="label"> Password</label>
-                <input
-                  className="input"
-                  value={password} // this.state.password
-                  onChange={event => this.genericSync(event)}
-                  type="password"
-                  name="password"
-                  placeholder="***********"
-                />
+              <div className="field">
+                <p className="control has-icons-left">
+                  <input
+                    className="input is-medium"
+                    value={password} // this.state.password
+                    onChange={event => this.genericSync(event)}
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fa fa-lock"></i>
+                  </span>
+                </p>
               </div>
 
-              <div>
-                <button className="button  is-rounded has-top-padding-2">
-                  Login
-                </button>
+              <div className="field">
+                <p className="control">
+                  <button className="button">Login</button>
+                </p>
               </div>
 
               <div>
                 <p>
-                  Don't have an account?<Link to="/signup-page">Signup</Link>
+                  Don't have an account? <Link to="/signup-page">Signup</Link>
                 </p>
               </div>
             </form>

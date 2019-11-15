@@ -8,7 +8,7 @@ function CategoryList(props) {
 
     return props.categoriesFromBackEnd.map((oneCat, i) => {
       return (
-        <div className="card column">
+        <div className="card column is-3">
           <header>
             <Link
               key={i}

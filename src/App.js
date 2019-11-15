@@ -2,6 +2,8 @@ import React from "react";
 import "./App.css";
 import "bulma/css/bulma.css";
 import "bulma-helpers/css/bulma-helpers.min.css";
+import "font-awesome/css/font-awesome.css";
+
 import history from "./history";
 import axios from "axios";
 
@@ -15,6 +17,7 @@ import CategoryList from "./components/category-components/CategoryList";
 import CategoryDetails from "./components/category-components/CategoryDetails";
 import Dashboard from "./components/user-pages/Dashboard";
 import Profile from "./components/user-pages/Profile";
+import NavExample from "./components/user-pages/NavbarExample";
 
 class App extends React.Component {
   constructor(props) {
@@ -97,8 +100,27 @@ class App extends React.Component {
       .catch(err => console.log("error while logging out ", err));
   };
 
-  editCategory = oneCat => {
-    console.log("!Do i have cat here: ", oneCat);
+  editCategory = (oneCat, updated) => {
+    console.log(">>>>>>>>>Do i have cat here: ", oneCat);
+    console.log("<<<<<<<<<Updated info: ", updated);
+    if (oneCat !== null) {
+      const theId = oneCat._id;
+      const updatedCategory = updated;
+      axios
+        .post(
+          `${process.env.REACT_APP_IMPACT_SERVER}/category/${theId}/update`,
+          updatedCategory
+        )
+
+        .then(updatedCategory => {
+          const updatedCategoryList = this.getAllCategories();
+          console.log("UPDATED LIST:", updatedCategoryList);
+          this.setState({
+            categoriesFromBackEnd: updatedCategoryList
+          });
+        })
+        .catch(err => console.log("Error while editing the Category ", err));
+    }
   };
 
   deleteCategory = oneCat => {
@@ -133,6 +155,7 @@ class App extends React.Component {
       <div>
         <div className="">
           <header className="container">
+            {/* <NavExample /> */}
             <Navbar
               theUser={this.state.currentUser}
               doLogout={this.logout}
@@ -222,7 +245,9 @@ class App extends React.Component {
                   getCategoryObjforDelete={catObj =>
                     this.deleteCategory(catObj)
                   }
-                  getCategoryObjforEdit={catObj => this.editCategory(catObj)}
+                  getCategoryObjforEdit={(catObj, category) =>
+                    this.editCategory(catObj, category)
+                  }
                   getAllActions={this.getAllActions}
                   getAllCategories={this.getAllCategories}
                   currentUser={this.state.currentUser}

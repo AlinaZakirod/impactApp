@@ -71,13 +71,14 @@ export default class Home extends React.Component {
           <div className="hero-body">
             <div className="container">
               <div>
-                <p className="title is-1 is-red">Think global</p>
-                <p className="subtitle is-1">Act local</p>
+                <p className="subtitle is-1 is-red">Think global | Act Local</p>
+                {/* <p className="subtitle is-1">Act local</p> */}
               </div>
 
               <section className="section">
-                <h3 className="title">All categories:</h3>
-                <div className="columns  $column-gap is-8 is-variable">
+                <h3 className="title is-3">All categories:</h3>
+
+                <div className="columns  is-multiline is-8 is-variable">
                   <CategoryList
                     categoriesFromBackEnd={this.props.categoriesFromBackEnd}
                     className="column"
@@ -85,7 +86,7 @@ export default class Home extends React.Component {
                 </div>
               </section>
               {!this.state.showAddCategoryForm && this.props.currentUser && (
-                <button onClick={this.toggleForm} className="button is-success">
+                <button onClick={this.toggleForm} className="button">
                   Add New Category
                 </button>
               )}

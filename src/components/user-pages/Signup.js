@@ -35,8 +35,9 @@ export default class Signup extends React.Component {
         { withCredentials: true }
       )
       .then(responseFromServer => {
-        const { updatedUserSuggestedActs } = responseFromServer.data;
-        this.props.onUserChange(updatedUserSuggestedActs);
+        console.log("is this working?????", responseFromServer);
+        const { populatedUser } = responseFromServer.data;
+        this.props.onUserChange(populatedUser);
         this.props.history.push("/");
       })
       .catch(err => {
@@ -67,53 +68,65 @@ export default class Signup extends React.Component {
           {/* <div class="columns"> */}
           <div className="column is-one-fifth"></div>
           <div className="column is-one-quarter has-text-left">
-            <h2 className="title is-1">Sign up </h2>
             <form
               onSubmit={event => {
                 this.handleSubmit(event);
               }}
             >
-              <div className="control">
-                <label className="label"> Full name: </label>
-                <input
-                  className="input"
-                  value={fullName} // this.state.fullName
-                  onChange={event => this.genericSync(event)}
-                  type="text"
-                  name="fullName"
-                  placeholder="Full Name"
-                />
+              <div className="field">
+                <label className="label is-large is-1">Sign up</label>
+                <p className="control has-icons-left ">
+                  <input
+                    className="input is-medium"
+                    value={fullName} // this.state.fullName
+                    onChange={event => this.genericSync(event)}
+                    type="text"
+                    name="fullName"
+                    placeholder="Your Name"
+                  />
+
+                  <span className="icon is-small is-left">
+                    <i className="fa fa-user"></i>
+                  </span>
+                </p>
               </div>
 
-              <div className="control">
-                <label className="label"> Email: </label>
-                <input
-                  className="input"
-                  value={email} // this.state.email
-                  onChange={event => this.genericSync(event)}
-                  type="email"
-                  name="email"
-                  placeholder="my-email@email.com"
-                />
+              <div className="field">
+                <p className="control has-icons-left">
+                  <input
+                    className="input is-medium"
+                    value={email} // this.state.email
+                    onChange={event => this.genericSync(event)}
+                    type="email"
+                    name="email"
+                    placeholder="Email@ironhack.com"
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fa fa-envelope"></i>
+                  </span>
+                </p>
               </div>
 
-              <div className="control">
-                <label className="label"> Password</label>
-                <input
-                  className="input"
-                  value={password} // this.state.password
-                  onChange={event => this.genericSync(event)}
-                  type="password"
-                  name="password"
-                  placeholder="***********"
-                />
+              <div className="field">
+                <p className="control has-icons-left">
+                  <input
+                    className="input is-medium"
+                    value={password} // this.state.password
+                    onChange={event => this.genericSync(event)}
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                  />
+                  <span className="icon is-small is-left">
+                    <i className="fa fa-lock"></i>
+                  </span>
+                </p>
               </div>
 
-              <div>
-                <button className="button  is-rounded has-top-padding-2">
-                  {" "}
-                  Sign Up{" "}
-                </button>
+              <div className="field">
+                <p className="control">
+                  <button className="button">Sign Up</button>
+                </p>
               </div>
 
               <div>

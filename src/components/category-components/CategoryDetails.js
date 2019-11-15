@@ -172,15 +172,20 @@ export default class Home extends React.Component {
         categoriesFromBackEnd: newListOfCategories
       });
       console.log(">>>>", this.state);
-      axios
-        .post(
-          `${process.env.REACT_APP_IMPACT_SERVER}/category/${this.state.currentCategory._id}/update`,
-          updatedCategory
-        )
-        .then(updatedCategory => {
-          this.props.getAllCategories();
-        })
-        .catch(err => console.log("Error while editing the Category ", err));
+
+      this.props.getCategoryObjforEdit(
+        this.props.location.state.details,
+        updatedCategory
+      );
+      // axios
+      //   .post(
+      //     `${process.env.REACT_APP_IMPACT_SERVER}/category/${this.state.currentCategory._id}/update`,
+      //     updatedCategory
+      //   )
+      //   .then(updatedCategory => {
+      //     this.props.getAllCategories();
+      //   })
+      //   .catch(err => console.log("Error while editing the Category ", err));
     } else {
       return "loading category...";
     }
