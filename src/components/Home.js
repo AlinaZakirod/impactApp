@@ -61,9 +61,11 @@ export default class Home extends React.Component {
   };
 
   render() {
+    // this.props.getAllCategories();
+    console.log("PROPS HOME PAGE", this.props);
+    console.log("HOME | USER", this.props.currentUser);
+
     if (this.props.categoriesFromBackEnd !== null) {
-      // this.props.getAllCategories();
-      // console.log("___________", this.props);
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
@@ -81,6 +83,7 @@ export default class Home extends React.Component {
                 <div className="columns  is-multiline is-8 is-variable">
                   <CategoryList
                     categoriesFromBackEnd={this.props.categoriesFromBackEnd}
+                    currentUser={this.props.currentUser}
                     className="column"
                   />
                 </div>

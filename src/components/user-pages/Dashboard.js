@@ -7,96 +7,94 @@ class Dashbord extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      treatedSuggestedActs: null,
+      // treatedSuggestedActs: null,
       detailsUnfolded: false,
-      // completedActs: this.props.completedActs,
-      suggestedActs: this.props.currentUser.suggestedActs.slice(0, 4),
-      score: this.props.currentUser.score,
+      completedActs: this.props.completedActs,
       categoriesFromBackEnd: this.props.categoriesFromBackEnd
     };
   }
 
-  componentDidMount() {
-    let userSuggestedActs = [];
-    // console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
-    // console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
-    for (let i = 0; i < this.props.currentUser.suggestedActs.length; i++) {
-      for (let y = 0; y < this.props.actionsFromBackEnd.allActs.length; y++) {
-        if (
-          this.props.actionsFromBackEnd.allActs[y]._id ===
-          this.props.currentUser.suggestedActs[i]
-        ) {
-          userSuggestedActs.unshift(this.props.actionsFromBackEnd.allActs[y]);
-          // console.log("3.-=-=-=-=-=", userSuggestedActs);
-        }
-      }
-    }
-    // console.log("****", userSuggestedActs);
-    for (let i = 0; i < userSuggestedActs.length; i++) {
-      for (let y = 0; y < this.state.categoriesFromBackEnd.length; y++) {
-        if (
-          userSuggestedActs[i].category ===
-          this.state.categoriesFromBackEnd[y]._id
-        ) {
-          console.log("BLA-BLA-BLA");
-          console.log("Title is :", this.state.categoriesFromBackEnd[y].title);
-          // userSuggestedActs[1].category = `${this.state.categoriesFromBackEnd[y].title}`;
-          let withCategoryTitles = {};
-        }
-      }
-    }
-    // console.log("+++++", userSuggestedActs);
+  // componentDidMount() {
+  //   let userSuggestedActs = [];
+  //   // console.log("1.-=-=-=-=-=", this.state.suggestedActs[1]);
+  //   // console.log("2.-=-=-=-=-=", this.props.actionsFromBackEnd.allActs[1]._id);
+  //   for (let i = 0; i < this.props.currentUser.suggestedActs.length; i++) {
+  //     for (let y = 0; y < this.props.actionsFromBackEnd.allActs.length; y++) {
+  //       if (
+  //         this.props.actionsFromBackEnd.allActs[y]._id ===
+  //         this.props.currentUser.suggestedActs[i]
+  //       ) {
+  //         userSuggestedActs.unshift(this.props.actionsFromBackEnd.allActs[y]);
+  //         // console.log("3.-=-=-=-=-=", userSuggestedActs);
+  //       }
+  //     }
+  //   }
+  //   // console.log("****", userSuggestedActs);
+  //   for (let i = 0; i < userSuggestedActs.length; i++) {
+  //     for (let y = 0; y < this.state.categoriesFromBackEnd.length; y++) {
+  //       if (
+  //         userSuggestedActs[i].category ===
+  //         this.state.categoriesFromBackEnd[y]._id
+  //       ) {
+  //         console.log("BLA-BLA-BLA");
+  //         console.log("Title is :", this.state.categoriesFromBackEnd[y].title);
+  //         // userSuggestedActs[1].category = `${this.state.categoriesFromBackEnd[y].title}`;
+  //         let withCategoryTitles = {};
+  //       }
+  //     }
+  //   }
+  //   // console.log("+++++", userSuggestedActs);
 
-    console.log("Category Name?: ", userSuggestedActs);
+  //   console.log("Category Name?: ", userSuggestedActs);
 
-    this.setState(
-      {
-        treatedSuggestedActs: userSuggestedActs
-      },
-      () => console.log("####", this.state.treatedSuggestedActs)
-    );
-  }
+  //   this.setState(
+  //     {
+  //       treatedSuggestedActs: userSuggestedActs
+  //     },
+  //     () => console.log("####", this.state.treatedSuggestedActs)
+  //   );
+  // }
 
-  getLessSuggestedActs = () => {
-    // this.actTreatment();
-    console.log("All", this.state.treatedSuggestedActs);
-    if (this.state.treatedSuggestedActs !== null) {
-      // const fourActs = this.state.treatedSuggestedActs.slice(0, 4);
-      // console.log("4:", fourActs);
+  // getLessSuggestedActs = () => {
+  //   // this.actTreatment();
+  //   console.log("All", this.state.treatedSuggestedActs);
+  //   if (this.state.treatedSuggestedActs !== null) {
+  //     // const fourActs = this.state.treatedSuggestedActs.slice(0, 4);
+  //     // console.log("4:", fourActs);
 
-      console.log("cut suggested acts:", this.state.treatedSuggestedActs);
+  //     console.log("cut suggested acts:", this.state.treatedSuggestedActs);
 
-      return (
-        <div>
-          <p>Suggested Acts:</p>
-          {this.state.treatedSuggestedActs
-            .filter((singledSuggestedAct, i) => i < 5)
-            .map((singledSuggestedAct, i) => {
-              return (
-                <div>
-                  <h4>
-                    <b>{singledSuggestedAct.title}</b>{" "}
-                  </h4>
-                  <p>{singledSuggestedAct.value}</p>
+  //     return (
+  //       <div>
+  //         <p>Suggested Acts:</p>
+  //         {this.state.treatedSuggestedActs
+  //           .filter((singledSuggestedAct, i) => i < 5)
+  //           .map((singledSuggestedAct, i) => {
+  //             return (
+  //               <div>
+  //                 <h4>
+  //                   <b>{singledSuggestedAct.title}</b>{" "}
+  //                 </h4>
+  //                 <p>{singledSuggestedAct.value}</p>
 
-                  <p>{singledSuggestedAct.description}</p>
-                  <button
-                    onClick={e => {
-                      this.handleChangeAct(singledSuggestedAct._id);
-                    }}
-                  >
-                    Act Now!
-                  </button>
-                </div>
-              );
-            })}
-          {/* <button onClick={this.getAllSuggestedActs}>
-            View All suggested Acts
-          </button> */}
-        </div>
-      );
-    }
-  };
+  //                 <p>{singledSuggestedAct.description}</p>
+  //                 <button
+  //                   onClick={e => {
+  //                     this.handleChangeAct(singledSuggestedAct._id);
+  //                   }}
+  //                 >
+  //                   Act Now!
+  //                 </button>
+  //               </div>
+  //             );
+  //           })}
+  //         {/* <button onClick={this.getAllSuggestedActs}>
+  //           View All suggested Acts
+  //         </button> */}
+  //       </div>
+  //     );
+  //   }
+  // };
 
   handleChangeAct = actId => {
     if (this.state.treatedSuggestedActs !== null) {
@@ -131,28 +129,28 @@ class Dashbord extends React.Component {
     }
   };
 
-  getAllSuggestedActs = () => {
-    console.log("MOREEEEEEE");
-    return (
-      <h2>MORE</h2>
-      // <div>
-      //   {this.state.treatedSuggestedActs
-      //     .filter((singledSuggestedAct, i) => i > 4)
-      //     .map((singledSuggestedAct, i) => {
-      //       return (
-      //         <div>
-      //           <h4>
-      //             <b>{singledSuggestedAct.title}</b> {singledSuggestedAct.value}
-      //           </h4>
-      //           <p>{singledSuggestedAct.category}</p>
-      //           <button>Act Now!</button>
-      //         </div>
-      //       );
-      //     })}
-      //   <button onClick={this.getAllSuggestedActs}>Hide</button>
-      // </div>
-    );
-  };
+  // getAllSuggestedActs = () => {
+  // console.log("MOREEEEEEE");
+  // return (
+  // <h2>MORE</h2>
+  // <div>
+  //   {this.state.treatedSuggestedActs
+  //     .filter((singledSuggestedAct, i) => i > 4)
+  //     .map((singledSuggestedAct, i) => {
+  //       return (
+  //         <div>
+  //           <h4>
+  //             <b>{singledSuggestedAct.title}</b> {singledSuggestedAct.value}
+  //           </h4>
+  //           <p>{singledSuggestedAct.category}</p>
+  //           <button>Act Now!</button>
+  //         </div>
+  //       );
+  //     })}
+  //   <button onClick={this.getAllSuggestedActs}>Hide</button>
+  // </div>
+  //   );
+  // };
 
   handleViewDetails = () => {
     this.setState({
@@ -185,25 +183,25 @@ class Dashbord extends React.Component {
   // );
 
   render() {
+    console.log("THIS.PROPS.CURRENTUSER:", this.props.currentUser);
     if (this.props.currentUser !== null) {
       // console.log(">>>>>>>>>>>>>>>>>>", this.state.treatedSuggestedActs);
-      console.log("Props:", this.props);
-
+      console.log("PROPS IN:", this.props);
+      console.log("User:", this.props.currentUser);
       return (
         <div>
-          <h2>Hi there, {this.props.currentUser.fullName}</h2>
-          <h4>Your score is {this.state.score}</h4>
-          {!this.state.detailsUnfolded && (
+          <h2>HELLO, {this.props.currentUser.fullName}</h2>
+          <h4>YOUR SCORE IS: {this.props.currentUser.score}</h4>
+          {!this.state.detailsUnfolded && this.props.currentUser.score < 0 && (
             <button onClick={this.toggleForm}>View Details</button>
           )}
-
           {this.state.detailsUnfolded && (
             <div>
               <p>Completed acts:</p>
-              {this.state.treatedSuggestedActs.map((singleAction, i) => {
+              {this.his.props.currentUser.map(singleAction => {
                 return (
                   <div>
-                    <div key={i}>
+                    <div key={singleAction._id}>
                       <b>{singleAction.title}</b> {singleAction.value}
                     </div>
                   </div>
@@ -212,9 +210,23 @@ class Dashbord extends React.Component {
               <button onClick={this.toggleForm}>Show Less</button>
             </div>
           )}
-
           <p>________________________________</p>
-          {this.getLessSuggestedActs()}
+          <p>Suggested Acts:</p>
+          {this.props.currentUser.suggestedActs.map(singleAct => {
+            return (
+              <div>
+                <div key={singleAct._id}>
+                  {singleAct.title}
+                  <br />
+                  {singleAct.value}
+                  <br />
+                  {singleAct.category.title}
+                  <p>____________</p>
+                  <br />
+                </div>
+              </div>
+            );
+          })}
         </div>
       );
     } else {

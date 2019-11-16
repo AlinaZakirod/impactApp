@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import history from "../../history";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -37,7 +38,10 @@ export default class Home extends React.Component {
 
     // __________________________
 
-    console.log(`${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`);
+    console.log(
+      "LINK",
+      `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`
+    );
     axios
       .post(
         `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`,
@@ -58,7 +62,7 @@ export default class Home extends React.Component {
   };
 
   showCategoryDetails = () => {
-    if (this.props.categoriesFromBackEnd !== null) {
+    if (this.props.currentUser !== null) {
       // const currentCategory = this.props.location.state.details;
       // const this.state.arrayOfActions = this.props.actionsFromBackEnd;
       const actionsThatMatchedCategory = this.state.arrayOfActions.filter(
@@ -91,7 +95,9 @@ export default class Home extends React.Component {
           })}
         </div>
       );
-    } else return "loading";
+    } else {
+      return "loading";
+    }
   };
 
   toggleForm = () => {
@@ -192,7 +198,7 @@ export default class Home extends React.Component {
   };
 
   render() {
-    if (this.props.categoriesFromBackEnd !== null) {
+    if (this.props.currentUser !== null) {
       // console.log("Current category", this.state.currentCategory);
       // console.log("current User:", this.props.currentUser._id);
 
@@ -326,7 +332,10 @@ export default class Home extends React.Component {
         </div>
       );
     } else {
-      return "Loading...";
+      // console.log("PROPS IN DETAILS PAGE:", this.props);
+      // this.props.history.push("/");
+      // return this.props.history.push("/");
+      return history.push("/");
     }
   }
 }

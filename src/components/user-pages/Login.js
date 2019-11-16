@@ -40,7 +40,7 @@ export default class Login extends React.Component {
         // alert("You are logged in.");
       })
       .catch(err => {
-        // console.log("err: ", err.response)
+        console.log("err: ", err.response);
         if (err.response.data)
           return this.setState({ message: err.response.data.message });
       });

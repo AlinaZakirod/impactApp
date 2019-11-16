@@ -13,71 +13,57 @@ class Profile extends Component {
   }
 
   handleChange = e => {
+    e.preventDefault();
     this.setState({ [e.target.name]: e.target.value });
     console.log("State is:", this.state);
-    // let newUpdatedQuery =
-    //   "apis.berkeley.edu/coolclimate/footprint-defaults/?" +
-    //   "input_location_mode=" +
-    //   `${this.state.placeType}` +
-    //   "&input_location=" +
-    //   `${this.state.zipCode}` +
-    //   "&input_income=" +
-    //   `${this.state.income}` +
-    //   "&input_size=1" +
-    //   `${this.state.householdSize}`;
-
-    // console.log("Query is:", newUpdatedQuery);
   };
 
   profileQuery = e => {
     e.preventDefault();
+    // console.log("ROUTE:", process.env.REACT_API_COOLCLIMATE);
 
     let newQuery =
-      "?" +
-      "input_location_mode=" +
-      `${this.state.placeType}` +
-      "&input_location=" +
+      // "http://apis.berkeley.edu/coolclimate/footprint-defaults/?" +
+      "&input_location_mode=1&input_location=" +
+      // `${this.state.placeType}` +
+      // "&input_location=" +
       `${this.state.zipCode}` +
       "&input_income=" +
       `${this.state.income}` +
       "&input_size=" +
-      `${this.state.householdSize}`;
+      `${this.state.householdSize}` +
+      "&op=get_defaults_and_results";
+    console.log("QUERY IS:", newQuery);
 
-    // console.log("AAAAAAAAAA:", this.state);
-    console.log("QUERY:", newQuery);
-
-    let user = `${process.env.REACT_API_USERNAME}`;
-    let pass = `${process.env.REACT_API_PASSWORD}`;
     axios
-      .post(
-        `${process.env.REACT_API_COOLCLIMATE}/newQuery`,
-
-        {},
-        {
-          auth: {
-            username: user,
-            password: pass
-          }
-        }
-      )
-      .then(response => {
-        console.log("Response is ", response.data);
+      .post(`${process.env.REACT_APP_IMPACT_SERVER}/profile`, newQuery)
+      .then(responseFromBackEnd => {
+        console.log("Response is:", responseFromBackEnd.data);
       })
-      .catch(err => console.log("Error while sending request:", err));
+      .catch(err => console.log("Error while getting data from CC", err));
+    // console.log("QUERY:", newQuery);
+
+    // let user = `${process.env.REACT_API_USERNAME}`;
+    // let pass = `${process.env.REACT_API_PASSWORD}`;
+    // axios
+    //   .post(
+    //     newQuery,
+
+    //     {},
+    //     {
+    //       auth: {
+    //         username: user,
+    //         password: pass
+    //       }
+    //     }
+    //   )
+    //   .then(response => {
+    //     console.log("Response is ", response.data);
+    //   })
+    //   .catch(err => console.log("Error while sending request:", err));
   };
 
   render() {
-    // let newUpdatedQuery =
-    //   "apis.berkeley.edu/coolclimate/footprint-defaults/?" +
-    //   "input_location_mode=" +
-    //   `${this.state.placeType}` +
-    //   "&input_location=" +
-    //   `${this.state.zipCode}` +
-    //   "&input_income=" +
-    //   `${this.state.income}` +
-    //   "&input_size=" +
-    //   `${this.state.householdSize}`;
-
     return (
       <section className="hero is-medium">
         <div className="hero-body">
@@ -87,35 +73,8 @@ class Profile extends Component {
             <div class="column is-half">
               <form onSubmit={this.profileQuery}>
                 {/* <form onSubmit={this.profileQuery(newUpdatedQuery)}> */}
-                <div>
-                  <div className="field">
-                    {/* <label className="label">Do you live in:</label> */}
-                    <p className="control has-icons-left">
-                      <span className="select  is-fullwidth">
-                        <select name="placeType" onChange={this.handleChange}>
-                          <option selected className="option" value="0">
-                            Where do you live?
-                          </option>
-                          <option className="option" value="1">
-                            Downtown
-                          </option>
-                          <option className="option" value="2">
-                            City
-                          </option>
-                          <option className="option" value="3">
-                            Subborbs
-                          </option>
-                          <option className="option" value="4">
-                            Village
-                          </option>
-                        </select>
-                      </span>
-                      <span class="icon is-small is-left">
-                        <i class="fa fa-home"></i>
-                      </span>
-                    </p>
-                  </div>
 
+                <div>
                   <div className="field ">
                     <p className="control has-icons-left ">
                       <input
@@ -125,6 +84,9 @@ class Profile extends Component {
                         placeholder="Type your zip-code"
                         onChange={this.handleChange}
                         value={this.state.zipCode}
+                        // value="{
+                        //   ('input_location_mode':'1',
+                        //   'input_location': '{this.state.zipCode}')}"
                       />
                       <span className="icon is-small is-left">
                         <i className="fa fa-globe"></i>
@@ -211,6 +173,34 @@ class Profile extends Component {
                       </span>
                     </p>
                   </div>
+                </div>
+
+                <div className="field">
+                  {/* <label className="label">Do you live in:</label> */}
+                  <p className="control has-icons-left">
+                    <span className="select  is-fullwidth">
+                      <select name="placeType" onChange={this.handleChange}>
+                        <option selected className="option" value="0">
+                          Location by ...
+                        </option>
+                        <option className="option" value="1">
+                          Zip code
+                        </option>
+                        <option className="option" value="2">
+                          City
+                        </option>
+                        <option className="option" value="3">
+                          County
+                        </option>
+                        <option className="option" value="4">
+                          State
+                        </option>
+                      </select>
+                    </span>
+                    <span class="icon is-small is-left">
+                      <i class="fa fa-home"></i>
+                    </span>
+                  </p>
                 </div>
                 <div className="block"></div>
                 <div className="block">

@@ -11,7 +11,8 @@ export default class Signup extends React.Component {
       fullName: "",
       email: "",
       password: "",
-      message: null
+      message: null,
+      suggestedActs: ""
     };
   }
 
@@ -38,6 +39,8 @@ export default class Signup extends React.Component {
         console.log("is this working?????", responseFromServer);
         const { populatedUser } = responseFromServer.data;
         this.props.onUserChange(populatedUser);
+        console.log("SIGNUP|POPULATED USER:", populatedUser);
+
         this.props.history.push("/");
       })
       .catch(err => {
@@ -49,7 +52,10 @@ export default class Signup extends React.Component {
   render() {
     console.log("Do I have user in Signup: ", this.props.currentUser);
     console.log(" what is this >>>>>> ", this);
-    const { fullName, email, password } = this.state;
+    const { fullName, email, password, suggestedActs } = this.state;
+    console.log("SIGNUP STATE:", this.state);
+    console.log("SIGNUP PROPS:", this.props);
+
     // console.log("STATE: ", this.state);
     if (this.props.currentUser) {
       return (

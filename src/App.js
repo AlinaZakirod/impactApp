@@ -25,7 +25,8 @@ class App extends React.Component {
     this.state = {
       currentUser: null,
       categoriesFromBackEnd: null,
-      actionsFromBackEnd: null
+      actionsFromBackEnd: null,
+      suggestedActs: []
     };
   }
 
@@ -35,7 +36,7 @@ class App extends React.Component {
         withCredentials: true
       })
       .then(responseFromTheBackend => {
-        // console.log("User in APP.JS: ", responseFromTheBackend)
+        console.log("User in APP.JS: ", responseFromTheBackend.data);
         const { userDoc } = responseFromTheBackend.data;
         this.syncCurrentUSer(userDoc);
       })
@@ -57,8 +58,15 @@ class App extends React.Component {
   }
 
   syncCurrentUSer(user) {
-    console.log("current usre info ---- ", user);
-    this.setState({ currentUser: user });
+    console.log("USER:", user);
+    this.setState({
+      currentUser: user,
+      suggestedActs: user.suggestedActs
+    });
+    console.log(
+      "CURRENT USER`S ACTIONS in APP.js:",
+      this.state.currentUser.suggestedActs
+    );
   }
 
   getAllCategories = () => {
@@ -150,7 +158,7 @@ class App extends React.Component {
   render() {
     // console.log("the state in APPJS: ", this.state);
     // console.log("++++++++++++++", this.state.categoriesFromBackEnd);
-    // console.log("########", this.state.currentUser);
+    console.log("APP.JS |  USER", this.state.currentUser);
     return (
       <div>
         <div className="">
@@ -219,11 +227,13 @@ class App extends React.Component {
                   {...props}
                   getAllCategories={this.getAllCategories}
                   currentUser={this.state.currentUser}
+                  suggestedActs={this.state.suggestedActs}
                   categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                   actionsFromBackEnd={this.state.actionsFromBackEnd}
                 />
               )}
             />
+
             <Route
               exact
               path="/"
@@ -231,6 +241,7 @@ class App extends React.Component {
                 <CategoryList
                   {...props}
                   currentUser={this.state.currentUser}
+                  blah="blah"
                   categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                   actionsFromBackEnd={this.state.actionsFromBackEnd}
                 />
@@ -265,6 +276,7 @@ class App extends React.Component {
                   {...props}
                   getAllActions={this.getAllActions}
                   currentUser={this.state.currentUser}
+                  // suggestedActs={this.state.currentUser.suggestedActs}
                   categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                   actionsFromBackEnd={this.state.actionsFromBackEnd}
                 />
