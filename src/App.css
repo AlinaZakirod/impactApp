@@ -8,8 +8,8 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: red !important;
+  min-height: 50vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -30,4 +30,8 @@
 
 .impact-title {
   color: #3c7a89;
+}
+
+body {
+  background-color: green;
 }

@@ -66,7 +66,11 @@ class Navbar extends React.Component {
       //     </div>
       //   </div>
       // </nav>
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav
+        className="App-header navbar "
+        role="navigation"
+        aria-label="main navigation"
+      >
         <div className="navbar-brand">
           <a class="navbar-item" href="https://bulma.io">
             <img src="" width="112" height="28" />

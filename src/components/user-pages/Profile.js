@@ -8,7 +8,8 @@ class Profile extends Component {
       zipCode: "",
       householdSize: "",
       income: "",
-      placeType: ""
+      placeType: "",
+      total: ""
     };
   }
 
@@ -39,6 +40,9 @@ class Profile extends Component {
       .post(`${process.env.REACT_APP_IMPACT_SERVER}/profile`, newQuery)
       .then(responseFromBackEnd => {
         console.log("Response is:", responseFromBackEnd.data);
+        this.setState({
+          total: responseFromBackEnd.data.total
+        });
       })
       .catch(err => console.log("Error while getting data from CC", err));
     // console.log("QUERY:", newQuery);
@@ -64,10 +68,12 @@ class Profile extends Component {
   };
 
   render() {
+    console.log("total:", this.state.total);
     return (
       <section className="hero is-medium">
         <div className="hero-body">
-          <h1 className="title is-3">Let's get started!</h1>
+          <h1 className="impact-title title is-3 ">Let's get started!</h1>
+          <h2>Total is: {this.state.total}</h2>
           <div class="columns">
             <div class="column"></div>
             <div class="column is-half">

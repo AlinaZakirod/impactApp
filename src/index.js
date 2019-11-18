@@ -5,6 +5,9 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Router } from "react-router-dom";
 import history from "./history";
+import "bulma/css/bulma.css";
+import "bulma-helpers/css/bulma-helpers.min.css";
+import "font-awesome/css/font-awesome.css";
 // import "bulma/css/bulma.css";
 // import "bulma-helpers/css/bulma-helpers.min.css";
 
