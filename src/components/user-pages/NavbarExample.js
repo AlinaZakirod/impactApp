@@ -4,7 +4,11 @@ class NavExample extends Component {
   state = {};
   render() {
     return (
-      <nav className="navbar" role="navigation" aria-label="main navigation">
+      <nav
+        className="navbar is-transparent is-fixed-top is-spaced"
+        role="navigation"
+        aria-label="main navigation"
+      >
         <div className="navbar-brand"></div>
         <div id="navbarBasicExample" className="navbar-menu">
           <div className="navbar-start">

@@ -56,8 +56,23 @@ export default class Home extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  toggleForm = () => {
-    this.setState({ showAddCategoryForm: !this.state.showAddCategoryForm });
+  // toggleForm = () => {
+  //   this.setState({ showAddCategoryForm: !this.state.showAddCategoryForm });
+  // };
+
+  showModal = () => {
+    let displayModal = document.getElementById("displayModal");
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+
+    modal.style.display = "block";
+    // this.setState({ showAddCategoryForm: !this.state.showAddCategoryForm });
+  };
+
+  closeModal = () => {
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+    modal.style.display = "none";
   };
 
   render() {
@@ -69,18 +84,18 @@ export default class Home extends React.Component {
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
-        <section className="hero is-fullheight">
+        <section className="hero is-fullheight horizontalCenter">
           <div className="hero-body">
             <div className="container">
               <div>
-                <p className="subtitle is-1 is-red">Think global | Act Local</p>
+                <p className="subtitle is-1">Think global | Act Local</p>
                 {/* <p className="subtitle is-1">Act local</p> */}
               </div>
 
               <section className="section">
                 <h3 className="title is-3">All categories:</h3>
 
-                <div className="columns  is-multiline is-8 is-variable">
+                <div className="columns  is-multiline is-8 is-variable is-centered">
                   <CategoryList
                     categoriesFromBackEnd={this.props.categoriesFromBackEnd}
                     currentUser={this.props.currentUser}
@@ -88,32 +103,91 @@ export default class Home extends React.Component {
                   />
                 </div>
               </section>
-              {!this.state.showAddCategoryForm && this.props.currentUser && (
-                <button onClick={this.toggleForm} className="button">
-                  Add New Category
-                </button>
-              )}
+              {/* {!this.state.showAddCategoryForm && this.props.currentUser && ( */}
+              <button onClick={this.showModal} className="button">
+                Add New Category
+              </button>
+              {/* )} */}
 
-              {this.state.showAddCategoryForm && (
+              <div className="modal" id="modal">
+                <div className="modal-background"></div>
+                <div className="modal-content">
+                  <div className="section formModal">
+                    <form onSubmit={this.addNewCategory}>
+                      <p className="title is-4">Add New Category</p>
+                      <div className="field">
+                        <p className="control">
+                          <input
+                            className="input"
+                            type="text"
+                            name="titleCategory"
+                            placeholder="New category title"
+                            onChange={this.updateInput}
+                            value={this.state.titleCategory}
+                          />
+                        </p>
+                      </div>
+
+                      <div className="field">
+                        <p className="control">
+                          <textarea
+                            className="input"
+                            type="textarea"
+                            name="descriptionCategory"
+                            placeholder="New category description"
+                            onChange={this.updateInput}
+                            value={this.state.descriptionCategory}
+                          />
+                        </p>
+                      </div>
+                      <div className="field">
+                        <button onClick={this.closeModal} className="button">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                  <button
+                    onClick={this.closeModal}
+                    className="modal-close is-large"
+                    aria-label="close"
+                  ></button>
+                </div>
+              </div>
+
+              {/* {this.state.showAddCategoryForm && (
                 <form onSubmit={this.addNewCategory}>
-                  <h3>Add New Category</h3>
-                  <p>Title</p>
-                  <input
-                    name="titleCategory"
-                    type="text"
-                    value={this.state.titleCategory}
-                    onChange={this.updateInput}
-                  />
-                  <p>Description</p>
-                  <input
-                    name="descriptionCategory"
-                    type="text"
-                    value={this.state.descriptionCategory}
-                    onChange={this.updateInput}
-                  />
-                  <button>Submit</button>
+                  <p className="title is-4">Add New Category</p>
+                  <div className="field">
+                    <p className="control">
+                      <input
+                        className="input"
+                        type="text"
+                        name="titleCategory"
+                        placeholder="New category title"
+                        onChange={this.updateInput}
+                        value={this.state.titleCategory}
+                      />
+                    </p>
+                  </div>
+
+                  <div className="field">
+                    <p className="control">
+                      <textarea
+                        className="input"
+                        type="textarea"
+                        name="descriptionCategory"
+                        placeholder="New category description"
+                        onChange={this.updateInput}
+                        value={this.state.descriptionCategory}
+                      />
+                    </p>
+                  </div>
+                  <div className="field">
+                    <button className="button">Submit</button>
+                  </div>
                 </form>
-              )}
+              )} */}
             </div>
           </div>
         </section>

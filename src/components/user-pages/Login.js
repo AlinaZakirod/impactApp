@@ -79,7 +79,7 @@ export default class Login extends React.Component {
       // </section>
 
       <section
-        className="hero is-fullheight has-bg-img"
+        className="hero is-fullheight has-bg-img  horizontalCenter "
         // style={{ marginBottom: 500 }}
       >
         <div className="hero-body">
@@ -132,7 +132,10 @@ export default class Login extends React.Component {
 
               <div>
                 <p>
-                  Don't have an account? <Link to="/signup-page">Signup</Link>
+                  Don't have an account?{" "}
+                  <Link className="impactInlineButton" to="/signup-page">
+                    Signup
+                  </Link>
                 </p>
               </div>
             </form>

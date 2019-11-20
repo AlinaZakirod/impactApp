@@ -22,46 +22,42 @@ export default class Home extends React.Component {
     };
   }
 
-  handleChangeAct = actId => {
-    // const currentCategory = this.props.location.state.details;
-    // const arrayOfActions = this.props.actionsFromBackEnd;
-    // console.log("0~~~~~~~~~", arrayOfActions);
-    const actionsThatMatchedCategory = this.state.arrayOfActions.filter(
-      action => action.category === this.state.currentCategory._id
-    );
+  // handleChangeAct = actId => {
+  //   // const currentCategory = this.props.location.state.details;
+  //   // const arrayOfActions = this.props.actionsFromBackEnd;
+  //   // console.log("0~~~~~~~~~", arrayOfActions);
+  //   const actionsThatMatchedCategory = this.state.arrayOfActions.filter(
+  //     action => action.category === this.state.currentCategory._id
+  //   );
 
-    // console.log("1~~~~~~~~~~~~~", actionsThatMatchedCategory);
-    const finalActs = actionsThatMatchedCategory.filter(
-      action => action._id !== actId
-    );
-    // console.log("2~~~~~~~~~~~~~", finalActs);
-
-    // __________________________
-
-    console.log(
-      "LINK",
-      `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`
-    );
-    axios
-      .post(
-        `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`,
-        {},
-        {
-          withCredentials: true
-        }
-      )
-
-      .then(() => {
-        // make some success message here!
-        this.setState({
-          arrayOfActions: finalActs
-        });
-      })
-
-      .catch(err => console.log("Error while click on `Act Now`", err));
-  };
+  //   // console.log("1~~~~~~~~~~~~~", actionsThatMatchedCategory);
+  //   const finalActs = actionsThatMatchedCategory.filter(
+  //     action => action._id !== actId
+  //   );
+  //   // console.log("2~~~~~~~~~~~~~", finalActs);
+  //   console.log(
+  //     "LINK",
+  //     `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`
+  //   );
+  //   axios
+  //     .post(
+  //       `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`,
+  //       {},
+  //       {
+  //         withCredentials: true
+  //       }
+  //     )
+  //     .then(() => {
+  //       // make some success message here!
+  //       this.setState({
+  //         arrayOfActions: finalActs
+  //       });
+  //     })
+  //     .catch(err => console.log("Error while click on `Act Now`", err));
+  // };
 
   showCategoryDetails = () => {
+    
     if (this.props.currentUser !== null) {
       // const currentCategory = this.props.location.state.details;
       // const this.state.arrayOfActions = this.props.actionsFromBackEnd;
@@ -74,25 +70,44 @@ export default class Home extends React.Component {
       // console.log("********", arrayOfActions);
       return (
         <div>
-          <h2>{this.state.currentCategory.title}</h2>
-          <p>{this.state.currentCategory.description}</p>
-          <b>Actions:</b>
-          {actionsThatMatchedCategory.map((singleAction, i) => {
-            console.log(singleAction);
-            return (
-              <div key={i}>
-                <p>{singleAction.title}</p>
-                <p>{singleAction.title}</p>
-                <button
-                  onClick={e => {
-                    this.handleChangeAct(singleAction._id);
-                  }}
-                >
-                  Act now!
-                </button>
-              </div>
-            );
-          })}
+          <p className="title is-1">{this.state.currentCategory.title}</p>
+          <p className="subtitle is-1">
+            {this.state.currentCategory.description}
+          </p>
+          <div>
+            <p className="title is-4">Actions:</p>
+            <div className="columns  is-multiline is-8 is-variable is-centered">
+              {actionsThatMatchedCategory.map((singleAction, i) => {
+                console.log(singleAction);
+                return (
+                  <div className="column is-3">
+                    <div className="card" key={i}>
+                      <header className="card-header">
+                        <p className="card-header-title is-centered">
+                          {singleAction.title}
+                        </p>
+                      </header>
+                      <div className="card-content">
+                        <div className="content">
+                          <p>{singleAction.description}</p>
+                        </div>
+                      </div>
+                      <footer className="card-footer is-centered">
+                        <button
+                          className="button  is-fillwidth impactInlineButton"
+                          onClick={e => {
+                            this.props.getActIdforActNow(singleAction);
+                          }}
+                        >
+                          Act now!
+                        </button>
+                      </footer>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       );
     } else {
@@ -100,9 +115,9 @@ export default class Home extends React.Component {
     }
   };
 
-  toggleForm = () => {
-    this.setState({ showAddActForm: !this.state.showAddActForm });
-  };
+  // toggleForm = () => {
+  //   this.setState({ showAddActForm: !this.state.showAddActForm });
+  // };
 
   toggleFormCategory = () => {
     this.setState({ showEditCategoryForm: !this.state.showEditCategoryForm });
@@ -197,139 +212,282 @@ export default class Home extends React.Component {
     }
   };
 
+  showModal = () => {
+    let displayModal = document.getElementById("displayModal");
+    let modal = document.getElementById("modal");
+
+    modal.style.display = "block";
+    // this.setState({ showAddCategoryForm: !this.state.showAddCategoryForm });
+  };
+
+  closeModal = () => {
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+    modal.style.display = "none";
+  };
+
+  showModalCategory = () => {
+    let displayModalCategory = document.getElementById("displayModalCategory");
+    let modalCategory = document.getElementById("modalCategory");
+    let close = document.getElementById("modal-close");
+
+    modalCategory.style.display = "block";
+    // this.setState({ showAddCategoryForm: !this.state.showAddCategoryForm });
+  };
+
+  closeModalCategory = () => {
+    let modalCategory = document.getElementById("modalCategory");
+    let close = document.getElementById("modalCategoryClose");
+    modalCategory.style.display = "none";
+  };
+
   render() {
     if (this.props.currentUser !== null) {
       // console.log("Current category", this.state.currentCategory);
       // console.log("current User:", this.props.currentUser._id);
+      console.log("_________________++__________");
 
+      console.log("CATEGORIES FROM BE", this.props.categoriesFromBackEnd);
       return (
-        <div>
-          {/* <p>Category: {this.props.location.state.details.title}</p> */}
-          {this.showCategoryDetails()}
-          <div>
-            {/* start of Add Action */}
-            <div>
-              {!this.state.showAddActForm && (
-                <button onClick={this.toggleForm}>Add New Action</button>
-              )}
-
-              {this.state.showAddActForm && (
-                <form onSubmit={this.addNewActToDb}>
-                  <h3>Add New Action</h3>
-                  <p>Title</p>
-                  <input
-                    name="titleAct"
-                    type="text"
-                    value={this.state.titleAct}
-                    onChange={this.handleChange}
-                  />
-                  <p>Description</p>
-                  <input
-                    name="descriptionAct"
-                    type="text"
-                    value={this.state.descriptionAct}
-                    onChange={this.handleChange}
-                  />
-                  <p>Val</p>
-                  <input
-                    name="valueOfAct"
-                    type="number"
-                    value={this.state.valueOfAct}
-                    onChange={this.handleChange}
-                  />
-
-                  {/* <p>Value: </p>
-                  <input
-                    name="valueOfAct"
-                    type="number"
-                    min="0"
-                    value={this.state.valueOfAct}
-                    onChange={this.handleChnge}
-                  /> */}
-
-                  <p>Select Category</p>
-                  <select name="actCategory" onChange={this.handleChange}>
-                    <option value="">Pick category</option>
-                    {this.props.categoriesFromBackEnd.map(oneCategory => {
-                      return (
-                        <option
-                          // value={oneCategory._id}
-                          value={oneCategory._id}
-                          key={oneCategory._id}
-                        >
-                          {oneCategory.title}
-                        </option>
-                      );
-                    })}
-                  </select>
-
-                  <button>Submit</button>
-                </form>
-              )}
-            </div>
-            {/* end of Add action */}
-            <p>_________________________</p>
-
-            {/* <button
-              onClick={() => {
-                this.props.getCategoryObj(this.props.location.state.details);
-              }}
-            >
-              Delete Category
-            </button> */}
-
-            <div>
-              {this.state.currentCategory.author ===
-                this.props.currentUser._id && (
+        <section className="hero is-fullheight horizontalCenter">
+          <div className="hero-body">
+            <div className="container">
+              <div>
                 <div>
+                  {/* <p>Category: {this.props.location.state.details.title}</p> */}
+                  {this.showCategoryDetails()}
                   <div>
-                    {!this.state.showEditCategoryForm && (
-                      <button onClick={this.toggleFormCategory}>
-                        Edit Category
-                      </button>
-                    )}
+                    {/* start of Add Action */}
 
-                    {this.state.showEditCategoryForm &&
-                      this.props.location.state.details && (
-                        <form onSubmit={this.editCategoryInDb}>
-                          <h3>Edit {this.state.currentCategory.title}</h3>
-                          <p>Title</p>
-                          <input
-                            name="titleCat"
-                            type="text"
-                            placeholder={this.state.currentCategory.title}
-                            value={this.state.titleCat}
+                    <div className="content">
+                      <div className="field">
+                        {/* {!this.state.showAddActForm && ( */}
+                        <button
+                          className="button impactButton"
+                          onClick={this.showModal}
+                        >
+                          Add New Action
+                        </button>
+                        {/* )} */}
+                      </div>
+
+                      {/* {this.state.showAddActForm && ( */}
+                      <div className="modal" id="modal">
+                        <div className="modal-background"></div>
+                        <div className="modal-content">
+                          <div className="section formModal">
+                            <form onSubmit={this.addNewActToDb}>
+                              <p className="title is-4">Add New Action</p>
+
+                              <div className="field">
+                                <p className="control">
+                                  <input
+                                    className="input"
+                                    type="text"
+                                    name="titleAct"
+                                    placeholder="Name new action"
+                                    value={this.state.titleAct}
+                                    onChange={this.handleChange}
+                                  />
+                                </p>
+                              </div>
+
+                              <div className="field">
+                                <p className="control">
+                                  <input
+                                    className="input"
+                                    type="text"
+                                    name="descriptionAct"
+                                    placeholder="Describe new action"
+                                    value={this.state.descriptionAct}
+                                    onChange={this.handleChange}
+                                  />
+                                </p>
+                              </div>
+
+                              <div className="field">
+                                <p className="control">
+                                  <input
+                                    className="input"
+                                    type="number"
+                                    name="valueOfAct"
+                                    placeholder="How many points its worth?"
+                                    min="0"
+                                    value={this.state.valueOfAct}
+                                    onChange={this.handleChange}
+                                  />
+                                </p>
+                              </div>
+
+                              <div className="field">
+                                <p className="control">
+                                  <span className="select  is-fullwidth">
+                                    <select
+                                      name="actCategory"
+                                      onChange={this.handleChange}
+                                    >
+                                      <option className="option" value="0">
+                                        Pick category
+                                      </option>
+                                      {this.props.categoriesFromBackEnd.map(
+                                        oneCategory => {
+                                          return (
+                                            <option
+                                              // value={oneCategory._id}
+                                              value={oneCategory._id}
+                                              key={oneCategory._id}
+                                            >
+                                              {oneCategory.title}
+                                            </option>
+                                          );
+                                        }
+                                      )}
+                                    </select>
+                                  </span>
+                                </p>
+                              </div>
+                              {/* <p>Select Category</p>
+                          <select
+                            name="actCategory"
                             onChange={this.handleChange}
-                          />
-                          <p>Description</p>
-                          <textarea
-                            name="descriptionCat"
-                            type="text"
-                            placeholder={this.state.currentCategory.description}
-                            value={this.state.descriptionCat}
-                            onChange={this.handleChange}
-                          />
-                          <button>Save Changes</button>
-                        </form>
+                          >
+                            <option value="">Pick category</option>
+                            {this.props.categoriesFromBackEnd.map(
+                              oneCategory => {
+                                return (
+                                  <option
+                                    // value={oneCategory._id}
+                                    value={oneCategory._id}
+                                    key={oneCategory._id}
+                                  >
+                                    {oneCategory.title}
+                                  </option>
+                                );
+                              }
+                            )}
+                          </select> */}
+
+                              <div className="block">
+                                <p className>
+                                  <button
+                                    onClick={this.closeModal}
+                                    className="button"
+                                  >
+                                    Submit
+                                  </button>
+                                </p>
+                              </div>
+                            </form>
+                          </div>
+                          <button
+                            onClick={this.closeModal}
+                            // id="modal-close"
+                            className=" modal-close is-large"
+                            aria-label="close"
+                          ></button>
+                        </div>
+                      </div>
+                      {/* )} */}
+                    </div>
+                    {/* end of Add action */}
+
+                    <div className="column is-4 is-offset-4">
+                      {this.state.currentCategory.author ===
+                        this.props.currentUser._id && (
+                        <div className="columns">
+                          <div className="column">
+                            {/* {!this.state.showEditCategoryForm && ( */}
+                            <button
+                              className="button"
+                              onClick={this.showModalCategory}
+                            >
+                              Edit Category
+                            </button>
+
+                            {/* {this.state.showEditCategoryForm &&
+                              this.props.location.state.details && ( */}
+                            <div className="modal" id="modalCategory">
+                              <div className="modal-background"></div>
+                              <div className="modal-content">
+                                <div className="section formModal">
+                                  <form onSubmit={this.editCategoryInDb}>
+                                    <p className="title is-4">
+                                      Edit {this.state.currentCategory.title}
+                                    </p>
+
+                                    <div className="field">
+                                      <p className="control">
+                                        <input
+                                          className="input"
+                                          type="text"
+                                          name="titleCat"
+                                          placeholder={
+                                            this.state.currentCategory.title
+                                          }
+                                          onChange={this.handleChange}
+                                          value={this.state.titleCat}
+                                        />
+                                      </p>
+                                    </div>
+
+                                    <div className="field">
+                                      <p className="control">
+                                        <textarea
+                                          className="input"
+                                          type="textarea"
+                                          name="descriptionCat"
+                                          placeholder={
+                                            this.state.currentCategory
+                                              .description
+                                          }
+                                          value={this.state.descriptionCat}
+                                          onChange={this.handleChange}
+                                        />
+                                      </p>
+                                    </div>
+
+                                    <div className="field">
+                                      <button
+                                        onClick={this.closeModalCategory}
+                                        className="button"
+                                      >
+                                        Save changes
+                                      </button>
+                                    </div>
+                                  </form>
+                                </div>
+                                <button
+                                  onClick={this.closeModalCategory}
+                                  className=" modal-close is-large"
+                                  // id="modalCategoryClose"
+                                  aria-label="close"
+                                ></button>
+                              </div>
+                            </div>
+                            {/* )} */}
+                          </div>
+
+                          <div className="column">
+                            <button
+                              className="button"
+                              onClick={() => {
+                                this.props.getCategoryObjforDelete(
+                                  this.props.location.state.details
+                                );
+                              }}
+                            >
+                              Delete Category{" "}
+                            </button>
+                          </div>
+                        </div>
                       )}
-                  </div>
-
-                  <div>
-                    <button
-                      onClick={() => {
-                        this.props.getCategoryObjforDelete(
-                          this.props.location.state.details
-                        );
-                      }}
-                    >
-                      Delete Category{" "}
-                    </button>
+                    </div>
                   </div>
                 </div>
-              )}
+              </div>
             </div>
           </div>
-        </div>
+        </section>
       );
     } else {
       // console.log("PROPS IN DETAILS PAGE:", this.props);

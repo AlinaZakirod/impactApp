@@ -69,7 +69,7 @@ export default class Signup extends React.Component {
     }
 
     return (
-      <section className="hero is-fullheight has-bg-img">
+      <section className="hero is-fullheight has-bg-img horizontalCenter">
         <div className="hero-body">
           {/* <div class="columns"> */}
           <div className="column is-one-fifth"></div>
@@ -137,7 +137,11 @@ export default class Signup extends React.Component {
 
               <div>
                 <p>
-                  Already have an account?<Link to="/login-page"> Login</Link>
+                  Already have an account?
+                  <Link className="impactInlineButton" to="/login-page">
+                    {" "}
+                    Login
+                  </Link>
                 </p>
               </div>
             </form>

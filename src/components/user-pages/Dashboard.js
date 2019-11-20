@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Profile from "./Profile";
 // import { Link } from "react-router-dom";
 // import { handleChangeAct } from "../category-components/CategoryDetails";
 
@@ -10,8 +11,16 @@ class Dashbord extends React.Component {
       // treatedSuggestedActs: null,
       detailsUnfolded: false,
       completedActs: this.props.completedActs,
-      categoriesFromBackEnd: this.props.categoriesFromBackEnd
+      categoriesFromBackEnd: this.props.categoriesFromBackEnd,
+      currentUser: ""
     };
+  }
+
+  componentDidMount() {
+    let theUser = this.props.getTheUser();
+    this.setState({
+      currentUser: theUser
+    });
   }
 
   // componentDidMount() {
@@ -97,6 +106,7 @@ class Dashbord extends React.Component {
   // };
 
   handleChangeAct = actId => {
+    console.log("SUGGESTED ACTS IN DASHBOARD:", this.props.suggestedActs);
     if (this.state.treatedSuggestedActs !== null) {
       const finalActs = this.state.treatedSuggestedActs.filter(
         singleAct => singleAct._id !== actId
@@ -182,52 +192,186 @@ class Dashbord extends React.Component {
   //   action => action.category === this.state.currentCategory._id
   // );
 
+  showModal = () => {
+    let displayModal = document.getElementById("displayModal");
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+
+    modal.style.display = "block";
+  };
+
+  closeModal = () => {
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+    modal.style.display = "none";
+  };
+
   render() {
-    console.log("THIS.PROPS.CURRENTUSER:", this.props.currentUser);
+    console.log(
+      "Dashboard suggested acts:",
+      this.props.currentUser.suggestedActs
+    );
     if (this.props.currentUser !== null) {
       // console.log(">>>>>>>>>>>>>>>>>>", this.state.treatedSuggestedActs);
-      console.log("PROPS IN:", this.props);
-      console.log("User:", this.props.currentUser);
+      // console.log("PROPS IN:", this.props);
+      // console.log("User:", this.props.currentUser);
+
       return (
-        <div>
-          <h2>HELLO, {this.props.currentUser.fullName}</h2>
-          <h4>YOUR SCORE IS: {this.props.currentUser.score}</h4>
-          {!this.state.detailsUnfolded && this.props.currentUser.score < 0 && (
-            <button onClick={this.toggleForm}>View Details</button>
-          )}
-          {this.state.detailsUnfolded && (
-            <div>
-              <p>Completed acts:</p>
-              {this.his.props.currentUser.map(singleAction => {
-                return (
-                  <div>
-                    <div key={singleAction._id}>
-                      <b>{singleAction.title}</b> {singleAction.value}
-                    </div>
-                  </div>
-                );
-              })}
-              <button onClick={this.toggleForm}>Show Less</button>
+        <section className="hero is-medium">
+          <div className="hero-body">
+            <div className="block">
+              <p className="subtitle is-1">
+                Hi there, {this.props.currentUser.fullName}
+              </p>
             </div>
-          )}
-          <p>________________________________</p>
-          <p>Suggested Acts:</p>
-          {this.props.currentUser.suggestedActs.map(singleAct => {
-            return (
-              <div>
-                <div key={singleAct._id}>
-                  {singleAct.title}
-                  <br />
-                  {singleAct.value}
-                  <br />
-                  {singleAct.category.title}
-                  <p>____________</p>
-                  <br />
+            <div className="columns">
+              <div className="column">
+                <Profile />
+              </div>
+              <div className="column">
+                <h4 className="impactTitle title is-4">
+                  Your Score is: {this.props.currentUser.score}
+                </h4>
+                {!this.state.detailsUnfolded &&
+                  this.props.currentUser.score < 0 && (
+                    <button onClick={this.toggleForm}>View Details</button>
+                  )}
+                {this.state.detailsUnfolded && (
+                  <div>
+                    <p>Completed acts:</p>
+                    {this.props.currentUser.suggestedActs.map(singleAction => {
+                      return (
+                        <div>
+                          <div key={singleAction._id}>
+                            <b>{singleAction.title}</b> {singleAction.value}
+                          </div>
+                        </div>
+                      );
+                    })}
+                    <button onClick={this.toggleForm}>Show Less</button>
+                  </div>
+                )}
+                <p>________________________________</p>
+                <p>Suggested Acts:</p>
+                {this.props.currentUser.suggestedActs.map(singleAct => {
+                  return (
+                    <div>
+                      <div key={singleAct._id}>
+                        {singleAct.title}
+                        <br />
+                        {singleAct.value}
+                        <br />
+                        {singleAct.category.title}
+                        <p>____________</p>
+                        <br />
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          <div>
+            <p>________________MODAL________________</p>
+            <button
+              onClick={this.showModal}
+              className="button is-large is-primary"
+              id="displayModal"
+            >
+              Open Modal
+            </button>
+
+            <div className="modal" id="modal">
+              <div className="modal-background"></div>
+              <div className="modal-content">
+                <div className="section formModal">
+                  <form onSubmit={this.addNewActToDb}>
+                    <p className="title is-4">Add New Action</p>
+
+                    <div className="field">
+                      <p className="control">
+                        <input
+                          className="input"
+                          type="text"
+                          name="titleAct"
+                          placeholder="Name new action"
+                          value={this.state.titleAct}
+                          onChange={this.handleChange}
+                        />
+                      </p>
+                    </div>
+
+                    <div className="field">
+                      <p className="control">
+                        <input
+                          className="input"
+                          type="text"
+                          name="descriptionAct"
+                          placeholder="Describe new action"
+                          value={this.state.descriptionAct}
+                          onChange={this.handleChange}
+                        />
+                      </p>
+                    </div>
+
+                    <div className="field">
+                      <p className="control">
+                        <input
+                          className="input"
+                          type="number"
+                          name="valueOfAct"
+                          placeholder="How many points its worth?"
+                          min="0"
+                          value={this.state.valueOfAct}
+                          onChange={this.handleChange}
+                        />
+                      </p>
+                    </div>
+
+                    <div className="field">
+                      <p className="control">
+                        <span className="select  is-fullwidth">
+                          <select
+                            name="actCategory"
+                            onChange={this.handleChange}
+                          >
+                            <option className="option" value="">
+                              Pick category
+                            </option>
+                            {this.props.categoriesFromBackEnd.map(
+                              oneCategory => {
+                                return (
+                                  <option
+                                    // value={oneCategory._id}
+                                    value={oneCategory._id}
+                                    key={oneCategory._id}
+                                  >
+                                    {oneCategory.title}
+                                  </option>
+                                );
+                              }
+                            )}
+                          </select>
+                        </span>
+                      </p>
+                    </div>
+
+                    <div className="block">
+                      <p className>
+                        <button className="button">Submit</button>
+                      </p>
+                    </div>
+                  </form>
                 </div>
               </div>
-            );
-          })}
-        </div>
+              <button
+                onClick={this.closeModal}
+                className="modal-close is-large"
+                aria-label="close"
+              ></button>
+            </div>
+          </div>
+        </section>
       );
     } else {
       return "Loading...";

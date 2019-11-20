@@ -1,6 +1,6 @@
 body {
   margin: 2em;
-  background-color: yellow;
+
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
@@ -14,6 +14,32 @@ code {
     monospace;
 }
 
-.impact-title {
+.impactTitle {
   color: #3c7a89;
+}
+
+.horizontalCenter {
+  margin-top: -10vh;
+}
+
+.impactInlineButton {
+  color: #3c7a89 !important;
+  margin: 0 auto;
+  border: none !important;
+  font-weight: 600;
+}
+
+.impactButton {
+  margin: 2vw;
+}
+
+.impactNavbar {
+  background-color: transparent !important;
+}
+
+.formModal {
+  background-color: white;
+  position: fixed;
+  width: 45%;
+  top: 30%;
 }

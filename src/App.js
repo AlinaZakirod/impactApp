@@ -1,8 +1,5 @@
 import React from "react";
 import "./App.css";
-import "bulma/css/bulma.css";
-import "bulma-helpers/css/bulma-helpers.min.css";
-import "font-awesome/css/font-awesome.css";
 
 import history from "./history";
 import axios from "axios";
@@ -31,22 +28,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios
-      .get(`${process.env.REACT_APP_IMPACT_SERVER}/api/checkuser`, {
-        withCredentials: true
-      })
-      .then(responseFromTheBackend => {
-        console.log("User in APP.JS: ", responseFromTheBackend.data);
-        const { userDoc } = responseFromTheBackend.data;
-        this.syncCurrentUSer(userDoc);
-      })
-      .catch(err =>
-        console.log(
-          "Err while getting the user from the checkuser route: ",
-          err
-        )
-      );
-
+    this.getTheUser();
     this.getAllCategories();
     this.getAllActions();
 
@@ -68,6 +50,23 @@ class App extends React.Component {
       this.state.currentUser.suggestedActs
     );
   }
+  getTheUser = () => {
+    axios
+      .get(`${process.env.REACT_APP_IMPACT_SERVER}/api/checkuser`, {
+        withCredentials: true
+      })
+      .then(responseFromTheBackend => {
+        console.log("User in APP.JS: ", responseFromTheBackend.data);
+        const { userDoc } = responseFromTheBackend.data;
+        this.syncCurrentUSer(userDoc);
+      })
+      .catch(err =>
+        console.log(
+          "Err while getting the user from the checkuser route: ",
+          err
+        )
+      );
+  };
 
   getAllCategories = () => {
     axios
@@ -108,6 +107,35 @@ class App extends React.Component {
       .catch(err => console.log("error while logging out ", err));
   };
 
+  handleActNow = act => {
+    if (this.state.suggestedActs !== null) {
+      console.log("ACT ID FROM CATEGORY DETAILS IS :", act._id);
+      console.log("CurrentUser IN APP.JS", this.state.currentUser);
+      console.log("CurrentUser score IN APP.JS", this.state.currentUser.score);
+      const userFinalActs = this.state.suggestedActs.filter(
+        action => action._id !== act._id
+      );
+      console.log("FINAL ACTS for user ARE: ", userFinalActs);
+      axios
+        .post(
+          `${process.env.REACT_APP_IMPACT_SERVER}/act/${act._id}/update`,
+          {},
+          {
+            withCredentials: true
+          }
+        )
+        .then(() => {
+          // make some success message here!
+          this.state.currentUser.score += act.value;
+          console.log("Updated Score is: ", this.state.currentUser.score);
+          this.setState({
+            suggestedActs: userFinalActs
+          });
+        })
+        .catch(err => console.log("Error while click on `Act Now`", err));
+    } else return "there are no more Actions left! let'c make a new one";
+  };
+
   editCategory = (oneCat, updated) => {
     console.log(">>>>>>>>>Do i have cat here: ", oneCat);
     console.log("<<<<<<<<<Updated info: ", updated);
@@ -121,11 +149,11 @@ class App extends React.Component {
         )
 
         .then(updatedCategory => {
-          const updatedCategoryList = this.getAllCategories();
-          console.log("UPDATED LIST:", updatedCategoryList);
-          this.setState({
-            categoriesFromBackEnd: updatedCategoryList
-          });
+          this.getAllCategories();
+
+          // this.setState({
+          //   categoriesFromBackEnd: updatedCategoryList
+          // });
         })
         .catch(err => console.log("Error while editing the Category ", err));
     }
@@ -253,6 +281,7 @@ class App extends React.Component {
               render={props => (
                 <CategoryDetails
                   {...props}
+                  getActIdforActNow={act => this.handleActNow(act)}
                   getCategoryObjforDelete={catObj =>
                     this.deleteCategory(catObj)
                   }
@@ -274,9 +303,11 @@ class App extends React.Component {
               render={props => (
                 <Dashboard
                   {...props}
+                  getActIdforActNow={act => this.handleActNow(act)}
+                  getTheUser={this.getTheUser}
                   getAllActions={this.getAllActions}
                   currentUser={this.state.currentUser}
-                  // suggestedActs={this.state.currentUser.suggestedActs}
+                  suggestedActs={this.state.suggestedActs}
                   categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                   actionsFromBackEnd={this.state.actionsFromBackEnd}
                 />

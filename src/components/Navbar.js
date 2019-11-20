@@ -67,7 +67,7 @@ class Navbar extends React.Component {
       //   </div>
       // </nav>
       <nav
-        className="App-header navbar "
+        className=" navbar impactNavbar is-spaced"
         role="navigation"
         aria-label="main navigation"
       >
@@ -94,9 +94,9 @@ class Navbar extends React.Component {
                 <NavLink to="/" className="navbar-item is-inline">
                   Home
                 </NavLink>
-                <NavLink to="/dashboard" className="navbar-item is-inline">
+                {/* <NavLink to="/dashboard" className="navbar-item is-inline">
                   Dashboard
-                </NavLink>
+                </NavLink> */}
                 <NavLink to="/profile" className="navbar-item is-inline">
                   Profile
                 </NavLink>
