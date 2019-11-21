@@ -180,6 +180,18 @@ class Profile extends Component {
     }
   };
 
+  openTab = (e, tabId) => {
+    let tabcontent = document.getElementsByClassName("tabcontent");
+    for (let i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+
+    let tablink = document.getElementsByClassName("tablink");
+    for (let i = 0; i < tablink.length; i++) {
+      tablink[i].className = tablink[i].className.replace("is-active", "");
+    }
+  };
+
   render() {
     console.log("!!STATE: ", this.state);
     console.log("!!PROPS:", this.props);
@@ -201,158 +213,209 @@ class Profile extends Component {
             <div className="container">
               <div>
                 <p className="subtitle is-1 h1Impact">
-                  Hi there, {this.props.currentUser.fullName}
+                  Hi, {this.props.currentUser.fullName}
+                </p>
+                <p className="subtitle is-3 h1Impact">
+                  You're making an impact
                 </p>
               </div>
+
               <section className="section">
-                <div class="columns">
-                  <div class="column is-two-fifths is-offset-1">
-                    <h1 className="h4Impact">Let's get started!</h1>
-                    {/* <h2>Total is: {this.state.total}</h2> */}
-                    <form onSubmit={this.profileQuery}>
-                      {/* <form onSubmit={this.profileQuery(newUpdatedQuery)}> */}
+                <div className="columns">
+                  <div className="column is-two-fifths is-offset-1">
+                    <div className="tabs is-centered is-toggle is-fullwidth">
+                      <ul>
+                        <li className="is-active tablink">
+                          <a>
+                            <span className="icon is-small">
+                              <i className="fa fa-image" aria-hidden="true"></i>
+                            </span>
+                            <span>Start</span>
+                          </a>
+                        </li>
+                        <li className="tablink">
+                          <a>
+                            <span className="icon is-small">
+                              <i className="fa fa-music" aria-hidden="true"></i>
+                            </span>
+                            <span>Music</span>
+                          </a>
+                        </li>
+                        <li className="tablink">
+                          <a>
+                            <span className="icon is-small">
+                              <i className="fa fa-film" aria-hidden="true"></i>
+                            </span>
+                            <span>Videos</span>
+                          </a>
+                        </li>
+                        <li className="tablink">
+                          <a>
+                            <span className="icon is-small">
+                              <i
+                                className="fa fa-file-alt"
+                                aria-hidden="true"
+                              ></i>
+                            </span>
+                            <span>Documents</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div id="start" className="tabcontent">
+                      <h1 className="h4Impact">Let's get started!</h1>
+                      {/* <h2>Total is: {this.state.total}</h2> */}
+                      <form onSubmit={this.profileQuery}>
+                        {/* <form onSubmit={this.profileQuery(newUpdatedQuery)}> */}
 
-                      <div>
-                        <div className="field">
-                          {/* <label className="label">Do you live in:</label> */}
-                          <p className="control has-icons-left">
-                            <span className="select  is-fullwidth">
-                              <select
-                                name="placeType"
+                        <div>
+                          <div className="field">
+                            {/* <label className="label">Do you live in:</label> */}
+                            <p className="control has-icons-left">
+                              <span className="select  is-fullwidth">
+                                <select
+                                  name="placeType"
+                                  onChange={this.handleChange}
+                                >
+                                  <option selected className="option" value="0">
+                                    Location by ...
+                                  </option>
+                                  <option className="option" value="1">
+                                    Zip code
+                                  </option>
+                                  <option className="option" value="2">
+                                    City
+                                  </option>
+                                  <option className="option" value="3">
+                                    County
+                                  </option>
+                                  <option className="option" value="4">
+                                    State
+                                  </option>
+                                </select>
+                              </span>
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-home"></i>
+                              </span>
+                            </p>
+                          </div>
+
+                          <div className="field ">
+                            <p className="control has-icons-left ">
+                              <input
+                                className="input"
+                                type="text"
+                                name="zipCode"
+                                placeholder="Type your zip-code"
                                 onChange={this.handleChange}
-                              >
-                                <option selected className="option" value="0">
-                                  Location by ...
-                                </option>
-                                <option className="option" value="1">
-                                  Zip code
-                                </option>
-                                <option className="option" value="2">
-                                  City
-                                </option>
-                                <option className="option" value="3">
-                                  County
-                                </option>
-                                <option className="option" value="4">
-                                  State
-                                </option>
-                              </select>
-                            </span>
-                            <span class="icon is-small is-left">
-                              <i class="fa fa-home"></i>
-                            </span>
-                          </p>
+                                value={this.state.zipCode}
+                              />
+                              <span className="icon is-small is-left">
+                                <i className="fa fa-globe"></i>
+                              </span>
+                            </p>
+                          </div>
+
+                          <div className="field">
+                            {/* <label className="label">Do you live in:</label> */}
+                            <p className="control has-icons-left  is-medium">
+                              <span className="select  is-fullwidth">
+                                <select
+                                  name="income"
+                                  onChange={this.handleChange}
+                                >
+                                  <option selected className="option" value="1">
+                                    What is your average annual income?
+                                  </option>
+                                  <option className="option" value="2">
+                                    Less than $10,000
+                                  </option>
+                                  <option className="option" value="3">
+                                    $10,000 to $19,999
+                                  </option>
+                                  <option className="option" value="4">
+                                    $20,000 to $29,999
+                                  </option>
+                                  <option className="option" value="5">
+                                    $30,000 to $39,999
+                                  </option>
+                                  <option className="option" value="6">
+                                    $40,000 to $49,999
+                                  </option>
+                                  <option className="option" value="7">
+                                    $50,000 to $59,999
+                                  </option>
+                                  <option className="option" value="8">
+                                    $60,000 to $79,999
+                                  </option>
+                                  <option className="option" value="9">
+                                    $80,000 to $99,999
+                                  </option>
+                                  <option className="option" value="10">
+                                    $100,000 to $119,999
+                                  </option>
+                                  <option className="option" value="11">
+                                    $120,000 or more
+                                  </option>
+                                </select>
+                              </span>
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-magic"></i>
+                              </span>
+                            </p>
+                          </div>
+
+                          <div className="field">
+                            {/* <label className="label">Do you live in:</label> */}
+                            <p className="control has-icons-left">
+                              <span className="select  is-fullwidth">
+                                <select
+                                  name="householdSize"
+                                  onChange={this.handleChange}
+                                >
+                                  <option selected className="option" value="1">
+                                    How many people live in your household?
+                                  </option>
+                                  <option className="option" value="1">
+                                    1 person
+                                  </option>
+                                  <option className="option" value="2">
+                                    2 people
+                                  </option>
+                                  <option className="option" value="3">
+                                    3 people
+                                  </option>
+                                  <option className="option" value="4">
+                                    4 people
+                                  </option>
+                                  <option className="option" value="5">
+                                    5 or more people
+                                  </option>
+                                </select>
+                              </span>
+                              <span class="icon is-small is-left">
+                                <i class="fa fa-users"></i>
+                              </span>
+                            </p>
+                          </div>
                         </div>
 
-                        <div className="field ">
-                          <p className="control has-icons-left ">
-                            <input
-                              className="input"
-                              type="text"
-                              name="zipCode"
-                              placeholder="Type your zip-code"
-                              onChange={this.handleChange}
-                              value={this.state.zipCode}
-                            />
-                            <span className="icon is-small is-left">
-                              <i className="fa fa-globe"></i>
-                            </span>
+                        <div className="block"></div>
+                        <div className="block">
+                          <p className>
+                            <button className="button impactButton ">
+                              Submit
+                            </button>
                           </p>
                         </div>
-
-                        <div className="field">
-                          {/* <label className="label">Do you live in:</label> */}
-                          <p className="control has-icons-left  is-medium">
-                            <span className="select  is-fullwidth">
-                              <select
-                                name="income"
-                                onChange={this.handleChange}
-                              >
-                                <option selected className="option" value="1">
-                                  What is your average annual income?
-                                </option>
-                                <option className="option" value="2">
-                                  Less than $10,000
-                                </option>
-                                <option className="option" value="3">
-                                  $10,000 to $19,999
-                                </option>
-                                <option className="option" value="4">
-                                  $20,000 to $29,999
-                                </option>
-                                <option className="option" value="5">
-                                  $30,000 to $39,999
-                                </option>
-                                <option className="option" value="6">
-                                  $40,000 to $49,999
-                                </option>
-                                <option className="option" value="7">
-                                  $50,000 to $59,999
-                                </option>
-                                <option className="option" value="8">
-                                  $60,000 to $79,999
-                                </option>
-                                <option className="option" value="9">
-                                  $80,000 to $99,999
-                                </option>
-                                <option className="option" value="10">
-                                  $100,000 to $119,999
-                                </option>
-                                <option className="option" value="11">
-                                  $120,000 or more
-                                </option>
-                              </select>
-                            </span>
-                            <span class="icon is-small is-left">
-                              <i class="fa fa-magic"></i>
-                            </span>
-                          </p>
-                        </div>
-
-                        <div className="field">
-                          {/* <label className="label">Do you live in:</label> */}
-                          <p className="control has-icons-left">
-                            <span className="select  is-fullwidth">
-                              <select
-                                name="householdSize"
-                                onChange={this.handleChange}
-                              >
-                                <option selected className="option" value="1">
-                                  How many people live in your household?
-                                </option>
-                                <option className="option" value="1">
-                                  1 person
-                                </option>
-                                <option className="option" value="2">
-                                  2 people
-                                </option>
-                                <option className="option" value="3">
-                                  3 people
-                                </option>
-                                <option className="option" value="4">
-                                  4 people
-                                </option>
-                                <option className="option" value="5">
-                                  5 or more people
-                                </option>
-                              </select>
-                            </span>
-                            <span class="icon is-small is-left">
-                              <i class="fa fa-users"></i>
-                            </span>
-                          </p>
-                        </div>
-                      </div>
-
-                      <div className="block"></div>
-                      <div className="block">
-                        <p className>
-                          <button className="button impactButton ">
-                            Submit
-                          </button>
-                        </p>
-                      </div>
-                    </form>
+                      </form>
+                    </div>
+                    <div className="tabconent" id="fa">
+                      <p>Fa-la-la-la-la</p>
+                    </div>
+                    <div className="tabconent" id="la">
+                      <p>La-la-la-la</p>
+                    </div>
                   </div>
                   <div className="column">
                     <p className="h4Impact">
