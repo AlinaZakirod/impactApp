@@ -80,7 +80,8 @@ export default class Signup extends React.Component {
               }}
             >
               <div className="field">
-                <label className="label is-large is-1">Sign up</label>
+                <label className="impactTitle h2Impact">Sign up</label>
+                <div className="content"></div>
                 <p className="control has-icons-left ">
                   <input
                     className="input is-medium"
@@ -131,12 +132,12 @@ export default class Signup extends React.Component {
 
               <div className="field">
                 <p className="control">
-                  <button className="button">Sign Up</button>
+                  <button className="button impactButton">Sign Up</button>
                 </p>
               </div>
 
               <div>
-                <p>
+                <p className="subtitle is-5">
                   Already have an account?
                   <Link className="impactInlineButton" to="/login-page">
                     {" "}

@@ -15,6 +15,7 @@ export default class Home extends React.Component {
       arrayOfActions: this.props.actionsFromBackEnd.allActs,
       categoriesFromBackEnd: this.props.categoriesFromBackEnd,
       showEditCategoryForm: false,
+      suggested: this.props.suggestedActs,
       // titleCat: this.props.location.state.details.title,
       // descriptionCat: this.props.location.state.details.description
       titleCat: "",
@@ -57,7 +58,6 @@ export default class Home extends React.Component {
   // };
 
   showCategoryDetails = () => {
-    
     if (this.props.currentUser !== null) {
       // const currentCategory = this.props.location.state.details;
       // const this.state.arrayOfActions = this.props.actionsFromBackEnd;
@@ -242,6 +242,7 @@ export default class Home extends React.Component {
   };
 
   render() {
+    console.log("/////", this.state.suggested);
     if (this.props.currentUser !== null) {
       // console.log("Current category", this.state.currentCategory);
       // console.log("current User:", this.props.currentUser._id);
@@ -249,7 +250,7 @@ export default class Home extends React.Component {
 
       console.log("CATEGORIES FROM BE", this.props.categoriesFromBackEnd);
       return (
-        <section className="hero is-fullheight horizontalCenter">
+        <section className="hero is-fullheight home-bg-img  horizontalCenter">
           <div className="hero-body">
             <div className="container">
               <div>
@@ -277,7 +278,7 @@ export default class Home extends React.Component {
                         <div className="modal-content">
                           <div className="section formModal">
                             <form onSubmit={this.addNewActToDb}>
-                              <p className="title is-4">Add New Action</p>
+                              <p className="title h2Impact">Add New Action</p>
 
                               <div className="field">
                                 <p className="control">
@@ -371,7 +372,7 @@ export default class Home extends React.Component {
                                 <p className>
                                   <button
                                     onClick={this.closeModal}
-                                    className="button"
+                                    className="button is-primary"
                                   >
                                     Submit
                                   </button>
@@ -398,7 +399,7 @@ export default class Home extends React.Component {
                           <div className="column">
                             {/* {!this.state.showEditCategoryForm && ( */}
                             <button
-                              className="button"
+                              className="button is-link is-outlined"
                               onClick={this.showModalCategory}
                             >
                               Edit Category
@@ -411,7 +412,7 @@ export default class Home extends React.Component {
                               <div className="modal-content">
                                 <div className="section formModal">
                                   <form onSubmit={this.editCategoryInDb}>
-                                    <p className="title is-4">
+                                    <p className="title h2Impact">
                                       Edit {this.state.currentCategory.title}
                                     </p>
 
@@ -449,7 +450,7 @@ export default class Home extends React.Component {
                                     <div className="field">
                                       <button
                                         onClick={this.closeModalCategory}
-                                        className="button"
+                                        className="button is-primary"
                                       >
                                         Save changes
                                       </button>
@@ -469,7 +470,7 @@ export default class Home extends React.Component {
 
                           <div className="column">
                             <button
-                              className="button"
+                              className="button is-link is-outlined"
                               onClick={() => {
                                 this.props.getCategoryObjforDelete(
                                   this.props.location.state.details

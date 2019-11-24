@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  margin: 2em;
 }
 
 .App-logo {
@@ -20,17 +19,4 @@
 
 .App-link {
   color: #09d3ac;
-}
-
-.has-bg-img {
-  background-image: url(/landing-page-bg.jpg);
-  background-repeat: no-repeat;
-  background-position: center top;
-}
-
-.impact-title {
-  color: #3c7a89;
-}
-
-body {
 }

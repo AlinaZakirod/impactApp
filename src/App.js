@@ -187,6 +187,8 @@ class App extends React.Component {
     // console.log("the state in APPJS: ", this.state);
     // console.log("++++++++++++++", this.state.categoriesFromBackEnd);
     console.log("APP.JS |  USER", this.state.currentUser);
+    console.log("APP.JS | SUGGESTED ACTS", this.state.suggestedActs);
+
     return (
       <div>
         <div className="">
@@ -288,6 +290,7 @@ class App extends React.Component {
                   getCategoryObjforEdit={(catObj, category) =>
                     this.editCategory(catObj, category)
                   }
+                  suggestedActs={this.state.suggestedActs}
                   getAllActions={this.getAllActions}
                   getAllCategories={this.getAllCategories}
                   currentUser={this.state.currentUser}
@@ -319,7 +322,10 @@ class App extends React.Component {
               render={props => (
                 <Profile
                   {...props}
+                  suggestedActs={this.state.suggestedActs}
+                  getActIdforActNow={act => this.handleActNow(act)}
                   currentUser={this.state.currentUser}
+                  getTheUser={this.getTheUser}
                   categoriesFromBackEnd={this.state.categoriesFromBackEnd}
                   actionsFromBackEnd={this.state.actionsFromBackEnd}
                 />

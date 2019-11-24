@@ -1,12 +1,16 @@
 body {
-  margin: 2em;
+  margin: 0;
+  padding: 0;
+  background-image: url(/logo192.png) no-repeat center top fixed !important;
+  /* background-color: ; */
 
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Montserrat", "Segoe UI",
+    "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+  height: 100vw;
 }
 
 code {
@@ -14,27 +18,31 @@ code {
     monospace;
 }
 
-.impactTitle {
-  color: #3c7a89;
-}
+/* .impactTitle {
+  color: #3c7a89 !important;
+  font-weight: 500 !important;
+} */
 
 .horizontalCenter {
-  margin-top: -10vh;
+  margin-top: -35vh;
 }
 
 .impactInlineButton {
-  color: #3c7a89 !important;
+  color: #3773dd !important;
   margin: 0 auto;
   border: none !important;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .impactButton {
-  margin: 2vw;
+  margin: 1vw 0;
+  background-color: #e4674e !important;
+  color: white !important;
 }
 
 .impactNavbar {
   background-color: transparent !important;
+  background-image: none !important;
 }
 
 .formModal {
@@ -42,4 +50,67 @@ code {
   position: fixed;
   width: 45%;
   top: 30%;
+}
+
+.h1Impact {
+  font-family: "Montserrat";
+  font-weight: 100;
+  font-size: 5.5em;
+  color: #444 !important;
+}
+
+.h2Impact {
+  font-family: "Montserrat";
+  font-size: 2em;
+  font-weight: 500;
+  color: #444 !important;
+  margin: 0.5vw 0;
+}
+.h4Impact {
+  font-family: "Montserrat";
+  font-size: 1.6em;
+  font-weight: 400;
+  color: #444 !important;
+  margin: 0.5vw 0;
+}
+
+.h5Impact {
+  font-family: "Montserrat";
+  font-size: 1.4em;
+  font-weight: 400;
+  color: #444 !important;
+  margin: 0.5vw 0;
+}
+
+.margin-right {
+  margin-right: 1em !important;
+}
+
+.home-bg-img {
+  background-image: url(/home.jpg);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-attachment: fixed;
+  background-size: contain;
+  height: 80vw;
+}
+
+.has-bg-img {
+  background-image: url(/landing-page-min.jpg);
+  background-repeat: no-repeat;
+  background-position: right center;
+  background-attachment: scroll;
+  background-size: contain;
+  height: 80vw;
+}
+
+.impactLogo {
+  font-family: "Montserrat";
+  font-weight: 900;
+  color: #3773dd;
+  font-size: 2em;
+}
+
+.right-align {
+  text-align: right !important;
 }

@@ -84,18 +84,20 @@ export default class Home extends React.Component {
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
-        <section className="hero is-fullheight horizontalCenter">
+        <section className="hero is-fullheight home-bg-img  horizontalCenter">
           <div className="hero-body">
             <div className="container">
               <div>
-                <p className="subtitle is-1">Think global | Act Local</p>
+                <p className="subtitle is-1 h1Impact">
+                  Think global | Act Local
+                </p>
                 {/* <p className="subtitle is-1">Act local</p> */}
               </div>
 
               <section className="section">
-                <h3 className="title is-3">All categories:</h3>
+                <h3 className="title h2Impact">Pick category:</h3>
 
-                <div className="columns  is-multiline is-8 is-variable is-centered">
+                <div className="columns  is-multiline is-8 is-variable">
                   <CategoryList
                     categoriesFromBackEnd={this.props.categoriesFromBackEnd}
                     currentUser={this.props.currentUser}
@@ -104,7 +106,7 @@ export default class Home extends React.Component {
                 </div>
               </section>
               {/* {!this.state.showAddCategoryForm && this.props.currentUser && ( */}
-              <button onClick={this.showModal} className="button">
+              <button onClick={this.showModal} className="button impactButton">
                 Add New Category
               </button>
               {/* )} */}
@@ -114,7 +116,7 @@ export default class Home extends React.Component {
                 <div className="modal-content">
                   <div className="section formModal">
                     <form onSubmit={this.addNewCategory}>
-                      <p className="title is-4">Add New Category</p>
+                      <p className="title h2Impact">Add New Category</p>
                       <div className="field">
                         <p className="control">
                           <input
@@ -141,7 +143,10 @@ export default class Home extends React.Component {
                         </p>
                       </div>
                       <div className="field">
-                        <button onClick={this.closeModal} className="button">
+                        <button
+                          onClick={this.closeModal}
+                          className="button is-primary"
+                        >
                           Submit
                         </button>
                       </div>
@@ -192,6 +197,11 @@ export default class Home extends React.Component {
           </div>
         </section>
       );
-    } else return "Loading";
+    } else
+      return (
+        <button onClick={this.showModal} className="button">
+          Add New Category
+        </button>
+      );
   }
 }

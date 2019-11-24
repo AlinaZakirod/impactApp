@@ -79,20 +79,22 @@ export default class Login extends React.Component {
       // </section>
 
       <section
-        className="hero is-fullheight has-bg-img  horizontalCenter "
+        className="hero is-fullheight horizontalCenter  has-bg-img"
+
         // style={{ marginBottom: 500 }}
       >
         <div className="hero-body">
           {/* <div class="columns"> */}
-          <div className="column is-one-fifth"></div>
+          <div className="column  is-one-fifth"></div>
           <div className="column is-one-quarter has-text-left">
             <form
               onSubmit={event => {
                 this.handleSubmit(event);
               }}
             >
-              <div className="field">
-                <label className="label is-large is-1">Login</label>
+              <div className="field ">
+                <label className="impactTitle h2Impact">Login</label>
+                <div className="content"></div>
                 <p className="control has-icons-left ">
                   <input
                     className="input is-medium"
@@ -126,12 +128,12 @@ export default class Login extends React.Component {
 
               <div className="field">
                 <p className="control">
-                  <button className="button">Login</button>
+                  <button className="button impactButton">Login</button>
                 </p>
               </div>
 
               <div>
-                <p>
+                <p className="subtitle is-5">
                   Don't have an account?{" "}
                   <Link className="impactInlineButton" to="/signup-page">
                     Signup
