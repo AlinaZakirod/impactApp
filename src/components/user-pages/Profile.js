@@ -190,6 +190,9 @@ class Profile extends Component {
     for (let i = 0; i < tablink.length; i++) {
       tablink[i].className = tablink[i].className.replace("is-active", "");
     }
+
+    document.getElementById(tabId).style.display = "block";
+    e.currentTarget.className += "is-active";
   };
 
   render() {
@@ -225,7 +228,10 @@ class Profile extends Component {
                   <div className="column is-two-fifths is-offset-1">
                     <div className="tabs is-centered is-toggle is-fullwidth">
                       <ul>
-                        <li className="is-active tablink">
+                        <li
+                          className="is-active tablink"
+                          onClick={e => this.openTab(e, "start")}
+                        >
                           <a>
                             <span className="icon is-small">
                               <i className="fa fa-image" aria-hidden="true"></i>
@@ -233,7 +239,10 @@ class Profile extends Component {
                             <span>Start</span>
                           </a>
                         </li>
-                        <li className="tablink">
+                        <li
+                          className="tablink"
+                          onClick={e => this.openTab(e, "household")}
+                        >
                           <a>
                             <span className="icon is-small">
                               <i className="fa fa-music" aria-hidden="true"></i>
@@ -241,7 +250,10 @@ class Profile extends Component {
                             <span>Music</span>
                           </a>
                         </li>
-                        <li className="tablink">
+                        <li
+                          className="tablink"
+                          onClick={e => this.openTab(e, "transport")}
+                        >
                           <a>
                             <span className="icon is-small">
                               <i className="fa fa-film" aria-hidden="true"></i>
