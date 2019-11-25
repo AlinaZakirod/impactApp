@@ -35,7 +35,7 @@ code {
 }
 
 .impactButton {
-  margin: 1vw 0;
+  /* margin: 1vw 0; */
   background-color: #e4674e !important;
   color: white !important;
 }
@@ -113,4 +113,15 @@ code {
 
 .right-align {
   text-align: right !important;
+}
+
+.tabcontent {
+  display: none;
+}
+#start {
+  display: block;
+}
+
+.tabImpact {
+  border-color: #444 !important;
 }

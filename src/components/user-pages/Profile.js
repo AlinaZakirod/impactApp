@@ -11,6 +11,12 @@ class Profile extends Component {
       income: "",
       placeType: "",
       total: "",
+      houseArea: "",
+      waterWage: "",
+      milesAYear: "",
+      mpg: "",
+      shoppingServices: "",
+      shoppingMeatFishEggs: "",
       suggested: this.props.suggestedActs,
 
       categories: this.props.categoriesFromBackEnd,
@@ -68,18 +74,33 @@ class Profile extends Component {
           householdSize: "",
           income: "",
           placeType: "",
+          houseArea: "",
+          waterWage: "",
+          milesAYear: "",
+          mpg: "",
+          shoppingServices: "",
+          shoppingMeatFishEggs: "",
           suggestedActs: this.props.currentUser.suggestedActs
         });
       })
       .catch(err => console.log("Error while getting data from CC", err));
   };
 
-  carbonFootprintGarde = () => {
+  carbonFootprintGrade = () => {
     if (this.state.total) {
-      if (this.state.total < 17) {
+      if (this.state.total < 20) {
         return "'A', Awesome job! Keep it up";
-      } else if (this.state.total > 20) {
-        return "'B, Doing great. See Suggested Acts to get even better!'";
+      } else if (this.state.total < 30) {
+        return (
+          <div>
+            <p>'B'</p>
+            <p className="">
+              Doing great. See Suggested Acts to get even better!
+            </p>
+          </div>
+        );
+      } else if (this.state.total < 40) {
+        return "'C', You can do better. See Suggested Acts";
       } else if (this.state.total === "") {
         return " ";
       }
@@ -181,18 +202,24 @@ class Profile extends Component {
   };
 
   openTab = (e, tabId) => {
+    console.log(".......", tabId);
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
 
     let tablink = document.getElementsByClassName("tablink");
+    console.log(",,,,,,,,,,,,,", tablink);
     for (let i = 0; i < tablink.length; i++) {
       tablink[i].className = tablink[i].className.replace("is-active", "");
     }
 
-    document.getElementById(tabId).style.display = "block";
     e.currentTarget.className += "is-active";
+    console.log("LLLLLL", document.getElementById(tabId));
+    console.log("PPPP", tabId);
+    let thisBlock = document.getElementById(tabId);
+    console.log("this block", thisBlock);
+    document.getElementById(tabId).style.display = "block";
   };
 
   render() {
@@ -226,7 +253,7 @@ class Profile extends Component {
               <section className="section">
                 <div className="columns">
                   <div className="column is-two-fifths is-offset-1">
-                    <div className="tabs is-centered is-toggle is-fullwidth">
+                    <div className="tabs is-centered is-toggle is-fullwidth tabImpact">
                       <ul>
                         <li
                           className="is-active tablink"
@@ -234,7 +261,10 @@ class Profile extends Component {
                         >
                           <a>
                             <span className="icon is-small">
-                              <i className="fa fa-image" aria-hidden="true"></i>
+                              <i
+                                className="fa fa-sign-in"
+                                aria-hidden="true"
+                              ></i>
                             </span>
                             <span>Start</span>
                           </a>
@@ -245,39 +275,43 @@ class Profile extends Component {
                         >
                           <a>
                             <span className="icon is-small">
-                              <i className="fa fa-music" aria-hidden="true"></i>
+                              <i className="fa fa-home" aria-hidden="true"></i>
                             </span>
-                            <span>Music</span>
+                            <span>Household</span>
                           </a>
                         </li>
                         <li
                           className="tablink"
-                          onClick={e => this.openTab(e, "transport")}
+                          onClick={e => this.openTab(e, "commute")}
                         >
                           <a>
                             <span className="icon is-small">
-                              <i className="fa fa-film" aria-hidden="true"></i>
+                              <i className="fa fa-car" aria-hidden="true"></i>
                             </span>
-                            <span>Videos</span>
+                            <span>Commute</span>
                           </a>
                         </li>
-                        <li className="tablink">
+
+                        <li
+                          className="tablink"
+                          onClick={e => this.openTab(e, "shop")}
+                        >
                           <a>
                             <span className="icon is-small">
                               <i
-                                className="fa fa-file-alt"
+                                className="fa fa-shopping-bag"
                                 aria-hidden="true"
                               ></i>
                             </span>
-                            <span>Documents</span>
+                            <span>Shopping</span>
                           </a>
                         </li>
                       </ul>
                     </div>
-                    <div id="start" className="tabcontent">
-                      <h1 className="h4Impact">Let's get started!</h1>
-                      {/* <h2>Total is: {this.state.total}</h2> */}
-                      <form onSubmit={this.profileQuery}>
+                    <form onSubmit={this.profileQuery}>
+                      <div id="start" className="tabcontent">
+                        <h1 className="h4Impact">Let's get started!</h1>
+                        {/* <h2>Total is: {this.state.total}</h2> */}
                         {/* <form onSubmit={this.profileQuery(newUpdatedQuery)}> */}
 
                         <div>
@@ -415,19 +449,171 @@ class Profile extends Component {
                         <div className="block"></div>
                         <div className="block">
                           <p className>
-                            <button className="button impactButton ">
-                              Submit
+                            <button
+                              className="button is-link is-outlined"
+                              onClick={e => this.openTab(e, "household")}
+                            >
+                              Next
                             </button>
                           </p>
                         </div>
-                      </form>
-                    </div>
-                    <div className="tabconent" id="fa">
-                      <p>Fa-la-la-la-la</p>
-                    </div>
-                    <div className="tabconent" id="la">
-                      <p>La-la-la-la</p>
-                    </div>
+                      </div>
+                      <div className="tabcontent" id="household">
+                        <p className="h4Impact">Household Details</p>
+                        <div>
+                          <div className="field ">
+                            <p className="control">
+                              <input
+                                className="input"
+                                type="text"
+                                name="houseArea"
+                                placeholder="Your House area in Sq Ft"
+                                onChange={this.handleChange}
+                                value={this.state.houseArea}
+                              />
+                            </p>
+                          </div>
+
+                          {/* <input_footprint_housing_watersewage> */}
+
+                          <div className="field ">
+                            <p>
+                              <input
+                                className="input"
+                                type="text"
+                                name="waterWage"
+                                placeholder="What is your average Water Wage"
+                                onChange={this.handleChange}
+                                value={this.state.waterWage}
+                              />
+                            </p>
+                          </div>
+
+                          <div className="columns">
+                            <div className="column">
+                              <button
+                                className="button is-link is-outlined"
+                                onClick={e => this.openTab(e, "start")}
+                              >
+                                Previous
+                              </button>
+                            </div>
+
+                            <div className="column">
+                              <button
+                                className="button is-link is-outlined"
+                                onClick={e => this.openTab(e, "commute")}
+                              >
+                                Next
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="tabcontent" id="shop">
+                        <p className="h4Impact">Shopping</p>
+                        <div>
+                          {/* <input_footprint_housing_watersewage> */}
+
+                          <div className="field ">
+                            <p>
+                              <input
+                                className="input"
+                                type="number"
+                                name="shoppingServices"
+                                placeholder="$/yr total services"
+                                onChange={this.handleChange}
+                                value={this.state.shoppingServices}
+                              />
+                            </p>
+                          </div>
+
+                          <div className="field ">
+                            <p>
+                              <input
+                                className="input"
+                                type="number"
+                                name="shoppingMeatFishEggs"
+                                placeholder="$/yr total on meat, fish, eggs"
+                                onChange={this.handleChange}
+                                value={this.state.shoppingMeatFishEggs}
+                              />
+                            </p>
+                          </div>
+
+                          <div className="columns">
+                            <div className="column">
+                              <button
+                                className="button is-link is-outlined"
+                                onClick={e => this.openTab(e, "commute")}
+                              >
+                                Previous
+                              </button>
+                            </div>
+
+                            <div className="column">
+                              <button className="button impactButton">
+                                Submit
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="tabcontent" id="commute">
+                        <p className="h4Impact">Commute</p>
+                        <div>
+                          <div className="field ">
+                            <p className="control">
+                              <input
+                                className="input"
+                                type="text"
+                                name="milesAYear"
+                                placeholder="The number of miles your vehicle travels in a year"
+                                onChange={this.handleChange}
+                                value={this.state.milesAYear}
+                              />
+                            </p>
+                          </div>
+
+                          <div>
+                            <div className="field ">
+                              <p className="control">
+                                <input
+                                  className="input"
+                                  type="text"
+                                  name="mpg"
+                                  placeholder="Your vehicle's fuel efficiency in miles per gallon"
+                                  onChange={this.handleChange}
+                                  value={this.state.mpg}
+                                />
+                              </p>
+                            </div>
+
+                            <div className="columns">
+                              <div className="column">
+                                <button
+                                  className="button is-link is-outlined"
+                                  onClick={e => this.openTab(e, "household")}
+                                >
+                                  Previous
+                                </button>
+                              </div>
+
+                              <div className="column">
+                                <button
+                                  className="button is-link is-outlined"
+                                  onClick={e => this.openTab(e, "shopping")}
+                                >
+                                  Next
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
                   </div>
                   <div className="column">
                     <p className="h4Impact">
@@ -437,7 +623,7 @@ class Profile extends Component {
                     <p className="h5Impact">
                       Your grade is:{" "}
                       <b className="has-text-grey-darker">
-                        {this.carbonFootprintGarde()}
+                        {this.carbonFootprintGrade()}
                       </b>
                     </p>
 
@@ -492,8 +678,10 @@ class Profile extends Component {
                         <div className="column is-3">
                           <div className="card" key={i}>
                             <header className="card-header">
-                              <p className="card-header-title is-centered">
+                              <p className="card-header-title">
                                 {singleAct.title}
+                              </p>
+                              <p className="card-header-title">
                                 {singleAct.value}
                               </p>
                             </header>
