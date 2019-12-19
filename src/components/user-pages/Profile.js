@@ -641,32 +641,6 @@ class Profile extends Component {
                         Your score is {this.state.score}
                       </p>
                     )}
-
-                    {!this.state.detailsUnfolded &&
-                      this.props.currentUser.score > 0 && (
-                        <button
-                          className="button is-link is-outlined"
-                          onClick={this.toggleForm}
-                        >
-                          View Details
-                        </button>
-                      )}
-                    {this.state.detailsUnfolded && (
-                      <div>
-                        <p className="impactTitle title is-5">
-                          Completed acts:
-                        </p>
-                        <div className="columns is-centered is-multiline">
-                          {this.showDetails()}
-                        </div>
-                        <button
-                          className="button is-link is-outlined"
-                          onClick={this.toggleForm}
-                        >
-                          Show Less
-                        </button>
-                      </div>
-                    )}
                   </div>
                 </div>
 
@@ -705,6 +679,29 @@ class Profile extends Component {
                       );
                     })}
                   </div>
+                  {!this.state.detailsUnfolded &&
+                    this.props.currentUser.score > 0 && (
+                      <button
+                        className="button is-link is-outlined"
+                        onClick={this.toggleForm}
+                      >
+                        View Completed Acts
+                      </button>
+                    )}
+                  {this.state.detailsUnfolded && (
+                    <div>
+                      <p className="impactTitle title is-5">Completed acts:</p>
+                      <div className="columns is-centered is-multiline">
+                        {this.showDetails()}
+                      </div>
+                      <button
+                        className="button is-link is-outlined"
+                        onClick={this.toggleForm}
+                      >
+                        Show Less
+                      </button>
+                    </div>
+                  )}
                 </div>
               </section>
             </div>
