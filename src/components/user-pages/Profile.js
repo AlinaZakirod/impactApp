@@ -128,7 +128,7 @@ class Profile extends Component {
     {
       return completedWhole.map((singleAction, i) => {
         return (
-          <div className="column is-half">
+          <div className="column">
             <div className="card" key={i}>
               <header className="card-header">
                 <p className="card-header-title  is-centered">
@@ -220,6 +220,20 @@ class Profile extends Component {
     let thisBlock = document.getElementById(tabId);
     console.log("this block", thisBlock);
     document.getElementById(tabId).style.display = "block";
+  };
+
+  showModal = () => {
+    let displayModal = document.getElementById("displayModal");
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+
+    modal.style.display = "block";
+  };
+
+  closeModal = () => {
+    let modal = document.getElementById("modal");
+    let close = document.getElementsByClassName("modal-close")[0];
+    modal.style.display = "none";
   };
 
   render() {
@@ -641,6 +655,58 @@ class Profile extends Component {
                         Your score is {this.state.score}
                       </p>
                     )}
+
+                    {/* {!this.state.detailsUnfolded &&
+                      this.props.currentUser.score > 0 && (
+                        <button
+                          className="button is-link is-outlined"
+                          onClick={this.toggleForm}
+                        >
+                          View Completed Acts
+                        </button>
+                      )}
+                    {this.state.detailsUnfolded && (
+                      <div>
+                        <p className="impactTitle title is-5">
+                          Completed acts:
+                        </p>
+                        <div className="columns is-centered is-multiline">
+                          {this.showDetails()}
+                        </div>
+                        <button
+                          className="button is-link is-outlined"
+                          onClick={this.toggleForm}
+                        >
+                          Show Less
+                        </button>
+                      </div>
+                    )} */}
+                    <button
+                      onClick={this.showModal}
+                      className="button is-link is-outlined"
+                    >
+                      View Details
+                    </button>
+                  </div>
+                  <div className="modal" id="modal">
+                    <div className="modal-background"></div>
+                    <div className="modal-content">
+                      <div className="section formModal">
+                        <div>
+                          <p className="impactTitle title is-5">
+                            Completed acts:
+                          </p>
+                          <div className="columns is-centered is-multiline">
+                            {this.showDetails()}
+                          </div>
+                        </div>
+                      </div>
+                      <button
+                        onClick={this.closeModal}
+                        className="modal-close is-large"
+                        aria-label="close"
+                      ></button>
+                    </div>
                   </div>
                 </div>
 
@@ -679,29 +745,6 @@ class Profile extends Component {
                       );
                     })}
                   </div>
-                  {!this.state.detailsUnfolded &&
-                    this.props.currentUser.score > 0 && (
-                      <button
-                        className="button is-link is-outlined"
-                        onClick={this.toggleForm}
-                      >
-                        View Completed Acts
-                      </button>
-                    )}
-                  {this.state.detailsUnfolded && (
-                    <div>
-                      <p className="impactTitle title is-5">Completed acts:</p>
-                      <div className="columns is-centered is-multiline">
-                        {this.showDetails()}
-                      </div>
-                      <button
-                        className="button is-link is-outlined"
-                        onClick={this.toggleForm}
-                      >
-                        Show Less
-                      </button>
-                    </div>
-                  )}
                 </div>
               </section>
             </div>
