@@ -48,8 +48,9 @@ code {
 .formModal {
   background-color: white;
   position: fixed;
-  width: 45%;
-  top: 30%;
+  width: 60%;
+  top: 15%;
+  left: 20%;
 }
 
 .h1Impact {
@@ -91,7 +92,7 @@ code {
   background-repeat: no-repeat;
   background-position: top center;
   background-attachment: fixed;
-  background-size: contain;
+  background-size: cover;
   height: 80vw;
 }
 

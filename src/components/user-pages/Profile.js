@@ -70,10 +70,10 @@ class Profile extends Component {
         console.log("Response is:", responseFromBackEnd.data);
         this.setState({
           total: responseFromBackEnd.data.total,
-          zipCode: "",
-          householdSize: "",
-          income: "",
-          placeType: "",
+          // zipCode: "",
+          // householdSize: "",
+          // income: "",
+          // placeType: "",
           houseArea: "",
           waterWage: "",
           milesAYear: "",
@@ -148,29 +148,6 @@ class Profile extends Component {
         );
       });
     }
-    // {
-    //   completedWhole.map((oneAct, i) => {
-    //     console.log("Mapping whole acts: ", oneAct);
-    //     return (
-    //       <div>
-    //         <p>Something here</p>
-    //       </div>
-    //       // <div className="column is-2">
-    //       //   <p>Blah</p>
-    //       //   <div className="card" key={i}>
-    //       //     <header className="card-header">
-    //       //       <p className="card-header-title is-centered">{oneAct.title}</p>
-    //       //     </header>
-    //       //     <div className="card-content">
-    //       //       <div className="content">
-    //       //         <p>{oneAct.description}</p>
-    //       //       </div>
-    //       //     </div>
-    //       //   </div>
-    //       // </div>
-    //     );
-    //   });
-    // }
   };
 
   handleActNow = singleAct => {
@@ -305,7 +282,6 @@ class Profile extends Component {
                             <span>Commute</span>
                           </a>
                         </li>
-
                         <li
                           className="tablink"
                           onClick={e => this.openTab(e, "shop")}
@@ -693,6 +669,9 @@ class Profile extends Component {
                     <div className="modal-content">
                       <div className="section formModal">
                         <div>
+                          <p className="impactTitle title is-3">
+                            Your score is {this.state.score}
+                          </p>
                           <p className="impactTitle title is-5">
                             Completed acts:
                           </p>
