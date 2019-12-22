@@ -61,6 +61,10 @@ class Profile extends Component {
       `${this.state.income}` +
       "&input_size=" +
       `${this.state.householdSize}` +
+      "&input_footprint_housing_squarefeet=" +
+      `${this.state.houseArea}` +
+      "&input_footprint_housing_watersewage=" +
+      `${this.state.waterWage}` +
       "&op=get_defaults_and_results";
     console.log("QUERY IS:", newQuery);
 
@@ -74,8 +78,8 @@ class Profile extends Component {
           // householdSize: "",
           // income: "",
           // placeType: "",
-          houseArea: "",
-          waterWage: "",
+          // houseArea: "",
+          // waterWage: "",
           milesAYear: "",
           mpg: "",
           shoppingServices: "",
@@ -606,16 +610,23 @@ class Profile extends Component {
                     </form>
                   </div>
                   <div className="column">
-                    <p className="h4Impact">
-                      Annual footprint of your household is{" "}
-                      <b className="has-text-grey-darker">{this.state.total}</b>
-                    </p>
-                    <p className="h5Impact">
-                      Your grade is:{" "}
-                      <b className="has-text-grey-darker">
-                        {this.carbonFootprintGrade()}
-                      </b>
-                    </p>
+                    {this.state.total && (
+                      <div>
+                        <p className="h4Impact">
+                          Household footprint is{" "}
+                          <b className="has-text-grey-darker">
+                            {this.state.total}
+                          </b>{" "}
+                          tons CO2eq/year
+                        </p>
+                        <p className="h5Impact">
+                          Your grade is:{" "}
+                          <b className="has-text-grey-darker">
+                            {this.carbonFootprintGrade()}
+                          </b>
+                        </p>
+                      </div>
+                    )}
 
                     {this.state.showUpdatedScore == false && (
                       <p className="h5Impact">
