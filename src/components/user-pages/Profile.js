@@ -240,9 +240,9 @@ class Profile extends Component {
                 <p className="subtitle is-1 h1Impact">
                   Hi, {this.props.currentUser.fullName}
                 </p>
-                <p className="subtitle is-3 h1Impact">
+                {/* <p className="subtitle is-3 h1Impact">
                   You're making an impact
-                </p>
+                </p> */}
               </div>
 
               <section className="section">
