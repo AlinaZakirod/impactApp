@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { thisExpression } from "@babel/types";
 
 class Profile extends Component {
   constructor(props) {
@@ -196,8 +195,8 @@ class Profile extends Component {
     }
 
     e.currentTarget.className += "is-active";
-    console.log("LLLLLL", document.getElementById(tabId));
-    console.log("PPPP", tabId);
+    // console.log("LLLLLL", document.getElementById(tabId));
+    // console.log("PPPP", tabId);
     let thisBlock = document.getElementById(tabId);
     console.log("this block", thisBlock);
     document.getElementById(tabId).style.display = "block";
@@ -240,9 +239,6 @@ class Profile extends Component {
                 <p className="subtitle is-1 h1Impact">
                   Hi, {this.props.currentUser.fullName}
                 </p>
-                {/* <p className="subtitle is-3 h1Impact">
-                  You're making an impact
-                </p> */}
               </div>
 
               <section className="section">

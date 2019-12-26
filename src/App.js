@@ -14,7 +14,7 @@ import CategoryList from "./components/category-components/CategoryList";
 import CategoryDetails from "./components/category-components/CategoryDetails";
 import Dashboard from "./components/user-pages/Dashboard";
 import Profile from "./components/user-pages/Profile";
-import NavExample from "./components/user-pages/NavbarExample";
+import Community from "./components/user-pages/Community";
 
 class App extends React.Component {
   constructor(props) {
@@ -31,12 +31,6 @@ class App extends React.Component {
     this.getTheUser();
     this.getAllCategories();
     this.getAllActions();
-
-    // setTimeout(() => {
-    //   this.setState({
-    //     ready: true
-    //   });
-    // }, 1000);
   }
 
   syncCurrentUSer(user) {
@@ -331,6 +325,7 @@ class App extends React.Component {
                 />
               )}
             />
+            <Route exact path="/community" component={Community} />
           </Switch>
         </div>
       </div>
