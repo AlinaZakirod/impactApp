@@ -132,7 +132,7 @@ class Profile extends Component {
     {
       return completedWhole.map((singleAction, i) => {
         return (
-          <div className="column">
+          <div className="column is-one-quarter">
             <div className="card" key={i}>
               <header className="card-header">
                 <p className="card-header-title  is-centered">
@@ -612,31 +612,6 @@ class Profile extends Component {
                       </p>
                     )}
 
-                    {/* {!this.state.detailsUnfolded &&
-                      this.props.currentUser.score > 0 && (
-                        <button
-                          className="button is-link is-outlined"
-                          onClick={this.toggleForm}
-                        >
-                          View Completed Acts
-                        </button>
-                      )}
-                    {this.state.detailsUnfolded && (
-                      <div>
-                        <p className="impactTitle title is-5">
-                          Completed acts:
-                        </p>
-                        <div className="columns is-centered is-multiline">
-                          {this.showDetails()}
-                        </div>
-                        <button
-                          className="button is-link is-outlined"
-                          onClick={this.toggleForm}
-                        >
-                          Show Less
-                        </button>
-                      </div>
-                    )} */}
                     <button
                       onClick={this.showModal}
                       className="button is-link is-outlined"
@@ -655,7 +630,7 @@ class Profile extends Component {
                           <p className="impactTitle title is-5">
                             Completed acts:
                           </p>
-                          <div className="columns is-centered is-multiline">
+                          <div className="columns is-multiline">
                             {this.showDetails()}
                           </div>
                         </div>
