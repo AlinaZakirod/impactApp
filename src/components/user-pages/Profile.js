@@ -309,37 +309,6 @@ class Profile extends Component {
                         {/* <form onSubmit={this.profileQuery(newUpdatedQuery)}> */}
 
                         <div>
-                          <div className="field">
-                            {/* <label className="label">Do you live in:</label> */}
-                            <p className="control has-icons-left">
-                              <span className="select  is-fullwidth">
-                                <select
-                                  name="placeType"
-                                  onChange={this.handleChange}
-                                >
-                                  <option selected className="option" value="0">
-                                    Location by ...
-                                  </option>
-                                  <option className="option" value="1">
-                                    Zip code
-                                  </option>
-                                  <option className="option" value="2">
-                                    City
-                                  </option>
-                                  <option className="option" value="3">
-                                    County
-                                  </option>
-                                  <option className="option" value="4">
-                                    State
-                                  </option>
-                                </select>
-                              </span>
-                              <span class="icon is-small is-left">
-                                <i class="fa fa-home"></i>
-                              </span>
-                            </p>
-                          </div>
-
                           <div className="field ">
                             <p className="control has-icons-left ">
                               <input
@@ -617,7 +586,7 @@ class Profile extends Component {
                           <b className="has-text-grey-darker">
                             {this.state.total}
                           </b>{" "}
-                          tons CO2eq/year
+                          tons CO<sup>2</sup>eq/year
                         </p>
                         <p className="h5Impact">
                           Your grade is:{" "}
@@ -681,7 +650,7 @@ class Profile extends Component {
                       <div className="section formModal">
                         <div>
                           <p className="impactTitle title is-3">
-                            Your score is {this.state.score}
+                            Your score is {this.props.currentUser.score}
                           </p>
                           <p className="impactTitle title is-5">
                             Completed acts:
