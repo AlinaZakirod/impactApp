@@ -6,7 +6,16 @@ class Community extends Component {
     super(props);
   }
 
-  getAllUsers = () => {};
+  getAllUsers = () => {
+    axios
+      .post(`${process.env.REACT_APP_IMPACT_SERVER}/community`)
+      .then(allUsersFromBackend => {
+        console.log("Users:", allUsersFromBackend.data);
+      })
+      .catch(err =>
+        console.log("Error while getting users from the backend", err)
+      );
+  };
 
   render() {
     return (
@@ -17,6 +26,7 @@ class Community extends Component {
               <p>hello</p>
               <p>Community!</p>
               {this.getAllUsers}
+              <p>Users:</p>
             </div>
           </div>
         </div>

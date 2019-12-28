@@ -31,6 +31,17 @@ class App extends React.Component {
     this.getTheUser();
     this.getAllCategories();
     this.getAllActions();
+
+    // getAllUsers = () => {
+    //   axios
+    //     .post(`${process.env.REACT_APP_IMPACT_SERVER}/community`)
+    //     .then(allUsersFromBackend => {
+    //       console.log("Users:", allUsersFromBackend.data);
+    //     })
+    //     .catch(err =>
+    //       console.log("Error while getting users from the backend", err)
+    //     );
+    // };
   }
 
   syncCurrentUSer(user) {

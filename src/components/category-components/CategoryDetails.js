@@ -260,94 +260,90 @@ export default class Home extends React.Component {
                   <div>
                     {/* start of Add Action */}
 
-                    <div className="content">
-                      <div className="field">
-                        {/* {!this.state.showAddActForm && ( */}
-                        <button
-                          className="button impactButton"
-                          onClick={this.showModal}
-                        >
-                          Add New Action
-                        </button>
-                        {/* )} */}
-                      </div>
+                    {/* {!this.state.showAddActForm && ( */}
+                    <button
+                      className="button impactButton"
+                      onClick={this.showModal}
+                    >
+                      Add New Action
+                    </button>
 
-                      {/* {this.state.showAddActForm && ( */}
-                      <div className="modal" id="modal">
-                        <div className="modal-background"></div>
-                        <div className="modal-content">
-                          <div className="section formModal">
-                            <form onSubmit={this.addNewActToDb}>
-                              <p className="title h2Impact">Add New Action</p>
+                    {/* {this.state.showAddActForm && ( */}
+                    <div className="modal" id="modal">
+                      <div className="modal-background"></div>
+                      <div className="modal-content">
+                        <div className="section formModal">
+                          <form onSubmit={this.addNewActToDb}>
+                            <p className="title h2Impact">Add New Action</p>
 
-                              <div className="field">
-                                <p className="control">
-                                  <input
-                                    className="input"
-                                    type="text"
-                                    name="titleAct"
-                                    placeholder="Name new action"
-                                    value={this.state.titleAct}
+                            <div className="field">
+                              <p className="control">
+                                <input
+                                  className="input"
+                                  type="text"
+                                  name="titleAct"
+                                  placeholder="Name new action"
+                                  value={this.state.titleAct}
+                                  onChange={this.handleChange}
+                                />
+                              </p>
+                            </div>
+
+                            <div className="field">
+                              <p className="control">
+                                <input
+                                  className="input"
+                                  type="text"
+                                  name="descriptionAct"
+                                  placeholder="Describe new action"
+                                  value={this.state.descriptionAct}
+                                  onChange={this.handleChange}
+                                />
+                              </p>
+                            </div>
+
+                            <div className="field">
+                              <p className="control">
+                                <input
+                                  className="input"
+                                  type="number"
+                                  name="valueOfAct"
+                                  placeholder="How many points its worth?"
+                                  min="0"
+                                  value={this.state.valueOfAct}
+                                  onChange={this.handleChange}
+                                />
+                              </p>
+                            </div>
+
+                            <div className="field">
+                              <p className="control">
+                                <span className="select  is-fullwidth">
+                                  <select
+                                    name="actCategory"
                                     onChange={this.handleChange}
-                                  />
-                                </p>
-                              </div>
-
-                              <div className="field">
-                                <p className="control">
-                                  <input
-                                    className="input"
-                                    type="text"
-                                    name="descriptionAct"
-                                    placeholder="Describe new action"
-                                    value={this.state.descriptionAct}
-                                    onChange={this.handleChange}
-                                  />
-                                </p>
-                              </div>
-
-                              <div className="field">
-                                <p className="control">
-                                  <input
-                                    className="input"
-                                    type="number"
-                                    name="valueOfAct"
-                                    placeholder="How many points its worth?"
-                                    min="0"
-                                    value={this.state.valueOfAct}
-                                    onChange={this.handleChange}
-                                  />
-                                </p>
-                              </div>
-
-                              <div className="field">
-                                <p className="control">
-                                  <span className="select  is-fullwidth">
-                                    <select
-                                      name="actCategory"
-                                      onChange={this.handleChange}
-                                    >
-                                      <option className="option" value="0">
-                                        Pick category
-                                      </option>
-                                      {this.props.categoriesFromBackEnd.map(
-                                        oneCategory => {
-                                          return (
-                                            <option
-                                              // value={oneCategory._id}
-                                              value={oneCategory._id}
-                                              key={oneCategory._id}
-                                            >
-                                              {oneCategory.title}
-                                            </option>
-                                          );
-                                        }
-                                      )}
-                                    </select>
-                                  </span>
-                                </p>
-                              </div>
-                              {/* <p>Select Category</p>
+                                  >
+                                    <option className="option" value="0">
+                                      Pick category
+                                    </option>
+                                    {this.props.categoriesFromBackEnd.map(
+                                      oneCategory => {
+                                        return (
+                                          <option
+                                            // value={oneCategory._id}
+                                            value={oneCategory._id}
+                                            key={oneCategory._id}
+                                          >
+                                            {oneCategory.title}
+                                          </option>
+                                        );
+                                      }
+                                    )}
+                                  </select>
+                                </span>
+                              </p>
+                            </div>
+                            {/* <p>Select Category</p>
                           <select
                             name="actCategory"
                             onChange={this.handleChange}
@@ -368,26 +364,26 @@ export default class Home extends React.Component {
                             )}
                           </select> */}
 
-                              <div className="block">
-                                <p className>
-                                  <button
-                                    onClick={this.closeModal}
-                                    className="button is-primary"
-                                  >
-                                    Submit
-                                  </button>
-                                </p>
-                              </div>
-                            </form>
-                          </div>
-                          <button
-                            onClick={this.closeModal}
-                            // id="modal-close"
-                            className=" modal-close is-large"
-                            aria-label="close"
-                          ></button>
+                            <div className="block">
+                              <p className>
+                                <button
+                                  onClick={this.closeModal}
+                                  className="button is-primary"
+                                >
+                                  Submit
+                                </button>
+                              </p>
+                            </div>
+                          </form>
                         </div>
+                        <button
+                          onClick={this.closeModal}
+                          // id="modal-close"
+                          className=" modal-close is-large"
+                          aria-label="close"
+                        ></button>
                       </div>
+
                       {/* )} */}
                     </div>
                     {/* end of Add action */}
