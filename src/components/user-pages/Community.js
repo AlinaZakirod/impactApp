@@ -1,9 +1,12 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Community extends Component {
   constructor(props) {
     super(props);
   }
+
+  getAllUsers = () => {};
 
   render() {
     return (
@@ -13,6 +16,7 @@ class Community extends Component {
             <div>
               <p>hello</p>
               <p>Community!</p>
+              {this.getAllUsers}
             </div>
           </div>
         </div>

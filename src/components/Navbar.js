@@ -73,7 +73,10 @@ class Navbar extends React.Component {
       >
         <div className="navbar-brand  margin-right">
           {/* <p className="impactLogo">IMPACT</p> */}
-          <a className="navbar-item" href="https://bulma.io">
+          <a
+            className="navbar-item"
+            href="https://impact-sustainability.herokuapp.com/"
+          >
             <img src="/impact_logo.png" height="200" />
           </a>
           <a
