@@ -8,12 +8,17 @@ import history from "./history";
 import "bulma/css/bulma.css";
 import "bulma-helpers/css/bulma-helpers.min.css";
 import "font-awesome/css/font-awesome.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 // import "bulma/css/bulma.css";
 // import "bulma-helpers/css/bulma-helpers.min.css";
 
 ReactDOM.render(
   <Router history={history}>
     <App />
+    <React.Fragment>
+      <ToastContainer />
+    </React.Fragment>
   </Router>,
   document.getElementById("root")
 );

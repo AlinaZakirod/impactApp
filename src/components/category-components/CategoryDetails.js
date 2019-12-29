@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import history from "../../history";
+import { toast } from "react-toastify";
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -22,40 +23,6 @@ export default class Home extends React.Component {
       descriptionCat: ""
     };
   }
-
-  // handleChangeAct = actId => {
-  //   // const currentCategory = this.props.location.state.details;
-  //   // const arrayOfActions = this.props.actionsFromBackEnd;
-  //   // console.log("0~~~~~~~~~", arrayOfActions);
-  //   const actionsThatMatchedCategory = this.state.arrayOfActions.filter(
-  //     action => action.category === this.state.currentCategory._id
-  //   );
-
-  //   // console.log("1~~~~~~~~~~~~~", actionsThatMatchedCategory);
-  //   const finalActs = actionsThatMatchedCategory.filter(
-  //     action => action._id !== actId
-  //   );
-  //   // console.log("2~~~~~~~~~~~~~", finalActs);
-  //   console.log(
-  //     "LINK",
-  //     `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`
-  //   );
-  //   axios
-  //     .post(
-  //       `${process.env.REACT_APP_IMPACT_SERVER}/act/${actId}/update`,
-  //       {},
-  //       {
-  //         withCredentials: true
-  //       }
-  //     )
-  //     .then(() => {
-  //       // make some success message here!
-  //       this.setState({
-  //         arrayOfActions: finalActs
-  //       });
-  //     })
-  //     .catch(err => console.log("Error while click on `Act Now`", err));
-  // };
 
   showCategoryDetails = () => {
     if (this.props.currentUser !== null) {
@@ -162,6 +129,7 @@ export default class Home extends React.Component {
       .catch(err => console.log("Error while adding the new Act ", err));
 
     // this.props.getAllActions();
+    toast.success("New Action is successfully added!");
   };
 
   //end of functions for 'Add Actions'
@@ -198,15 +166,6 @@ export default class Home extends React.Component {
         this.props.location.state.details,
         updatedCategory
       );
-      // axios
-      //   .post(
-      //     `${process.env.REACT_APP_IMPACT_SERVER}/category/${this.state.currentCategory._id}/update`,
-      //     updatedCategory
-      //   )
-      //   .then(updatedCategory => {
-      //     this.props.getAllCategories();
-      //   })
-      //   .catch(err => console.log("Error while editing the Category ", err));
     } else {
       return "loading category...";
     }

@@ -15,6 +15,7 @@ import CategoryDetails from "./components/category-components/CategoryDetails";
 import Dashboard from "./components/user-pages/Dashboard";
 import Profile from "./components/user-pages/Profile";
 import Community from "./components/user-pages/Community";
+import { toast } from "react-toastify";
 
 class App extends React.Component {
   constructor(props) {
@@ -136,6 +137,9 @@ class App extends React.Component {
           this.setState({
             suggestedActs: userFinalActs
           });
+          toast.success(
+            `Great job! You successfully completed ${act.title}, and earned ${act.value} points`
+          );
         })
         .catch(err => console.log("Error while click on `Act Now`", err));
     } else return "there are no more Actions left! let'c make a new one";
@@ -183,6 +187,7 @@ class App extends React.Component {
           });
           console.log("helllooooo: =-=-=-=-=-=-=-=-=-= ", history);
           history.push("/");
+          toast.error(`Category "${oneCat.title}" was deleted`);
         })
         .catch(err => console.log("Error while deleteing the category ", err));
     } else return "loading";
