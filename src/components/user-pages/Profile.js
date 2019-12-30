@@ -651,9 +651,7 @@ class Profile extends Component {
                               <p className="card-header-title">
                                 {singleAct.title}
                               </p>
-                              <p className="card-header-title">
-                                {singleAct.value}
-                              </p>
+                              <p className="card-score">{singleAct.value}</p>
                             </header>
                             <div className="card-content">
                               <div className="content">

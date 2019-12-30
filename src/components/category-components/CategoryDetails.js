@@ -50,13 +50,14 @@ export default class Home extends React.Component {
                   <div className="column is-3">
                     <div className="card" key={i}>
                       <header className="card-header">
-                        <p className="card-header-title is-centered">
+                        <p className="card-header-title">
                           {singleAction.title}
                         </p>
+                        <p className="card-score">{singleAction.value}</p>
                       </header>
                       <div className="card-content">
                         <div className="content">
-                          <p>{singleAction.description}</p>
+                          <p>{singleAction.description} </p>
                         </div>
                       </div>
                       <footer className="card-footer is-centered">
