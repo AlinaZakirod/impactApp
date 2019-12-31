@@ -10,7 +10,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  height: 100vw;
+  height: 100%;
 }
 
 code {
@@ -100,9 +100,16 @@ code {
   background-image: url(/landing-page-min.jpg);
   background-repeat: no-repeat;
   background-position: right center;
+  /* position: fixed;
+  bottom: 0px; */
   background-attachment: scroll;
-  background-size: contain;
-  height: 80vw;
+  background-size: cover;
+  height: 65vw;
+}
+@media (min-width: 350px) and (max-width: 1050px) {
+  .has-bg-img {
+    background-color: green;
+  }
 }
 
 .impactLogo {

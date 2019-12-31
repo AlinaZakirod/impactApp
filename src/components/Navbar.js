@@ -67,7 +67,7 @@ class Navbar extends React.Component {
       //   </div>
       // </nav>
       <nav
-        className=" navbar impactNavbar is-spaced impactNavbar"
+        className="navbar impactNavbar is-spaced impactNavbar"
         role="navigation"
         aria-label="main navigation"
       >

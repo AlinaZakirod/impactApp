@@ -138,7 +138,7 @@ class App extends React.Component {
             suggestedActs: userFinalActs
           });
           toast.success(
-            `Great job! You successfully completed ${act.title}, and earned ${act.value} points`
+            `Great job! You successfully completed ${act.title}, and earned ${act.value} point(s)`
           );
         })
         .catch(err => console.log("Error while click on `Act Now`", err));

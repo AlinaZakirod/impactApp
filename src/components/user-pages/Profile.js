@@ -46,29 +46,23 @@ class Profile extends Component {
     this.setState({ detailsUnfolded: !this.state.detailsUnfolded });
   };
 
-  profileQuery = e => {
+  profileQueryStart = e => {
     e.preventDefault();
     // console.log("ROUTE:", process.env.REACT_API_COOLCLIMATE);
 
     let newQuery =
       // "http://apis.berkeley.edu/coolclimate/footprint-defaults/?" +
       "&input_location_mode=1&input_location=" +
-      // `${this.state.placeType}` +
-      // "&input_location=" +
       `${this.state.zipCode}` +
       "&input_income=" +
       `${this.state.income}` +
       "&input_size=" +
       `${this.state.householdSize}` +
-      "&input_footprint_housing_squarefeet=" +
-      `${this.state.houseArea}` +
-      "&input_footprint_housing_watersewage=" +
-      `${this.state.waterWage}` +
       "&op=get_defaults_and_results";
     console.log("QUERY IS:", newQuery);
 
     axios
-      .post(`${process.env.REACT_APP_IMPACT_SERVER}/profile`, newQuery)
+      .post(`${process.env.REACT_APP_IMPACT_SERVER}/profile/start`, newQuery)
       .then(responseFromBackEnd => {
         console.log("Response is:", responseFromBackEnd.data);
         this.setState({
@@ -87,6 +81,24 @@ class Profile extends Component {
         });
       })
       .catch(err => console.log("Error while getting data from CC", err));
+  };
+
+  profileQueryHousehold = e => {
+    e.preventDefault();
+    let newQuery =
+      // "http://apis.berkeley.edu/coolclimate/footprint-defaults/?" +
+      "&input_location_mode=1&input_location=" +
+      `${this.state.zipCode}` +
+      "&input_income=" +
+      `${this.state.income}` +
+      "&input_size=" +
+      `${this.state.householdSize}` +
+      "&input_footprint_housing_squarefeet=" +
+      `${this.state.houseArea}` +
+      "&input_footprint_housing_watersewage=" +
+      `${this.state.waterWage}` +
+      "&op=get_defaults_and_results";
+    console.log("Household Query is:", newQuery);
   };
 
   carbonFootprintGrade = () => {
@@ -182,23 +194,24 @@ class Profile extends Component {
   };
 
   openTab = (e, tabId) => {
-    console.log(".......", tabId);
+    console.log("Tab id is.......", tabId);
     let tabcontent = document.getElementsByClassName("tabcontent");
     for (let i = 0; i < tabcontent.length; i++) {
       tabcontent[i].style.display = "none";
     }
 
     let tablink = document.getElementsByClassName("tablink");
-    console.log(",,,,,,,,,,,,,", tablink);
+    console.log(",,,,,,,,,,,,,", tablink[0].innerText);
     for (let i = 0; i < tablink.length; i++) {
       tablink[i].className = tablink[i].className.replace("is-active", "");
     }
 
-    e.currentTarget.className += "is-active";
+    e.currentTarget.className += " is-active";
     // console.log("LLLLLL", document.getElementById(tabId));
     // console.log("PPPP", tabId);
     let thisBlock = document.getElementById(tabId);
     console.log("this block", thisBlock);
+    // tabId.nextSibling.className += "is-active";
     document.getElementById(tabId).style.display = "block";
   };
 
@@ -247,7 +260,7 @@ class Profile extends Component {
                     <div className="tabs is-centered is-toggle is-fullwidth tabImpact">
                       <ul>
                         <li
-                          className="is-active tablink"
+                          className="tablink is-active"
                           onClick={e => this.openTab(e, "start")}
                         >
                           <a>
@@ -298,11 +311,9 @@ class Profile extends Component {
                         </li>
                       </ul>
                     </div>
-                    <form onSubmit={this.profileQuery}>
+                    <form onSubmit={this.profileQueryStart}>
                       <div id="start" className="tabcontent">
                         <h1 className="h4Impact">Let's get started!</h1>
-                        {/* <h2>Total is: {this.state.total}</h2> */}
-                        {/* <form onSubmit={this.profileQuery(newUpdatedQuery)}> */}
 
                         <div>
                           <div className="field ">
@@ -323,7 +334,7 @@ class Profile extends Component {
 
                           <div className="field">
                             {/* <label className="label">Do you live in:</label> */}
-                            <p className="control has-icons-left  is-medium">
+                            <p className="control has-icons-left is-medium">
                               <span className="select  is-fullwidth">
                                 <select
                                   name="income"
@@ -615,7 +626,7 @@ class Profile extends Component {
                       View Details
                     </button>
                   </div>
-                  <div className="modal" id="modal">
+                  <div className="modal is-clipped" id="modal">
                     <div className="modal-background"></div>
                     <div className="modal-content">
                       <div className="section formModal">
@@ -640,7 +651,7 @@ class Profile extends Component {
                   </div>
                 </div>
 
-                <div className="content">
+                <div>
                   <p className="h2Impact">Suggested Acts:</p>
                   <div className="columns  is-8 is-offset-1 is-centered">
                     {suggestedActs.map((singleAct, i) => {
@@ -655,14 +666,14 @@ class Profile extends Component {
                             </header>
                             <div className="card-content">
                               <div className="content">
-                                <p>{singleAct.description}</p>
+                                <p>{singleAct.description} </p>
                               </div>
                             </div>
                             <footer className="card-footer is-centered">
                               <button
                                 className="button  is-fillwidth impactInlineButton"
                                 onClick={e => {
-                                  this.handleActNow(singleAct);
+                                  this.props.getActIdforActNow(singleAct);
                                 }}
                               >
                                 Act now!
