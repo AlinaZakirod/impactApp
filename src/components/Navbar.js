@@ -118,7 +118,7 @@ class Navbar extends React.Component {
             {this.props.theUser && (
               <button
                 onClick={this.props.doLogout}
-                className="navbar-item is-inline button is-primary is-inverted is-outlined is-spaced"
+                className="navbar-item is-inline button is-primary is-outlined is-spaced"
               >
                 Logout
               </button>

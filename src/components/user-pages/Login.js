@@ -92,7 +92,7 @@ export default class Login extends React.Component {
                 this.handleSubmit(event);
               }}
             >
-              <div className="field ">
+              <div className="field">
                 <label className="impactTitle h2Impact">Login</label>
                 <div className="content"></div>
                 <p className="control has-icons-left ">

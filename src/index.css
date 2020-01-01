@@ -41,8 +41,13 @@ code {
 }
 
 .impactNavbar {
-  background-color: transparent !important;
+  /* background-color: transparent !important; */
   background-image: none !important;
+  width: 100%;
+}
+
+.marginless {
+  margin: 0 !important;
 }
 
 .formModal {
@@ -106,9 +111,13 @@ code {
   background-size: cover;
   height: 65vw;
 }
-@media (min-width: 350px) and (max-width: 1050px) {
+@media (min-width: 300px) and (max-width: 768px) {
   .has-bg-img {
-    background-color: green;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-attachment: scroll;
   }
 }
 
