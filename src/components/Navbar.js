@@ -118,7 +118,7 @@ class Navbar extends React.Component {
             {this.props.theUser && (
               <button
                 onClick={this.props.doLogout}
-                className="navbar-item is-inline button is-primary is-outlined is-spaced"
+                className="navbar-item is-inline button is-link is-outlined is-spaced"
               >
                 Logout
               </button>
@@ -128,13 +128,13 @@ class Navbar extends React.Component {
               <div>
                 <NavLink
                   to="/login-page"
-                  className="navbar-item is-inline button is-primary is-inverted is-outlined is-spaced margin-right"
+                  className="navbar-item is-inline button is-link is-outlined  is-spaced margin-right"
                 >
                   Login
                 </NavLink>
                 <NavLink
                   to="/signup-page"
-                  className="navbar-item is-inline button is-primary is-inverted is-outlined is-spaced"
+                  className="navbar-item is-inline button is-link is-outlined is-spaced"
                 >
                   {" "}
                   Signup{" "}

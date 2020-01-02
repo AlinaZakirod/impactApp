@@ -84,7 +84,7 @@ export default class Home extends React.Component {
       // console.log(this.props.currentUser.fullName);
       // console.log("categoriesFromBackEnd: ", this.props.categoriesFromBackEnd);
       return (
-        <section className="hero is-fullheight home-bg-img  horizontalCenter">
+        <section className="hero impactFullheight home-bg-img ">
           <div className="hero-body">
             <div className="container">
               <div>
