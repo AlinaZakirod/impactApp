@@ -52,41 +52,12 @@ export default class Login extends React.Component {
     const { email, password } = this.state;
 
     return (
-      // <section>
-      //   <h2> Login </h2>
-      //   <form onSubmit={event => this.handleSubmit(event)}>
-      //     <label> Email: </label>
-      //     <input
-      //       value={email} // this.state.email
-      //       onChange={event => this.genericSync(event)}
-      //       type="email"
-      //       name="email"
-      //       placeholder="my-email@ironhack.com"
-      //     />
+      // <section className="hero is-fullheight horizontalCenter  has-bg-img">
+      <section className="hero impactFullheight has-bg-img marginless is-fullheight">
+        <div className="hero-body columns">
+          {/* <div className="hero-body columns is-desktop"> */}
 
-      //     <label> Password</label>
-      //     <input
-      //       value={password} // this.state.password
-      //       onChange={event => this.genericSync(event)}
-      //       type="password"
-      //       name="password"
-      //       placeholder="***********"
-      //     />
-      //     <button> Login </button>
-      //   </form>
-      //   {/* if the message is not null (basically if there's a message) then show it in this <div> tag */}
-      //   {this.state.message && <div> {this.state.message} </div>}
-      // </section>
-
-      <section
-        className="hero is-fullheight horizontalCenter  has-bg-img"
-
-        // style={{ marginBottom: 500 }}
-      >
-        <div className="hero-body">
-          {/* <div class="columns"> */}
-          <div className="column  is-one-fifth"></div>
-          <div className="column is-one-quarter has-text-left">
+          <div className="column is-one-quarter has-text-left is-offset-2 horizontalCenter">
             <form
               onSubmit={event => {
                 this.handleSubmit(event);
@@ -144,8 +115,8 @@ export default class Login extends React.Component {
             {/* if the message is not null (basically if there's a message) then show it in this <div> tag */}
           </div>
           {this.state.message && <div> {this.state.message} </div>}
-          {/* </div> */}
         </div>
+        {/* </div> */}
       </section>
     );
   }

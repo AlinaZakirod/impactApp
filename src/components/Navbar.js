@@ -91,7 +91,7 @@ class Navbar extends React.Component {
             <span aria-hidden="true"></span>
           </a>
         </div>
-        <div className="navbar-menu is-spaced is-transparent ">
+        <div className="navbar-menu is-spaced is-transparent">
           <div className="navbar-start">
             {this.props.theUser && (
               <div>
