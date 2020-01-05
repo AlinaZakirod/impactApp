@@ -19,7 +19,7 @@ class Community extends Component {
 
   render() {
     return (
-      <section className="hero is-fullheight home-bg-img  horizontalCenter">
+      <section className="hero impactFullheight home-bg-img ">
         <div className="hero-body">
           <div className="container">
             <div>

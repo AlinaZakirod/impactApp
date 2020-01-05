@@ -30,8 +30,8 @@ code {
 }
 
 .impactButton {
-  margin-top: 1vw;
-  background-color: #e4674e !important;
+  margin-top: 1.4vw;
+  background-color: #3273dc !important;
   color: white !important;
 }
 
@@ -122,7 +122,7 @@ code {
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: scroll;
-    margin-right: 0;
+    margin: 0;
   }
 }
 
