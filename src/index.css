@@ -48,9 +48,11 @@ code {
 .formModal {
   background-color: white;
   position: fixed;
-  width: 60%;
-  top: 15%;
-  left: 20%;
+  width: 80%;
+  top: 10%;
+  left: 10%;
+  max-height: 80vh;
+  overflow-y: auto;
 }
 
 .h1Impact {
