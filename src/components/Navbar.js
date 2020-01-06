@@ -2,22 +2,25 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 
 class Navbar extends React.Component {
-  mobileMenu() {
-    let icon = document.querySelector(".burger");
-    let nav = document.querySelector("#" + burger.dataset.target);
-
-    icon.addEventListener("click", function() {
-      icon.classList.toggle("is-active");
-      nav.classList.toggle("is-active");
-    });
+  constructor(props) {
+    super(props);
+    this.state = {
+      burgerMenuOpen: false
+    };
   }
+
+  mobileMenu = () => {
+    console.log("menu Mobile");
+    let nav = document.getElementsByClassName("navbar-item");
+    console.log(nav);
+  };
 
   render() {
     console.log("-=-=-=-=-=-", this.props.theUser);
 
     return (
       <nav
-        className="navbar impactNavbar is-link is-spaced impactNavbar"
+        className="navbar impactNavbar is-spaced impactNavbar"
         role="navigation"
         aria-label="main navigation"
       >
@@ -31,8 +34,8 @@ class Navbar extends React.Component {
           </a>
           <a
             role="button"
-            onClick={this.mobileMenu()}
-            className="navbar-burger burger"
+            onClick={this.mobileMenu}
+            className="navbar-burger burger "
             aria-label="menu"
             aria-expanded="false"
             data-target="navMenu"
