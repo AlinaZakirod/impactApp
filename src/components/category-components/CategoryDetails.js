@@ -303,26 +303,6 @@ export default class Home extends React.Component {
                                 </span>
                               </p>
                             </div>
-                            {/* <p>Select Category</p>
-                          <select
-                            name="actCategory"
-                            onChange={this.handleChange}
-                          >
-                            <option value="">Pick category</option>
-                            {this.props.categoriesFromBackEnd.map(
-                              oneCategory => {
-                                return (
-                                  <option
-                                    // value={oneCategory._id}
-                                    value={oneCategory._id}
-                                    key={oneCategory._id}
-                                  >
-                                    {oneCategory.title}
-                                  </option>
-                                );
-                              }
-                            )}
-                          </select> */}
 
                             <div className="block">
                               <p className>
