@@ -184,11 +184,12 @@ code {
     background-attachment: scroll;
   }
 }
-@media (min-width: 300px) and (max-width: 768px) {
-  .menuMobile {
-    background-color: red !important;
 
-    color: blue;
+.impactNavLinks {
+  display: inline !important;
+}
+@media (min-width: 300px) and (max-width: 768px) {
+  .impactNavLinks {
     display: block !important;
   }
 }

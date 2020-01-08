@@ -17,6 +17,10 @@ class Navbar extends React.Component {
     nav.classList.add("is-active", "menuMobile");
   };
 
+  hideMenu = () => {
+    document.getElementById("navMenu").classList.remove("is-active");
+  };
+
   render() {
     console.log("-=-=-=-=-=-", this.props.theUser);
 
@@ -51,7 +55,11 @@ class Navbar extends React.Component {
           <div className="navbar-start">
             {this.props.theUser && (
               <div>
-                <NavLink to="/" className="navbar-item is-inline margin-right">
+                <NavLink
+                  to="/"
+                  className="navbar-item impactNavLinks margin-right"
+                  onClick={this.hideMenu}
+                >
                   Home
                 </NavLink>
                 {/* <NavLink to="/dashboard" className="navbar-item is-inline">
@@ -59,11 +67,16 @@ class Navbar extends React.Component {
                 </NavLink> */}
                 <NavLink
                   to="/profile"
-                  className="navbar-item is-inline margin-right"
+                  className="navbar-item impactNavLinks margin-right"
+                  onClick={this.hideMenu}
                 >
                   Profile
                 </NavLink>
-                <NavLink to="/community" className="navbar-item is-inline">
+                <NavLink
+                  to="/community"
+                  className="navbar-item impactNavLinks"
+                  onClick={this.hideMenu}
+                >
                   Community
                 </NavLink>
               </div>
