@@ -11,8 +11,10 @@ class Navbar extends React.Component {
 
   mobileMenu = () => {
     console.log("menu Mobile");
-    let nav = document.getElementsByClassName("navbar-item");
-    console.log(nav);
+    let nav = document.getElementById("navMenu");
+    console.log(nav.classList);
+
+    nav.classList.add("is-active", "menuMobile");
   };
 
   render() {
