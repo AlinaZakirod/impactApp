@@ -626,30 +626,6 @@ class Profile extends Component {
                       View Details
                     </button>
                   </div>
-                  {/* <div className="modal " id="modal">
-                    <div className="modal-background"></div>
-                    <div className="modal-card">
-                      <div className="section formModal">
-                        <div>
-                          <p className="impactTitle title is-3">
-                            Your score is {this.props.currentUser.score}
-                          </p>
-                          <p className="impactTitle title is-5">
-                            Completed acts:
-                          </p>
-                          <div className="columns is-multiline">
-                            {this.showDetails()}
-                          </div>
-                        </div>
-                      </div>
-                      <button
-                        onClick={this.closeModal}
-                        className="modal-close is-large"
-                        aria-label="close"
-                      ></button>
-                    </div>
-                  </div>
-                </div> */}
 
                   <div className="modal " id="modal">
                     <div className="modal-background"></div>

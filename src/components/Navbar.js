@@ -72,13 +72,13 @@ class Navbar extends React.Component {
                 >
                   Profile
                 </NavLink>
-                <NavLink
+                {/* <NavLink
                   to="/community"
                   className="navbar-item impactNavLinks"
                   onClick={this.hideMenu}
                 >
                   Community
-                </NavLink>
+                </NavLink> */}
               </div>
             )}
           </div>
