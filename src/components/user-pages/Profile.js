@@ -626,9 +626,9 @@ class Profile extends Component {
                       View Details
                     </button>
                   </div>
-                  <div className="modal is-clipped" id="modal">
+                  {/* <div className="modal " id="modal">
                     <div className="modal-background"></div>
-                    <div className="modal-content">
+                    <div className="modal-card">
                       <div className="section formModal">
                         <div>
                           <p className="impactTitle title is-3">
@@ -647,6 +647,35 @@ class Profile extends Component {
                         className="modal-close is-large"
                         aria-label="close"
                       ></button>
+                    </div>
+                  </div>
+                </div> */}
+
+                  <div className="modal " id="modal">
+                    <div className="modal-background"></div>
+                    <div className="modal-card impactModal">
+                      <header className="modal-card-head">
+                        <p className="modal-card-title">
+                          Your score is {this.props.currentUser.score}
+                        </p>
+
+                        <button
+                          class="delete"
+                          onClick={this.closeModal}
+                          aria-label="close"
+                        ></button>
+                      </header>
+                      <div className="section modal-card-body">
+                        <div>
+                          {" "}
+                          <p className="impactTitle title is-5">
+                            Completed acts:
+                          </p>
+                          <div className="columns is-multiline">
+                            {this.showDetails()}
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>

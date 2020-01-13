@@ -48,11 +48,27 @@ code {
 .formModal {
   background-color: white;
   position: fixed;
-  width: 80%;
-  top: 10%;
-  left: 10%;
-  max-height: 80vh;
+  width: 60%;
+  top: 20%;
+  left: 20%;
+  max-height: 60vh;
   overflow-y: auto;
+}
+
+.impactModal {
+  position: fixed;
+  width: 60% !important;
+  top: 10%;
+  max-height: 80% !important;
+  overflow-y: auto;
+}
+@media (min-width: 300px) and (max-width: 768px) {
+  .impactModal {
+    margin: 10% !important;
+    padding-top: 0% !important;
+    width: 80% !important;
+    max-height: 80% !important;
+  }
 }
 
 .h1Impact {
@@ -98,7 +114,7 @@ code {
   height: 20vw;
 }
 @media (min-width: 300px) and (max-width: 768px) {
-  .has-bg-img {
+  .home-bg-img {
     height: 100%;
     background-size: cover;
     background-repeat: no-repeat;
