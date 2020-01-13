@@ -355,7 +355,7 @@ export default class Home extends React.Component {
                           <div className="column">
                             {/* {!this.state.showEditCategoryForm && ( */}
                             <button
-                              className="button is-link is-outlined"
+                              className="button is-link is-inverted"
                               onClick={this.showModalCategory}
                             >
                               Edit Category
@@ -426,7 +426,7 @@ export default class Home extends React.Component {
 
                           <div className="column">
                             <button
-                              className="button is-link is-outlined"
+                              className="button is-link is-inverted"
                               onClick={() => {
                                 this.props.getCategoryObjforDelete(
                                   this.props.location.state.details
