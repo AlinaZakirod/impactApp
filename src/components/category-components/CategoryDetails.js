@@ -37,8 +37,8 @@ export default class Home extends React.Component {
       // console.log("********", arrayOfActions);
       return (
         <div>
-          <p className="title is-1">{this.state.currentCategory.title}</p>
-          <p className="subtitle is-1">
+          <p className="title h1Impact">{this.state.currentCategory.title}</p>
+          <p className="subtitle h2Impact">
             {this.state.currentCategory.description}
           </p>
           <div>

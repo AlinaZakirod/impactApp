@@ -88,9 +88,7 @@ export default class Home extends React.Component {
           <div className="hero-body">
             <div className="container">
               <div>
-                <p className="subtitle is-1 h1Impact">
-                  Think global | Act Local
-                </p>
+                <p className="h1Impact">Think global | Act Local</p>
                 {/* <p className="subtitle is-1">Act local</p> */}
               </div>
 

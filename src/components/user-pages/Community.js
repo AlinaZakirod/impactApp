@@ -7,6 +7,7 @@ class Community extends Component {
   }
 
   getAllUsers = () => {
+    console.log("blah");
     axios
       .post(`${process.env.REACT_APP_IMPACT_SERVER}/community`)
       .then(allUsersFromBackend => {
@@ -24,7 +25,6 @@ class Community extends Component {
           <div>
             <p>hello</p>
             <p>Community!</p>
-            {this.getAllUsers}
             <p>Users:</p>
           </div>
         </div>

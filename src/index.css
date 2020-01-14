@@ -74,8 +74,13 @@ code {
 .h1Impact {
   font-family: "Montserrat";
   font-weight: 100;
-  font-size: 5.5em;
+  font-size: 2.5em;
   color: #444 !important;
+}
+@media (min-width: 300px) and (max-width: 768px) {
+  .h1Impact {
+    font-size: 3em;
+  }
 }
 
 .h2Impact {
@@ -85,12 +90,22 @@ code {
   color: #444 !important;
   margin: 0.5vw 0;
 }
+@media (min-width: 300px) and (max-width: 768px) {
+  .h2Impact {
+    font-size: 1.4em;
+  }
+}
 .h4Impact {
   font-family: "Montserrat";
   font-size: 1.6em;
   font-weight: 400;
   color: #444 !important;
   margin: 0.5vw 0;
+}
+@media (min-width: 300px) and (max-width: 768px) {
+  .h4Impact {
+    font-size: 1.2em;
+  }
 }
 
 .h5Impact {
@@ -99,6 +114,11 @@ code {
   font-weight: 400;
   color: #444 !important;
   margin: 0.5vw 0;
+}
+@media (min-width: 300px) and (max-width: 768px) {
+  .h2Impact {
+    font-size: 1em;
+  }
 }
 
 .margin-right {
